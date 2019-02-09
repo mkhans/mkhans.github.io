@@ -1,8 +1,25 @@
----
-layout: default
-title: Wasatch Wind
----
-<div class="quickview">
-	<h1>Wasatch Wind</h1>
-	<p>Quick View</p>
-</div><!-- /.quickview -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ page.title }}</title>
+    <!-- link to main stylesheet -->
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/cams">Cams</a></li>
+        <li><a href="/northside">Northside</a></li>
+      </ul>
+    </nav>
+    <div class="container">
+      
+      {{ content }}
+      
+      <a href="http://www.wrh.noaa.gov/slc/current/meso.slv.php" target="_blank">
+      <img src="http://www.wrh.noaa.gov/mesowest/symmap.php?map=slc&dem=&scale=6&wx=0&res=60&disp=&limit=&wfo=" width="280"></a>
+      
+    </div><!-- /.container -->
+  </body>
+</html>
