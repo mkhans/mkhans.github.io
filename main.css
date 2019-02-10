@@ -1,9 +1,11 @@
+body {
+    background-color: darkslategray;
+    text-align: center;
+}
 nav {
     font-size: 300%;
     color: white;
-}
-body {
-    background-color: darkslategray;
+    text-align: left;
 }
 a:link {
     color: skyblue;
