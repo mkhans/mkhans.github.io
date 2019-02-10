@@ -1,0 +1,30 @@
+nav {
+    font-size: 300%;
+    color: white;
+}
+body {
+    background-color: darkslategray;
+}
+a:link {
+    color: skyblue;
+    background-color: transparent;
+    text-decoration: none;
+    }
+
+a:visited {
+    color: skyblue;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:hover {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+a:active {
+    color: white;
+    background-color: transparent;
+    text-decoration: underline;
+}
