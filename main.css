@@ -30,6 +30,7 @@ a:active {
     text-decoration: underline;
 }
 table {
+    background-color: #EDEDED;
     border-collapse: collapse;
     width: 80%;
     text-align: center;
@@ -39,11 +40,6 @@ th, td {
     border: thin solid white;
     color: white;
     padding: 3px;
-    font-size: 100%;
-}
-tr.head th, tr.head td {
-    background-color: #EDEDED;
-    
 }
 h1 {
     text-align: center;
