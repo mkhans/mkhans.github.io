@@ -1,11 +1,34 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Wasatch Wind - Northside</title>
+    <title>Wasatch Wind - Home</title>
       <link rel="stylesheet" type="text/css" href="main.css">
   </head>
-  <body>
-    <a href="index.html">Home</a> |
-    <a href="northside.html">Northside</a>
-  </body>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function doData(json) {
+            spreadSheetData = json.feed.entry;
+        }
+    </script>
+    
+    <script src="https://spreadsheets.google.com/feeds/cells/1MCJ7LtG1WKpQ7Nxx60krnsjmmdO9UC_Uhypx9w5txCs/1/public/values?alt=json-in-script&callback=doData"></script>
+        
+    <body>
+        <nav>
+            <a href="index.html">Home</a> |
+            <a href="northside.html">Northside</a>
+        </nav>
+          
+        <br>
+      
+        <a href="http://www.wrh.noaa.gov/slc/current/meso.slv.php" target="_blank">
+        <img src="http://www.wrh.noaa.gov/mesowest/symmap.php?map=slc&dem=&scale=6&wx=0&res=60&disp=&limit=&wfo=" width="80%"></a>
+    
+        <br>
+
+        <h1>Quickview</h1>
+        <div id="data"/>
+    
+    </body>
 </html>
