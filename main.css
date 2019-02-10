@@ -32,7 +32,6 @@ a:active {
 table {
     border-collapse: collapse;
     width: 80%;
-    font-size: 36;
     text-align: center;
     color: white;
 }
@@ -40,10 +39,11 @@ th, td {
     border: thin solid white;
     color: white;
     padding: 3px;
+    font-size: 100%;
 }
 tr.head th, tr.head td {
     background-color: #EDEDED;
-    border-bottom: 4px double white;
+    
 }
 h1 {
     text-align: center;
