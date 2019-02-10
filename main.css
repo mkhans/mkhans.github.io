@@ -1,6 +1,8 @@
 body {
     background-color: darkslategray;
     text-align: center;
+    margin: 12px;
+    font-size: 12px;
 }
 nav {
     font-size: 300%;
@@ -11,22 +13,54 @@ a:link {
     color: skyblue;
     background-color: transparent;
     text-decoration: none;
-    }
-
+}
 a:visited {
     color: skyblue;
     background-color: transparent;
     text-decoration: none;
 }
-
 a:hover {
     color: yellow;
     background-color: transparent;
     text-decoration: underline;
 }
-
 a:active {
     color: white;
     background-color: transparent;
     text-decoration: underline;
+}
+table {
+    border-collapse: collapse;
+    width: 80%;
+    font-size: 16;
+    text-align: center;
+    color: white;
+}
+th, td {
+    border: thin solid white;
+    color: white;
+    padding: 3px;
+}
+tr.head th, tr.head td {
+    background-color: #EDEDED;
+    border-bottom: 4px double white;
+}
+h1 {
+    text-align: center;
+    color: white;
+}
+span.linetitle {
+    font-weight: bold;
+}
+div.lineclass {
+    font-style: italic;
+}
+.title, .result {
+    width: 80%;
+}
+.notes {
+    width: 15%;
+}
+form {
+    display: none;
 }
