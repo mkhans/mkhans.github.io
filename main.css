@@ -20,19 +20,19 @@ a:visited {
     text-decoration: none;
 }
 a:hover {
-    color: yellow;
+    color: white;
     background-color: transparent;
     text-decoration: underline;
 }
 a:active {
-    color: white;
+    color: yellow;
     background-color: transparent;
     text-decoration: underline;
 }
 table {
     border-collapse: collapse;
     width: 80%;
-    font-size: 16;
+    font-size: 36;
     text-align: center;
     color: white;
 }
@@ -48,6 +48,7 @@ tr.head th, tr.head td {
 h1 {
     text-align: center;
     color: white;
+    font-size: 300%;
 }
 span.linetitle {
     font-weight: bold;
