@@ -38,7 +38,6 @@ function drawRow(table, rowData) {
 
 function drawTable(parent) {
     var table = $("<table/>");
-    table.setAttribute("id", "center";
     parent.append(table);
     return table;
 }
