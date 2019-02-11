@@ -20,12 +20,12 @@ a:visited {
     text-decoration: none;
 }
 a:hover {
-    color: yellow;
+    color: white;
     background-color: transparent;
     text-decoration: underline;
 }
 a:active {
-    color: white;
+    color: yellow;
     background-color: transparent;
     text-decoration: underline;
 }
