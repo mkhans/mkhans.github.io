@@ -20,19 +20,19 @@ a:visited {
     text-decoration: none;
 }
 a:hover {
-    color: white;
-    background-color: transparent;
-    text-decoration: underline;
-}
-a:active {
     color: yellow;
     background-color: transparent;
     text-decoration: underline;
 }
+a:active {
+    color: white;
+    background-color: transparent;
+    text-decoration: underline;
+}
 table {
-    background-color: #EDEDED;
     border-collapse: collapse;
     width: 80%;
+    font-size: 16;
     text-align: center;
     color: white;
 }
@@ -41,10 +41,13 @@ th, td {
     color: white;
     padding: 3px;
 }
+tr.head th, tr.head td {
+    background-color: #EDEDED;
+    border-bottom: 4px double white;
+}
 h1 {
     text-align: center;
     color: white;
-    font-size: 300%;
 }
 span.linetitle {
     font-weight: bold;
