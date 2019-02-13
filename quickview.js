@@ -14,7 +14,7 @@ function drawCell(tr, val) {
         img.attr('src', src);
         td.append(img);
 
-        // for straight url
+    // for straight url
     } else if (/^http/.test(val)) {
         var img = $('<img />');
         img.attr('src', val);
