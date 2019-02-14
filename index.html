@@ -6,7 +6,7 @@
   </head>
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script src="https://mkhans.github.io/quickview.js"></script>    
+    <script src="https://mkhans.github.io/statictable.js"></script>    
     <script src="https://spreadsheets.google.com/feeds/cells/1MCJ7LtG1WKpQ7Nxx60krnsjmmdO9UC_Uhypx9w5txCs/1/public/values?alt=json-in-script&callback=doData"></script>
         
   <body>
@@ -27,7 +27,7 @@
       <br><br>
   
     <!--Display Wind Map-->
-    <h1>Regional Surface Wind Map</h1>
+    <h1>Regional Surface Winds</h1>
     <a href="http://www.wrh.noaa.gov/slc/current/meso.slv.php" target="_blank">
     <img src="http://www.wrh.noaa.gov/mesowest/symmap.php?map=slc&dem=&scale=6&wx=0&res=60&disp=&limit=&wfo=" width="90%"></a>
     
@@ -44,6 +44,16 @@
     <h1>Front Forecast Map</h1>
     <a href="http://www.wpc.ncep.noaa.gov/national_forecast/natfcst.php?day=1" target="_blank">
     <img src="http://www.wpc.ncep.noaa.gov/noaa/noaad1.gif?1523074618" width="90%"></a>
+  
+      <br><br>
+  
+    <!--Display Forecasted Regional Surface Winds Loop-->
+    <h1>Forecasted Regional Surface Winds</h1>
+    <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
+    <img src="https://graphical.weather.gov/images/slc/WindSpd1_slc.png" width="90%" alt="rotating image" id="rotator">
+    <script src="https://mkhans.github.io/loop.js"></script>
+      
+      <br><br>
     
   </body>
 </html>
