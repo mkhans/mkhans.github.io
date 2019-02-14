@@ -7,7 +7,7 @@ body {
 nav {
     font-size: 300%;
     color: white;
-    text-align: left;
+    text-align: center;
 }
 a:link {
     color: skyblue;
@@ -49,6 +49,6 @@ h1 {
     font-size: 500%;
 }
 h3 {
-    text-align: left;
+    text-align: center;
     color: white;
 }
