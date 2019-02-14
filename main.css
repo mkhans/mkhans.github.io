@@ -38,7 +38,7 @@ table {
 }
 th, td {
     border: thick solid white;
-    background-color: lightslategray;
+    background-color: #609f9f;
     color: white;
     font-size: 400%;
     padding: 3px;
