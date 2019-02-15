@@ -5,7 +5,7 @@ body {
     font-size: 12px;
 }
 nav {
-    font-size: 300%;
+    font-size: 400%;
     color: white;
     text-align: center;
 }
@@ -51,4 +51,5 @@ h1 {
 h3 {
     text-align: center;
     color: white;
+    font-size: 200%;
 }
