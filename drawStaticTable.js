@@ -1,5 +1,3 @@
-var URL = "https://spreadsheets.google.com/feeds/cells/1MCJ7LtG1WKpQ7Nxx60krnsjmmdO9UC_Uhypx9w5txCs/1/public/values?alt=json-in-script&callback=summaryTableData";
-
 function summaryTableData(json) {
             spreadSheetData = json.feed.entry;
         }
@@ -60,6 +58,6 @@ function readData(parent) {
     drawRow(table, rowData);
 }
 
-$(document).ready(URL, function(){
+$(document).ready(function(){
     readData($("#summaryTable"));
 });
