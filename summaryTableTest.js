@@ -59,5 +59,5 @@ function readData(parent) {
 }
 
 $(document).ready(function(){
-    readData($("#data1"));
+    readData($("#summaryTableTest"));
 });
