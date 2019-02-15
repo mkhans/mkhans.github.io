@@ -2,7 +2,7 @@ var summaryTableSpreadsheetDataURL = "https://spreadsheets.google.com/feeds/cell
 var windsAloftTableSpreadsheetDataURL = "https://spreadsheets.google.com/feeds/cells/1KUH4WJ9GESajpG0gorlAsvowjwqgeQ_GbOdmsmxZYJM/1/public/values?alt=json-in-script&callback=windsAloftTableData";
 
 function summaryTableData(json) {
-            spreadSheetData = json.feed.entry;
+            summaryTableSpreadsheetDataURL = json.feed.entry;
         }
 
 function drawCell(tr, val) {
@@ -46,7 +46,7 @@ function drawTable(parent) {
 }
 
 function readData(parent) {
-    var data = spreadSheetData;
+    var data = summaryTableSpreadsheetDataURL;
     var table = drawTable(parent);
     var rowData = [];
     for (var r=0; r<data.length; r++) {
