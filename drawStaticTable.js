@@ -60,6 +60,6 @@ function readData(parent) {
     drawRow(table, rowData);
 }
 
-$(document).ready(function(){
+$(document).ready(URL, function(){
     readData($("#summaryTable"));
 });
