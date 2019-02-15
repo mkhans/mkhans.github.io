@@ -1,3 +1,6 @@
+var summaryTableSpreadsheetDataURL = "https://spreadsheets.google.com/feeds/cells/1MCJ7LtG1WKpQ7Nxx60krnsjmmdO9UC_Uhypx9w5txCs/1/public/values?alt=json-in-script&callback=summaryTableData";
+var windsAloftTableSpreadsheetDataURL = "https://spreadsheets.google.com/feeds/cells/1KUH4WJ9GESajpG0gorlAsvowjwqgeQ_GbOdmsmxZYJM/1/public/values?alt=json-in-script&callback=windsAloftTableData";
+
 function summaryTableData(json) {
             spreadSheetData = json.feed.entry;
         }
