@@ -1,4 +1,4 @@
-function doData(json) {
+function doData1(json) {
             spreadSheetData = json.feed.entry;
         }
 
