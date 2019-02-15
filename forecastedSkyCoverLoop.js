@@ -10,13 +10,13 @@
   }
     
   for (i = 0; i < 6; i++) { //Load images array
-      images[i] = `https://graphical.weather.gov/images/slc/WindSpd${i + timejump}_slc.png`;
+      images[i] = `https://graphical.weather.gov/images/slc/Sky${i + timejump}_slc.png`;
   }
   
   if (timejump === 5) { //Duplicate 3pm for visual pause
-  	images.splice (3, 0, "https://graphical.weather.gov/images/slc/WindSpd7_slc.png");
+  	images.splice (3, 0, "https://graphical.weather.gov/images/slc/Sky7_slc.png");
   } else {
-  	images.splice (3, 0, "https://graphical.weather.gov/images/slc/WindSpd3_slc.png");
+  	images.splice (3, 0, "https://graphical.weather.gov/images/slc/Sky3_slc.png");
   }
 
   var loopCount = 0;
