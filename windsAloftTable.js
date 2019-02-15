@@ -1,4 +1,4 @@
-function doData(json) {
+function windsAloftTableData(json) {
             spreadSheetData = json.feed.entry;
         }
 
