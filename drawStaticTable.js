@@ -1,4 +1,4 @@
-function windsAloftTableData(json) {
+function summaryTableData(json) {
             spreadSheetData = json.feed.entry;
         }
 
@@ -59,5 +59,5 @@ function readData(parent) {
 }
 
 $(document).ready(function(){
-    readData($("#windsAloftTable"));
+    readData($("#summaryTable"));
 });
