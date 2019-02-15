@@ -1,4 +1,4 @@
-function summaryTable(json) {
+function summaryTableData(json) {
             spreadSheetData = json.feed.entry;
         }
 
