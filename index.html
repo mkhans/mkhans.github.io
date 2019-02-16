@@ -1,60 +1,134 @@
 <!DOCTYPE html>
 <html>
-  
   <head>
-    <title>Wasatch Wind</title>
-      <link rel="stylesheet" type="text/css" href="main.css">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-        <script src="https://mkhans.github.io/drawStaticTable.js"></script>
-        <script src="https://spreadsheets.google.com/feeds/cells/1MCJ7LtG1WKpQ7Nxx60krnsjmmdO9UC_Uhypx9w5txCs/1/public/values?alt=json-in-script&callback=summaryTableData"></script>
-  </head>    
-          
+    <title>Google Sheets API Quickstart</title>
+    <meta charset="utf-8" />
+  </head>
   <body>
-    
-    <h3>Wasatch Wind - For Private Use Only</h3>
-    
-    <nav>
-        <a href="index.html">Home</a> |
-        <a href="northside.html">Northside</a>
-    </nav>
-    <p>
-    
-    <h1>Summary</h1>
-    <div id="summaryTable"/></div>
-  
-      <br><br>
-  
-    <h1>Current Surface Wind</h1>
-    <a href="http://www.wrh.noaa.gov/slc/current/meso.slv.php" target="_blank">
-    <img src="http://www.wrh.noaa.gov/mesowest/symmap.php?map=slc&dem=&scale=6&wx=0&res=60&disp=&limit=&wfo=" width="90%"></a>
-    
-      <br><br>
-  
-    <h1>Current Clouds & Precip</h1>
-    <a href="https://www.accuweather.com/en/us/utah/weather-radar-rs?play=1" target="_blank">
-    <img src="http://sirocco.accuweather.com/sat_mosaic_640x480_public/rs/isarUT_.gif" width="90%"></a>
-  
-      <br><br>
-  
-    <h1>Forecasted Fronts</h1>
-    <a href="http://www.wpc.ncep.noaa.gov/national_forecast/natfcst.php?day=1" target="_blank">
-    <img src="http://www.wpc.ncep.noaa.gov/noaa/noaad1.gif?1523074618" width="90%"></a>
-  
-      <br><br>
-  
-    <h1>Forecasted Surface Wind</h1>
-    <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
-    <img src="https://graphical.weather.gov/images/slc/WindSpd1_slc.png" width="90%" alt="rotating image" id="rotator"></a>
-    <script src="https://mkhans.github.io/forecastedSurfaceWindLoop.js"></script>
-          
-      <br><br>
-    
-    <h1>Forecasted Winds Aloft</h1>
-    <h1>Soaring Details</h1>
-    <h1>Hourly Graphical Forecast</h1>
-    <h1>Area Forecast Discussion</h1>
-    <h1>Wasatch Skyline Cam</h1>
-    <h1>72 Hour Outlook</h1>
-      
+    <p>Google Sheets API Quickstart</p>
+
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <button id="authorize_button" style="display: none;">Authorize</button>
+    <button id="signout_button" style="display: none;">Sign Out</button>
+
+    <pre id="content" style="white-space: pre-wrap;"></pre>
+
+    <script type="text/javascript">
+      // Client ID and API key from the Developer Console
+      var CLIENT_ID = '<YOUR_CLIENT_ID>';
+      var API_KEY = '<YOUR_API_KEY>';
+
+      // Array of API discovery doc URLs for APIs used by the quickstart
+      var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+
+      // Authorization scopes required by the API; multiple scopes can be
+      // included, separated by spaces.
+      var SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
+
+      var authorizeButton = document.getElementById('authorize_button');
+      var signoutButton = document.getElementById('signout_button');
+
+      /**
+       *  On load, called to load the auth2 library and API client library.
+       */
+      function handleClientLoad() {
+        gapi.load('client:auth2', initClient);
+      }
+
+      /**
+       *  Initializes the API client library and sets up sign-in state
+       *  listeners.
+       */
+      function initClient() {
+        gapi.client.init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES
+        }).then(function () {
+          // Listen for sign-in state changes.
+          gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+          // Handle the initial sign-in state.
+          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+          authorizeButton.onclick = handleAuthClick;
+          signoutButton.onclick = handleSignoutClick;
+        }, function(error) {
+          appendPre(JSON.stringify(error, null, 2));
+        });
+      }
+
+      /**
+       *  Called when the signed in status changes, to update the UI
+       *  appropriately. After a sign-in, the API is called.
+       */
+      function updateSigninStatus(isSignedIn) {
+        if (isSignedIn) {
+          authorizeButton.style.display = 'none';
+          signoutButton.style.display = 'block';
+          listMajors();
+        } else {
+          authorizeButton.style.display = 'block';
+          signoutButton.style.display = 'none';
+        }
+      }
+
+      /**
+       *  Sign in the user upon button click.
+       */
+      function handleAuthClick(event) {
+        gapi.auth2.getAuthInstance().signIn();
+      }
+
+      /**
+       *  Sign out the user upon button click.
+       */
+      function handleSignoutClick(event) {
+        gapi.auth2.getAuthInstance().signOut();
+      }
+
+      /**
+       * Append a pre element to the body containing the given message
+       * as its text node. Used to display the results of the API call.
+       *
+       * @param {string} message Text to be placed in pre element.
+       */
+      function appendPre(message) {
+        var pre = document.getElementById('content');
+        var textContent = document.createTextNode(message + '\n');
+        pre.appendChild(textContent);
+      }
+
+      /**
+       * Print the names and majors of students in a sample spreadsheet:
+       * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+       */
+      function listMajors() {
+        gapi.client.sheets.spreadsheets.values.get({
+          spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
+          range: 'Class Data!A2:E',
+        }).then(function(response) {
+          var range = response.result;
+          if (range.values.length > 0) {
+            appendPre('Name, Major:');
+            for (i = 0; i < range.values.length; i++) {
+              var row = range.values[i];
+              // Print columns A and E, which correspond to indices 0 and 4.
+              appendPre(row[0] + ', ' + row[4]);
+            }
+          } else {
+            appendPre('No data found.');
+          }
+        }, function(response) {
+          appendPre('Error: ' + response.result.error.message);
+        });
+      }
+
+    </script>
+
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
   </body>
 </html>
