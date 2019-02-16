@@ -1,0 +1,7 @@
+.loading {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: url(http://img.ffffound.com/static-data/assets/6/f71fbabb835aebca4489ba2e0d5cd6aff3ad528c_m.gif) center center no-repeat;
+}
