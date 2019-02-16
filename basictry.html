@@ -1,0 +1,17 @@
+<div class="results"></div> 
+
+<script>
+ 
+ var url = "https://spreadsheets.google.com/feeds/list/1ZZbancDuEW3N2cKgWjhn6HIvwb4_LXR-bKH_R8fXWkY/1/public/values?alt=json";
+
+ $.getJSON(url, function(data) {
+
+  var entry = data.feed.entry;
+
+  $(entry).each(function(){
+    $('.results').prepend('<h2>'+this.gsx$name.$t+'</h2><p>'+this.gsx$age.$t+'</p>');
+  });
+
+ });
+
+</script>
