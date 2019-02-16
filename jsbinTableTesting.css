@@ -1,0 +1,25 @@
+body {
+    background-color: darkslategray;
+    text-align: center;
+    margin: 12px;
+    font-size: 12px;
+}
+table {
+    border-collapse: collapse;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    text-align: center;
+}
+th, td {
+    border: thick solid white;
+    background-color: #437070;
+    color: white;
+    font-size: 100%;
+    padding: 3px;
+}
+h1 {
+    text-align: center;
+    color: white;
+    font-size: 300%;
+}
