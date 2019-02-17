@@ -1,45 +1,93 @@
-<!DOCTYPE html> 
-<html> 
-  <head> 
-    <script type="text/javascript" src="jquery-1.4.4.min.js"></script>
-    <script type="text/javascript" src="https://mkhans.github.io/google-spreadsheet.js"></script>
-  </head>
-  
-  <body> 
-    <h1>Google Spreadsheet Javascript</h1>
-    Here is the most basic usage:
-    <pre id='code'></pre>
-    And here are the results:
-    <pre id='results'></pre>
-    <div id='links'>
-      Github URL: <a href='https://github.com/mikeymckay/google-spreadsheet-javascript'>https://github.com/mikeymckay/google-spreadsheet-javascript</a><br/>
-      Source URL for above spreadsheet data: <span id='spreadsheet_url'></span><br/>
-      Try your own spreadsheet (needs to be <a href='https://docs.google.com/support/bin/answer.py?hl=en&answer=47134'>published</a>):<br/>
-      <input style='width:700px' name='url' type='text'></input>
-      <input onclick='document.location = document.location.pathname + "?url="+$("input[name]").val()' type='submit'></input>
-    </div>
-    <iframe width='500' height='300' frameborder='0' ></iframe>
+<html>
+  <head></head>
+  <body>
+    <!--
+    BEFORE RUNNING:
+    ---------------
+    1. If not already done, enable the Google Sheets API
+       and check the quota for your project at
+       https://console.developers.google.com/apis/api/sheets
+    2. Get access keys for your application. See
+       https://developers.google.com/api-client-library/javascript/start/start-js#get-access-keys-for-your-application
+    3. For additional information on authentication, see
+       https://developers.google.com/sheets/api/quickstart/js#step_2_set_up_the_sample
+    -->
     <script>
-    </script>
-    <script id='script'>
-      localStorage.clear();
-      var sample_url = "https://spreadsheets.google.com/pub?key=0Ago31JQPZxZrdHF2bWNjcTJFLXJ6UUM5SldEakdEaXc&hl=en&output=html";
-      var url_parameter = document.location.search.split(/\?url=/)[1]
-      var url = url_parameter || sample_url;
-      var googleSpreadsheet = new GoogleSpreadsheet();
-      googleSpreadsheet.url(url);
-      googleSpreadsheet.load(function(result) {
-        $('#results').html(JSON.stringify(result).replace(/,/g,",\n"));
+    function makeApiCall() {
+      var params = {
+        // The ID of the spreadsheet to retrieve data from.
+        spreadsheetId: 'my-spreadsheet-id',  // TODO: Update placeholder value.
+
+        // The A1 notation of the values to retrieve.
+        range: 'my-range',  // TODO: Update placeholder value.
+
+        // How values should be represented in the output.
+        // The default render option is ValueRenderOption.FORMATTED_VALUE.
+        valueRenderOption: '',  // TODO: Update placeholder value.
+
+        // How dates, times, and durations should be represented in the output.
+        // This is ignored if value_render_option is
+        // FORMATTED_VALUE.
+        // The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
+        dateTimeRenderOption: '',  // TODO: Update placeholder value.
+      };
+
+      var request = gapi.client.sheets.spreadsheets.values.get(params);
+      request.then(function(response) {
+        // TODO: Change code below to process the `response` object:
+        console.log(response.result);
+      }, function(reason) {
+        console.error('error: ' + reason.result.error.message);
       });
-    </script>
-    <script>
-      $('#code').html($('#script').html())
-      $('#spreadsheet_url').html("<a href='"+url+"'>"+url+"</a>");
-      $('#iframe').attr("src",url);
-      $('input[name]').val(url);
-      if (url != sample_url){
-        $("div#links").append("<br/><a href='"+document.location.pathname+"'>Original Sample Spreadsheet</a>")
+    }
+
+    function initClient() {
+      var API_KEY = '';  // TODO: Update placeholder with desired API key.
+
+      var CLIENT_ID = '';  // TODO: Update placeholder with desired client ID.
+
+      // TODO: Authorize using one of the following scopes:
+      //   'https://www.googleapis.com/auth/drive'
+      //   'https://www.googleapis.com/auth/drive.file'
+      //   'https://www.googleapis.com/auth/drive.readonly'
+      //   'https://www.googleapis.com/auth/spreadsheets'
+      //   'https://www.googleapis.com/auth/spreadsheets.readonly'
+      var SCOPE = '';
+
+      gapi.client.init({
+        'apiKey': API_KEY,
+        'clientId': CLIENT_ID,
+        'scope': SCOPE,
+        'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+      }).then(function() {
+        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus);
+        updateSignInStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+      });
+    }
+
+    function handleClientLoad() {
+      gapi.load('client:auth2', initClient);
+    }
+
+    function updateSignInStatus(isSignedIn) {
+      if (isSignedIn) {
+        makeApiCall();
       }
+    }
+
+    function handleSignInClick(event) {
+      gapi.auth2.getAuthInstance().signIn();
+    }
+
+    function handleSignOutClick(event) {
+      gapi.auth2.getAuthInstance().signOut();
+    }
     </script>
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+    <button id="signin-button" onclick="handleSignInClick()">Sign in</button>
+    <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
   </body>
 </html>
