@@ -99,18 +99,14 @@
     </script>
     <button id="signin-button" onclick="handleSignInClick()">Sign in</button>
     <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
-    <div style="margin-left:auto; margin-right:auto; width: 960px;">
-      
-    <?php
-
-    for($row = 0; $row < 8; $row++) {
-      echo "<div style='clear:both'>";
-      for($col = 0; $col < 3; $col++) {
-        echo "<input type='text' style='float:left;' name = '$row:$col' id='$row:$col'>";
+    
+    for(var row=0; row<8; row++) {
+      document.write("<tr>");
+      for(var col=0; col<3; col++) {
+        document.write("<td>" + ":" + "<td>");
       }
-      echo "</div>";
-    }
-    ?>
+    document.write("</tr>");
+  }
     
   </body>
 </html>
