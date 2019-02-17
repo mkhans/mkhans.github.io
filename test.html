@@ -100,15 +100,11 @@
     <button id="signin-button" onclick="handleSignInClick()">Sign in</button>
     <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
     
-    document.write("<table>");
     for(var row=0; row<8; row++) {
-      document.write("<tr>");
-      for(var col=0; col<3; col++) {
-        document.write("<td>" + ":" + "<td>");
+        for(var col=0; col<3; col++) {
+        document.write(row+":"+col).value = result.values[row][col];
+        }
       }
-    document.write("</tr>");
-    }
-    document.write("</table>");
     
   </body>
 </html>
