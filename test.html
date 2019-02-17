@@ -16,20 +16,20 @@
     function makeApiCall() {
       var params = {
         // The ID of the spreadsheet to retrieve data from.
-        spreadsheetId: 'my-spreadsheet-id',  // TODO: Update placeholder value.
+        spreadsheetId: '1CpOU9TKZXwGu4h40TuGeVHI4fw8eMX_bube2AJY4taY',  // TODO: Update placeholder value.
 
         // The A1 notation of the values to retrieve.
-        range: 'my-range',  // TODO: Update placeholder value.
+        range: 'Summary (Serve)',  // TODO: Update placeholder value.
 
         // How values should be represented in the output.
         // The default render option is ValueRenderOption.FORMATTED_VALUE.
-        valueRenderOption: '',  // TODO: Update placeholder value.
+        //valueRenderOption: '',  // TODO: Update placeholder value.
 
         // How dates, times, and durations should be represented in the output.
         // This is ignored if value_render_option is
         // FORMATTED_VALUE.
         // The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
-        dateTimeRenderOption: '',  // TODO: Update placeholder value.
+        //dateTimeRenderOption: '',  // TODO: Update placeholder value.
       };
 
       var request = gapi.client.sheets.spreadsheets.values.get(params);
@@ -42,9 +42,9 @@
     }
 
     function initClient() {
-      var API_KEY = '';  // TODO: Update placeholder with desired API key.
+      var API_KEY = 'AIzaSyBG0S3g0_788C_QVm6nY6pwIW7xKDsaFm0';  // TODO: Update placeholder with desired API key.
 
-      var CLIENT_ID = '';  // TODO: Update placeholder with desired client ID.
+      var CLIENT_ID = '29051075813-238s1il459vpuitldvuphn3807e24pdt.apps.googleusercontent.com';  // TODO: Update placeholder with desired client ID.
 
       // TODO: Authorize using one of the following scopes:
       //   'https://www.googleapis.com/auth/drive'
@@ -52,7 +52,7 @@
       //   'https://www.googleapis.com/auth/drive.readonly'
       //   'https://www.googleapis.com/auth/spreadsheets'
       //   'https://www.googleapis.com/auth/spreadsheets.readonly'
-      var SCOPE = '';
+      var SCOPE = 'https://www.googleapis.com/auth/spreadsheets.readonly';
 
       gapi.client.init({
         'apiKey': API_KEY,
