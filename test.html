@@ -100,11 +100,14 @@
     <button id="signin-button" onclick="handleSignInClick()">Sign in</button>
     <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
     
-    for(var row=0; row<8; row++) {
+    function drawTable(result) {
+      for(var row=0; row<8; row++) {
         for(var col=0; col<3; col++) {
         document.write(row+":"+col).value = result.values[row][col];
         }
       }
+    }
+    drawTable();
     
   </body>
 </html>
