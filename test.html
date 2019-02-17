@@ -1,6 +1,9 @@
 <html>
-  <head></head>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
   <body>
+    <div id="data"></div>
     <!--
     BEFORE RUNNING:
     ---------------
@@ -35,8 +38,10 @@
       var request = gapi.client.sheets.spreadsheets.values.get(params);
       request.then(function(response) {
         // TODO: Change code below to process the `response` object:
-        console.log(response.result);
-        populateSheet(response.result);
+        $("#data").empty();
+        $("#data").html(response.result.values);
+        console.log(response.result.values);
+        //populateSheet(response.result);
       }, function(reason) {
         console.error('error: ' + reason.result.error.message);
       });
@@ -84,13 +89,13 @@
       gapi.auth2.getAuthInstance().signOut();
     }
       
-    function populateSheet(result) {
-      for(var row=0; row<8; row++) {
-        for(var col=0; col<3; col++) {
-        document.getElementById(row+":"+col).value = result.values[row][col];
-        }
-      }
-    }
+    //function populateSheet(result) {
+      //for(var row=0; row<8; row++) {
+        //for(var col=0; col<3; col++) {
+        //document.getElementById(row+":"+col).value = result.values[row][col];
+        //}
+      //}
+    //}
     
     </script>
     <script async defer src="https://apis.google.com/js/api.js"
