@@ -1,0 +1,55 @@
+body {
+    background-color: darkslategray;
+    text-align: center;
+    margin: 12px;
+    font-size: 12px;
+}
+nav {
+    font-size: 400%;
+    color: white;
+    text-align: center;
+}
+a:link {
+    color: skyblue;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:visited {
+    color: skyblue;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:hover {
+    color: white;
+    background-color: transparent;
+    text-decoration: underline;
+}
+a:active {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: underline;
+}
+table {
+    border-collapse: collapse;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    text-align: center;
+}
+th, td {
+    border: thick solid white;
+    background-color: #437070;
+    color: white;
+    font-size: 400%;
+    padding: 3px;
+}
+h1 {
+    text-align: center;
+    color: white;
+    font-size: 400%;
+}
+h3 {
+    text-align: center;
+    color: white;
+    font-size: 100%;
+}
