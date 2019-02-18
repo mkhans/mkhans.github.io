@@ -1,9 +1,6 @@
 <html>
-  <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  </head>
+  <head></head>
   <body>
-    <div id="data"></div>
     <!--
     BEFORE RUNNING:
     ---------------
@@ -38,10 +35,7 @@
       var request = gapi.client.sheets.spreadsheets.values.get(params);
       request.then(function(response) {
         // TODO: Change code below to process the `response` object:
-        $("#data").empty();
-        $("#data").html(response.result.values);
-        console.log(response.result.values);
-        //populateSheet(response.result);
+        console.log(response.result);
       }, function(reason) {
         console.error('error: ' + reason.result.error.message);
       });
@@ -58,7 +52,7 @@
       //   'https://www.googleapis.com/auth/drive.readonly'
       //   'https://www.googleapis.com/auth/spreadsheets'
       //   'https://www.googleapis.com/auth/spreadsheets.readonly'
-      var SCOPE = 'https://www.googleapis.com/auth/spreadsheets.readonly';
+      var SCOPE = '';
 
       gapi.client.init({
         'apiKey': API_KEY,
@@ -88,15 +82,6 @@
     function handleSignOutClick(event) {
       gapi.auth2.getAuthInstance().signOut();
     }
-      
-    //function populateSheet(result) {
-      //for(var row=0; row<8; row++) {
-        //for(var col=0; col<3; col++) {
-        //document.getElementById(row+":"+col).value = result.values[row][col];
-        //}
-      //}
-    //}
-    
     </script>
     <script async defer src="https://apis.google.com/js/api.js"
       onload="this.onload=function(){};handleClientLoad()"
@@ -104,6 +89,5 @@
     </script>
     <button id="signin-button" onclick="handleSignInClick()">Sign in</button>
     <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
-     
   </body>
 </html>
