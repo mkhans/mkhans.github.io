@@ -10,17 +10,17 @@ nav {
     text-align: center;
 }
 a:link {
-    color: skyblue;
+    color: white;
     background-color: transparent;
-    text-decoration: none;
+    text-decoration: underline;
 }
 a:visited {
-    color: skyblue;
+    color: white;
     background-color: transparent;
-    text-decoration: none;
+    text-decoration: underline;
 }
 a:hover {
-    color: white;
+    color: skyblue;
     background-color: transparent;
     text-decoration: underline;
 }
