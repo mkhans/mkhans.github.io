@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-  <div id="data"></div>
-
+  
   <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
   <script type='text/javascript'>    
   var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRANgZIVjjIG5LIOBcp0UMuam5has9V45EmjuRVK9ywruZzqZBQ9lhaTsjaVJqqtuAjRC6sGCUhK9V8/pubhtml';
@@ -18,9 +16,7 @@
 
   function showInfo(data, tabletop) {
     alert('Successfully processed!')
-    $("#data").empty();
-    $("#data").html(data.values);
-    console.log(data.values);
+    console.log(data);
   }
 
   window.addEventListener('DOMContentLoaded', init)
