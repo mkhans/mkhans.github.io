@@ -1,0 +1,59 @@
+body {
+    background-color: darkslategray;
+    text-align: center;
+    margin: 12px;
+    font-size: 12px;
+}
+nav {
+    font-size: 400%;
+    color: white;
+    text-align: center;
+}
+a:link {
+    color: white;
+    background-color: transparent;
+    text-decoration: underline;
+}
+a:visited {
+    color: white;
+    background-color: transparent;
+    text-decoration: underline;
+}
+a:hover {
+    color: skyblue;
+    background-color: transparent;
+    text-decoration: underline;
+}
+a:active {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    font-size: 400%;
+}
+h3 {
+    text-align: center;
+    color: white;
+    font-size: 100%;
+}
+
+table {
+    border: 2px solid white;
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+}
+
+.google-visualization-table-td,
+.google-visualization-table-th {
+    color: white;
+    font-size: 300%;
+    font-weight: 100;
+    background-color: #437070;
+    background: none #437070 !important;
+    padding: 10px !important;
+    border: 2px solid white !important;
+}
