@@ -43,9 +43,6 @@ h3 {
 
 table {
     border: 2px solid white;
-    width: 90% !important;
-    margin-left: 5% !important;
-    margin-right: 5% !important;
 }
 
 .google-visualization-table-td,
