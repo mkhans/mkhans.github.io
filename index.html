@@ -4,7 +4,7 @@
     <title>Wasatch Wind</title>
     <link href="main.css" rel="stylesheet">
     <script src="https://www.google.com/jsapi" type="text/javascript"></script>
-    <script src="drawtables.js" type="text/javascript"></script>
+    <script src="wasatchwind.js" type="text/javascript"></script>
 </head>
     
 <body>
@@ -37,12 +37,16 @@
     <a href="http://www.wpc.ncep.noaa.gov/national_forecast/natfcst.php?day=1" target="_blank">
     <img src="http://www.wpc.ncep.noaa.gov/noaa/noaad1.gif?1523074618" width="90%"></a>
     
-        <br><br>
+        <br><br>-->
   
     <h1>Forecasted Surface Wind</h1>
     <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
     <img src="https://graphical.weather.gov/images/slc/WindSpd1_slc.png" width="90%" alt="rotating image" id="rotator"></a>
-    <script src="https://mkhans.github.io/forecastedSurfaceWindLoop.js"></script>
+    <!--script src="https://forecastedSurfaceWindLoop.js"></script>-->
+    <div id="forecastedWindLoop"></div>
+    <script text/javascript>
+        forecastedWindLoop();
+    </script>
           
       <br><br>
     
