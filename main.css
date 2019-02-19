@@ -43,7 +43,7 @@ h3 {
 
 table {
     border: 2px solid white;
-    width: 250px !important;
+    width: 90% !important;
     margin-left: 5% !important;
     margin-right: 5% !important;
 }
@@ -51,7 +51,7 @@ table {
 .google-visualization-table-td,
 .google-visualization-table-th {
     color: white;
-    font-size: 300%;
+    font-size: 200%;
     font-weight: bold;
     background-color: #437070;
     background: none #437070 !important;
