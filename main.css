@@ -25,7 +25,7 @@ a:hover {
     text-decoration: underline;
 }
 a:active {
-    color: yellow;
+    color: white;
     background-color: transparent;
     text-decoration: underline;
 }
@@ -42,7 +42,7 @@ h3 {
 }
 
 table {
-    border: 2px solid white;
+    border: 1px solid white;
     width: 90% !important;
     margin-left: 5% !important;
     margin-right: 5% !important;
@@ -55,6 +55,6 @@ table {
     font-weight: bold;
     background-color: #437070;
     background: none #437070 !important;
-    padding: 10px !important;
-    border: 2px solid white !important;
+    padding: 2px !important;
+    border: 1px solid white !important;
 }
