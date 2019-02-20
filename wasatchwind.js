@@ -13,10 +13,9 @@ function drawVisualizationSummaryTable() {
 // Draw Winds Aloft Table
 function drawVisualizationWindsAloftTable() {
     var query = new google.visualization.Query('https://spreadsheets.google.com/tq?key=1w8UB-Imka7JI08iViCiwpJ1VPSUQBPG1WA-yl7I7st8&output=html&usp=sharing');
-    //query.setQuery('SELECT A, B, C label A "Data", B "Data", C"Data"');
+    //query.setQuery('SELECT A, B, C label A "Data", B "Data", C "Data"');
     query.send(handleQueryResponseWindsAloftTable);
 }
-
 
 // Get spreadsheet data for Summary Table
 function handleQueryResponseSummaryTable(response) {
