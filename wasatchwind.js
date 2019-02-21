@@ -6,7 +6,7 @@ var visualization;
 // Draw Summary Table
 function drawVisualizationSummaryTable() {
     var query = new google.visualization.Query('https://spreadsheets.google.com/tq?key=1CpOU9TKZXwGu4h40TuGeVHI4fw8eMX_bube2AJY4taY&output=html&usp=sharing');
-    query.setQuery('SELECT A, B, D label A "Parameter", B "Reading", C "Time / Date"');
+    query.setQuery('SELECT A, B, C label A "Parameter", B "Reading", C "Time / Date"');
     query.send(handleQueryResponseSummaryTable);
 }
 
