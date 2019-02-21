@@ -22,7 +22,8 @@ function handleQueryResponseSummaryTable(response) {
     var data = response.getDataTable();
     visualization = new google.visualization.Table(document.getElementById('summaryTable'));
     visualization.draw(data, {
-        allowHtml: true
+        allowHtml: true,
+        showRowNumber: true
     });
 }
 
