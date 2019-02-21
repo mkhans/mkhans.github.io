@@ -56,5 +56,5 @@ table {
     background: none #437070 !important;
     padding: 2px !important;
     border: 1px solid white !important;
-    white-space: nowrap;
+    white-space: nowrap !important;
 }
