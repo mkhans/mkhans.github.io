@@ -48,8 +48,7 @@ table {
     margin-right: 5% !important;
 }
 
-.google-visualization-table-td,
-.google-visualization-table-th {
+.google-visualization-table-td {
     color: white;
     font-size: 180% !important;
     font-weight: bold;
