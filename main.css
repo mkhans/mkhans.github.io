@@ -10,22 +10,22 @@ nav {
     text-align: center;
 }
 a:link {
-    color: white;
+    color: lightblue;
     background-color: transparent;
     text-decoration: none;
 }
 a:visited {
-    color: white;
+    color: lightblue;
     background-color: transparent;
     text-decoration: none;
 }
 a:hover {
-    color: skyblue;
+    color: white;
     background-color: transparent;
     text-decoration: underline;
 }
 a:active {
-    color: skyblue;
+    color: white;
     background-color: transparent;
     text-decoration: underline;
 }
@@ -37,7 +37,7 @@ h1 {
 }
 h3 {
     text-align: center;
-    color: white;
+    color: lightblue;
     font-size: 100%;
 }
 
