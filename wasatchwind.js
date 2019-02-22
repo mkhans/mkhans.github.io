@@ -11,10 +11,10 @@ function drawVisualizationSummaryTable() {
 }
 
 // Draw Winds Aloft Table
-//function drawVisualizationWindsAloftTable() {
-    //var query = new google.visualization.Query('https://spreadsheets.google.com/tq?key=17m8YCwoOsW0S2K7PGtwPmCiAax1vyWjUGc3dIKjrUrk&output=html&usp=sharing');
-    //query.send(handleQueryResponseWindsAloftTable);
-//}
+function drawVisualizationWindsAloftTable() {
+    var query = new google.visualization.Query('https://spreadsheets.google.com/tq?key=17m8YCwoOsW0S2K7PGtwPmCiAax1vyWjUGc3dIKjrUrk&output=html&usp=sharing');
+    query.send(handleQueryResponseWindsAloftTable);
+}
 
 // Get spreadsheet data for Summary Table
 function handleQueryResponseSummaryTable(response) {
@@ -26,13 +26,13 @@ function handleQueryResponseSummaryTable(response) {
 }
 
 // Get spreadsheet data for Winds Aloft Table
-//function handleQueryResponseWindsAloftTable(response) {
-    //var data = response.getDataTable();
-    //visualization = new google.visualization.Table(document.getElementById('windsAloftTable'));
-    //visualization.draw(data, {
-        //allowHtml: true
-    //});
-//}
+function handleQueryResponseWindsAloftTable(response) {
+    var data = response.getDataTable();
+    visualization = new google.visualization.Table(document.getElementById('windsAloftTable'));
+    visualization.draw(data, {
+        allowHtml: true
+    });
+}
 
 // Execute callback to draw Summary Table
 google.setOnLoadCallback(drawVisualizationSummaryTable);
