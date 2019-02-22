@@ -6,14 +6,13 @@ var visualization;
 // Draw Summary Table
 function drawVisualizationSummaryTable() {
     var query = new google.visualization.Query('https://spreadsheets.google.com/tq?key=1CpOU9TKZXwGu4h40TuGeVHI4fw8eMX_bube2AJY4taY&output=html&usp=sharing');
-    //query.setQuery('SELECT A, B, C label A "Parameter", B "Reading", C "Time / Date"');
+    //query.setQuery('SELECT A, B, C label A "col1 th", B "col2 th", C "col3 th"');
     query.send(handleQueryResponseSummaryTable);
 }
 
 // Draw Winds Aloft Table
 function drawVisualizationWindsAloftTable() {
     var query = new google.visualization.Query('https://spreadsheets.google.com/tq?key=17m8YCwoOsW0S2K7PGtwPmCiAax1vyWjUGc3dIKjrUrk&output=html&usp=sharing');
-    //query.setQuery('SELECT A, B, C label A "Data", B "Data", C "Data"');
     query.send(handleQueryResponseWindsAloftTable);
 }
 
