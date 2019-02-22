@@ -11,10 +11,10 @@ function drawVisualizationSummaryTable() {
 }
 
 // Draw Winds Aloft Table
-function drawVisualizationWindsAloftTable() {
-    var query = new google.visualization.Query('https://spreadsheets.google.com/tq?key=17m8YCwoOsW0S2K7PGtwPmCiAax1vyWjUGc3dIKjrUrk&output=html&usp=sharing');
-    query.send(handleQueryResponseWindsAloftTable);
-}
+//function drawVisualizationWindsAloftTable() {
+    //var query = new google.visualization.Query('https://spreadsheets.google.com/tq?key=17m8YCwoOsW0S2K7PGtwPmCiAax1vyWjUGc3dIKjrUrk&output=html&usp=sharing');
+    //query.send(handleQueryResponseWindsAloftTable);
+//}
 
 // Get spreadsheet data for Summary Table
 function handleQueryResponseSummaryTable(response) {
@@ -26,13 +26,13 @@ function handleQueryResponseSummaryTable(response) {
 }
 
 // Get spreadsheet data for Winds Aloft Table
-function handleQueryResponseWindsAloftTable(response) {
-    var data = response.getDataTable();
-    visualization = new google.visualization.Table(document.getElementById('windsAloftTable'));
-    visualization.draw(data, {
-        allowHtml: true
-    });
-}
+//function handleQueryResponseWindsAloftTable(response) {
+    //var data = response.getDataTable();
+    //visualization = new google.visualization.Table(document.getElementById('windsAloftTable'));
+    //visualization.draw(data, {
+        //allowHtml: true
+    //});
+//}
 
 // Execute callback to draw Summary Table
 google.setOnLoadCallback(drawVisualizationSummaryTable);
@@ -44,7 +44,7 @@ google.setOnLoadCallback(drawVisualizationWindsAloftTable);
 
 // Animate forecasted wind images
 function forecastedWindLoop() {
-  var rotator = document.getElementById('rotator');
+  var rotator = document.getElementById('rotatorWind');
   var delay = 1800;
   var time = new Date();
   var timejump = 1;
@@ -78,3 +78,40 @@ setInterval(changeImage, delay); //Rotate images
 };
 
 forecastedWindLoop;
+
+// Animate forecasted skycover images
+function forecastedSkycoverLoop() {
+  var rotator = document.getElementById('rotatorSky');
+  var delay = 1800;
+  var time = new Date();
+  var timejump = 1;
+  var images = [];
+  
+  if (time.getHours() > 18) { //Switch to next day images if after 9pm
+      timejump = timejump + 4;
+  }
+    
+  for (i = 0; i < 6; i++) { //Load images array
+      images[i] = `https://graphical.weather.gov/images/slc/Sky${i + timejump}_slc.png`;
+  }
+  
+  if (timejump === 5) { //Duplicate 2/3pm for visual pause
+  	images.splice (3, 0, "https://graphical.weather.gov/images/slc/Sky7_slc.png");
+  } else {
+  	images.splice (3, 0, "https://graphical.weather.gov/images/slc/Sky3_slc.png");
+  }
+
+  var loopCount = 0;
+  var changeImage = function() {
+      var length = images.length - 1;
+      rotator.src = images[loopCount++];
+      // document.write(images[loopCount++] + "<br>");
+      if (loopCount == length) {
+          loopCount = 0;
+      }
+};
+
+setInterval(changeImage, delay); //Rotate images
+};
+
+forecastedSkycoverLoop;
