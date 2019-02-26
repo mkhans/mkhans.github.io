@@ -38,7 +38,12 @@ h1 {
 h3 {
     text-align: center;
     color: white;
-    font-size: 75%;
+    font-size: 100%;
+}
+#picTimestamp {
+    color: yellow;
+    font-size: 400%;
+    font-weight: bold;
 }
 
 table {
