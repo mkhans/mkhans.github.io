@@ -78,3 +78,80 @@ setInterval(changeImage, delay); //Rotate images
 };
 
 forecastedImgLoop;
+
+// Camera Loop
+function wasatchCamImgLoop(loopId) {
+    
+    function getPicURLArray() {
+        var today = new Date();
+        var mn = today.getMinutes();
+        var hr = today.getHours()-1; //First pic back an hour for loop
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //Add 1 to get current month (starts at 0)
+        var yyyy = today.getFullYear();
+        var images = [];
+        var timestamp = [];
+            
+            mm = mm >= 10 ? mm : '0' + mm; //Force double-digit month
+            dd = dd >= 10 ? dd : '0' + dd; //Force double-digit date
+            hr = hr >= 10 ? hr : '0' + hr; //Force double-digit hours
+
+        //This block forces minutes to 11, 26, 41, or 56 (when pics are updated)
+        if (mn > 56) {
+                mn = 41;
+        }
+        if (mn > 41 && mn < 56) {
+                mn = 26;
+        }
+        if (mn > 26 && mn < 41) {
+                mn = 11;
+        }
+        if (mn > 11 && mn < 26) {
+                hr--;
+                mn = 56;
+        }
+        if (mn < 11) {
+                hr--;
+                mn = 41;
+        }
+            
+        //Load images array
+        for (i = 0; i < 5; i++) {
+            images[i] = "https://cameras-cam.cdn.weatherbug.net/SALTC/" + yyyy + '/' + mm + '/' + dd + '/' + mm + dd + yyyy + hr + mn + "_l.jpg";
+            if (hr > 11) {
+                timestamp[i] = (hr - 12) + ":" + mn;
+            } else {
+                timestamp[i] = hr + ":" + mn;
+            }
+            
+            mn = mn + 15;
+            if (mn === 71) {
+                hr++;
+                mn = 11;
+            }
+        }
+          
+        images.push(images[4]); //Append duplicate at end of array for visual pause
+        timestamp.push(timestamp[4]);
+        return [images, timestamp];
+    }
+
+  var rotator = document.getElementById(loopId);
+  var delay = 800;
+  var [images, timestamp] = getPicURLArray();
+  var loopCount = 0;
+        
+  var changeImage = function() {
+      var length = images.length;
+      rotator.src = images[loopCount];
+      document.getElementById("picTimestamp").innerHTML = timestamp[loopCount];
+      //document.write(images[loopCount]+" "); // See output data for images array
+      //document.write(timestamp[loopCount]+" "); // See output data for timestamp array
+      loopCount++;
+      if (loopCount == length) {
+        loopCount = 0;
+      }
+  };
+setInterval(changeImage, delay); //Rotate images
+};
+wasatchCamImgLoop;
