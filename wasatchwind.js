@@ -94,8 +94,7 @@ function wasatchCamImgLoop(loopId) {
             
             mm = mm >= 10 ? mm : '0' + mm; //Force double-digit month
             dd = dd >= 10 ? dd : '0' + dd; //Force double-digit date
-            hr = hr >= 10 ? hr : '0' + hr; //Force double-digit hours
-
+            
         //This block forces minutes to 11, 26, 41, or 56 (when pics are updated)
         if (mn > 56) {
                 mn = 41;
@@ -116,6 +115,7 @@ function wasatchCamImgLoop(loopId) {
         }
             
         //Load images array
+        hr = hr >= 10 ? hr : '0' + hr; //Force double-digit hours
         for (i = 0; i < 5; i++) {
             images[i] = "https://cameras-cam.cdn.weatherbug.net/SALTC/" + yyyy + '/' + mm + '/' + dd + '/' + mm + dd + yyyy + hr + mn + "_l.jpg";
             if (hr > 11) {
@@ -127,6 +127,7 @@ function wasatchCamImgLoop(loopId) {
             mn = mn + 15;
             if (mn === 71) {
                 hr++;
+                hr = hr >= 10 ? hr : '0' + hr; //Force double-digit hours
                 mn = 11;
             }
         }
