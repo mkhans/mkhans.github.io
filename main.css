@@ -10,12 +10,12 @@ nav {
     text-align: center;
 }
 a:link {
-    color: lightblue;
+    color: yellow;
     background-color: transparent;
     text-decoration: none;
 }
 a:visited {
-    color: lightblue;
+    color: yellow;
     background-color: transparent;
     text-decoration: none;
 }
