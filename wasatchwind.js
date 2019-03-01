@@ -12,7 +12,7 @@ function drawVisualizationSummaryTable() {
 
 // Draw Winds Aloft Table
 function drawVisualizationWindsAloftTable() {
-    var query = new google.visualization.Query('https://spreadsheets.google.com/tq?key=17m8YCwoOsW0S2K7PGtwPmCiAax1vyWjUGc3dIKjrUrk&output=html&usp=sharing');
+    var query = new google.visualization.Query('https://spreadsheets.google.com/tq?key=1CpOU9TKZXwGu4h40TuGeVHI4fw8eMX_bube2AJY4taY&output=html&gid=1991668311&usp=sharing');
     query.send(handleQueryResponseWindsAloftTable);
 }
 
@@ -40,9 +40,7 @@ google.setOnLoadCallback(drawVisualizationSummaryTable);
 // Execute callback to draw Winds Aloft Table
 google.setOnLoadCallback(drawVisualizationWindsAloftTable);
 
-//--- --- ---
-
-// Animate forecasted wind images
+// Animate forecasted wind images --------------------------------------------------------------------------------------
 function forecastedImgLoop(loopId, imgType) {
   var rotator = document.getElementById(loopId);
   var delay = 1800;
@@ -79,7 +77,7 @@ setInterval(changeImage, delay); //Rotate images
 
 forecastedImgLoop;
 
-// Camera Loop
+// Camera Loop ---------------------------------------------------------------------------------------------------------
 function wasatchCamImgLoop(loopId) {
     
     function getPicURLArray() {
