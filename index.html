@@ -14,91 +14,95 @@
         <a href="index.html">Home</a> |
         <a href="northside.html">Northside</a>
     </nav>
-    <p>
+        <p>
     
     <h1>Summary</h1>
-    <div id="summaryTable"></div>
+        <div id="summaryTable"></div>
     
-        <br><br>
+            <br><br>
     
     <h1>Current Surface Wind</h1>
-    <a href="http://www.wrh.noaa.gov/slc/current/meso.slv.php" target="_blank">
-    <img src="http://www.wrh.noaa.gov/mesowest/symmap.php?map=slc&dem=&scale=6&wx=0&res=60&disp=&limit=&wfo=" width="90%"></a>
+        <a href="http://www.wrh.noaa.gov/slc/current/meso.slv.php" target="_blank">
+        <img src="http://www.wrh.noaa.gov/mesowest/symmap.php?map=slc&dem=&scale=6&wx=0&res=60&disp=&limit=&wfo=" width="90%"></a>
     
-      <br><br>
+            <br><br>
   
     <h1>Current Clouds & Precip</h1>
-    <a href="https://www.accuweather.com/en/us/utah/weather-radar-rs?play=1" target="_blank">
-    <img src="http://sirocco.accuweather.com/sat_mosaic_640x480_public/rs/isarUT_.gif" width="90%"></a>
+        <a href="https://www.accuweather.com/en/us/utah/weather-radar-rs?play=1" target="_blank">
+        <img src="http://sirocco.accuweather.com/sat_mosaic_640x480_public/rs/isarUT_.gif" width="90%"></a>
   
-      <br><br>
+            <br><br>
   
     <h1>Forecasted Fronts</h1>
-    <a href="http://www.wpc.ncep.noaa.gov/national_forecast/natfcst.php?day=1" target="_blank">
-    <img src="http://www.wpc.ncep.noaa.gov/noaa/noaad1.gif?1523074618" width="90%"></a>
+        <a href="http://www.wpc.ncep.noaa.gov/national_forecast/natfcst.php?day=1" target="_blank">
+        <img src="http://www.wpc.ncep.noaa.gov/noaa/noaad1.gif?1523074618" width="90%"></a>
     
-        <br><br>
+            <br><br>
     
     <h1>Forecasted Winds Aloft</h1>
-    <div id="windsAloftTable"></div>
+        <div id="windsAloftTable"></div>
     
-        <br><br>
+            <br><br>
   
     <h1>Forecasted Surface Wind</h1>
-    <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
-    <img src="https://graphical.weather.gov/images/slc/WindSpd1_slc.png" width="90%" alt="rotating image" id="rotatorWind"></a>
-    <script text/javascript>
-        forecastedImgLoop('rotatorWind', "WindSpd");
-    </script>
+        <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
+        <img src="https://graphical.weather.gov/images/slc/WindSpd1_slc.png" width="90%" alt="rotating image" id="rotatorWind"></a>
+            <script text/javascript>
+                forecastedImgLoop('rotatorWind', "WindSpd");
+            </script>
           
-        <br><br>
+            <br><br>
     
     <h1>Forecasted Sky Cover</h1>
-    <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
-    <img src="https://graphical.weather.gov/images/slc/WindSpd1_slc.png" width="90%" alt="rotating image" id="rotatorSky"></a>
-    <script text/javascript>
-        forecastedImgLoop('rotatorSky', "Sky");
-    </script>
+        <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
+        <img src="https://graphical.weather.gov/images/slc/WindSpd1_slc.png" width="90%" alt="rotating image" id="rotatorSky"></a>
+            <script text/javascript>
+                forecastedImgLoop('rotatorSky', "Sky");
+            </script>
           
-        <br><br>
+            <br><br>
     
     <h1>Hourly Graphical Forecast</h1>
-    <a href="https://forecast.weather.gov/MapClick.php?w0=t&w3=sfcwind&w3u=1&w4=sky&w5=pop&w7=rain&w9=snow&w13u=0&w16u=1&w17u=1&AheadHour=0&Submit=Submit&FcstType=graphical&textField1=40.7603&textField2=-111.8882&site=all&unit=0&dd=&bw=" target="_blank">
-    <img src="https://forecast.weather.gov/meteograms/Plotter.php?lat=40.7603&lon=-111.8882&wfo=SLC&zcode=UTZ003&gset=30&gdiff=10&unit=0&tinfo=MY7&ahour=0&pcmd=10001110101000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6" width="90%"></a>
+        <a href="https://forecast.weather.gov/MapClick.php?w0=t&w3=sfcwind&w3u=1&w4=sky&w5=pop&w7=rain&w9=snow&w13u=0&w16u=1&w17u=1&AheadHour=0&Submit=Submit&FcstType=graphical&textField1=40.7603&textField2=-111.8882&site=all&unit=0&dd=&bw=" target="_blank">
+        <img src="https://forecast.weather.gov/meteograms/Plotter.php?lat=40.7603&lon=-111.8882&wfo=SLC&zcode=UTZ003&gset=30&gdiff=10&unit=0&tinfo=MY7&ahour=0&pcmd=10001110101000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6" width="90%"></a>
     
-        <br><br>
+            <br><br>
     
     <h1>Wasatch Skyline Cam</h1>
-    <div id="picTimestamp"></div>
-    <img src="" width="90%" alt="rotating image" id="wasatchCam">
-    <script text/javascript>
-        wasatchCamImgLoop('wasatchCam');
-    </script>
+        <div id="picTimestamp"></div>
+        <img src="" width="90%" alt="rotating image" id="wasatchCam">
+            <script text/javascript>
+                wasatchCamImgLoop('wasatchCam');
+            </script>
           
-        <br><br>
+            <br><br>
     
     <h1>Summer OD Info</h1>
-    <h3>Coming Soon</h3>
+        <h3>Coming Soon</h3>
     
-        <br><br>
-    
-    <h1>72 Hour Outlook</h1>
-    <h3>Coming Soon</h3>
-    
-        <br><br>
+            <br><br>
     
     <h1>Skew T</h1>
-    <h3>Coming Soon</h3>
+        <h3>Coming Soon</h3>
     
-        <br><br>    
+            <br><br> 
+    
+    <h1>72 Hour Outlook</h1>
+        <div id="72hrTable"></div>
+    
+            <br><br>
+    
+    <h1>Other Useful Links:</h1>
+    
+            <br><br>
     
     <nav>
-    <a href="https://www.windy.com/?40.647,-111.967,9" target="_blank">Windy.com</a>
-        <br>--- --- ---<br>
-    <a href="https://www.wrh.noaa.gov/total_forecast/getprod.php?prod=XXXAFDSLC&wfo=SLC" target="_blank">Area Forecast Discussion</a>
+        <a href="https://www.windy.com/?40.647,-111.967,9" target="_blank">Windy.com</a>
+            <br>--- --- ---<br>
+        <a href="https://www.wrh.noaa.gov/total_forecast/getprod.php?prod=XXXAFDSLC&wfo=SLC" target="_blank">Area Forecast Discussion</a>
     </nav>
     
-        <br>
+            <br><br>
   
 </body>
 </html>
