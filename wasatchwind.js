@@ -16,6 +16,12 @@ function drawVisualizationWindsAloftTable() {
     query.send(handleQueryResponseWindsAloftTable);
 }
 
+// Draw 72hr Table
+function drawVisualization72hrTable() {
+    var query = new google.visualization.Query('https://spreadsheets.google.com/tq?key=1CpOU9TKZXwGu4h40TuGeVHI4fw8eMX_bube2AJY4taY&output=html&gid=1300046306&usp=sharing');
+    query.send(handleQueryResponse72hrTable);
+}
+
 // Get spreadsheet data for Summary Table
 function handleQueryResponseSummaryTable(response) {
     var data = response.getDataTable();
@@ -34,11 +40,23 @@ function handleQueryResponseWindsAloftTable(response) {
     });
 }
 
+// Get spreadsheet data for 72hr Table
+function handleQueryResponse72hrTable(response) {
+    var data = response.getDataTable();
+    visualization = new google.visualization.Table(document.getElementById('72hrTable'));
+    visualization.draw(data, {
+        allowHtml: true
+    });
+}
+
 // Execute callback to draw Summary Table
 google.setOnLoadCallback(drawVisualizationSummaryTable);
 
 // Execute callback to draw Winds Aloft Table
 google.setOnLoadCallback(drawVisualizationWindsAloftTable);
+
+// Execute callback to draw 72hr Table
+google.setOnLoadCallback(drawVisualization72hrTable);
 
 // Animate forecasted wind images --------------------------------------------------------------------------------------
 function forecastedImgLoop(loopId, imgType) {
