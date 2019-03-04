@@ -1,7 +1,18 @@
 google.load('visualization', '1', {
     packages: ['table']
 });
+
+// Global variables
 var visualization;
+var today = new Date();
+var mn = today.getMinutes();
+var hr = today.getHours()-1; //First pic back an hour for loop
+var dd = today.getDate();
+var mm = today.getMonth()+1; //Add 1 to get current month (starts at 0)
+var yyyy = today.getFullYear();
+
+
+// Draw Tables -----------------------------------------------------------------------------------------------------
 
 // Draw Summary Table
 function drawVisualizationSummaryTable() {
@@ -58,7 +69,9 @@ google.setOnLoadCallback(drawVisualizationWindsAloftTable);
 // Execute callback to draw 72hr Table
 google.setOnLoadCallback(drawVisualization72hrTable);
 
-// Animate forecasted wind images --------------------------------------------------------------------------------------
+
+// Animate forecasted wind images ----------------------------------------------------------------------------------
+
 function forecastedImgLoop(loopId, imgType) {
   var rotator = document.getElementById(loopId);
   var delay = 1800;
@@ -84,7 +97,6 @@ function forecastedImgLoop(loopId, imgType) {
   var changeImage = function() {
       var length = images.length - 1;
       rotator.src = images[loopCount++];
-      // document.write(images[loopCount++] + "<br>");
       if (loopCount == length) {
           loopCount = 0;
       }
@@ -95,16 +107,12 @@ setInterval(changeImage, delay); //Rotate images
 
 forecastedImgLoop;
 
-// Camera Loop ---------------------------------------------------------------------------------------------------------
+
+// Camera loop -----------------------------------------------------------------------------------------------------
+
 function wasatchCamImgLoop(loopId) {
     
     function getPicURLArray() {
-        var today = new Date();
-        var mn = today.getMinutes();
-        var hr = today.getHours()-1; //First pic back an hour for loop
-        var dd = today.getDate();
-        var mm = today.getMonth()+1; //Add 1 to get current month (starts at 0)
-        var yyyy = today.getFullYear();
         var images = [];
         var timestamp = [];
             
