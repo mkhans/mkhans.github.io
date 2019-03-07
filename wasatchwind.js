@@ -142,26 +142,15 @@ function wasatchCamImgLoop(loopId) {
         hr = hr >= 10 ? hr : '0' + hr; //Force double-digit hours
         for (i = 0; i < 5; i++) {
             images[i] = "https://cameras-cam.cdn.weatherbug.net/SALTC/" + yyyy + '/' + mm + '/' + dd + '/' + mm + dd + yyyy + hr + mn + "_l.jpg";
-            if (hr > 11) {
-                timestamp[i] = (hr - 12) + ":" + mn + " pm, " + mm + "/" + dd;
-                if (hr == 12) {
-                  timestamp[i] = hr + ":" + mn + " pm, " + mm + "/" + dd;
-                }
+            if (hr > 12) {
+                timestamp[i] = (hr - 12) + ":" + mn + " pm";
             } else {
-                timestamp[i] = (hr - 0) + ":" + mn + " am, " + mm + "/" + dd;
-                if (hr == 0) {
-                  timestamp[i] = "12:" + mn + " am, " + mm + "/" + dd;
-                }
+                timestamp[i] = (hr - 0) + ":" + mn + " am";
             }
             
             mn = mn + 15;
-            if (mn == 71) {
+            if (mn === 71) {
                 hr++;
-                  if (hr == 24) {
-                    hr = 0;
-                    dd++;
-                    dd = dd >= 10 ? dd : '0' + dd;
-                  }
                 hr = hr >= 10 ? hr : '0' + hr; //Force double-digit hours
                 mn = 11;
             }
