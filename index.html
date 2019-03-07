@@ -48,7 +48,7 @@
     <h1>Surface Wind Forecast</h1>
         <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
         <img src="https://graphical.weather.gov/images/slc/WindSpd1_slc.png" width="90%" alt="rotating image" id="rotatorWind"></a>
-            <script type="text/javascript">
+            <script text/javascript>
                 forecastedImgLoop('rotatorWind', "WindSpd");
             </script>
 
@@ -57,7 +57,7 @@
     <h1>Sky Cover Forecast</h1>
         <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
         <img src="https://graphical.weather.gov/images/slc/WindSpd1_slc.png" width="90%" alt="rotating image" id="rotatorSky"></a>
-            <script type="text/javascript">
+            <script text/javascript>
                 forecastedImgLoop('rotatorSky', "Sky");
             </script>
 
@@ -72,7 +72,7 @@
     <h1>Wasatch Cam</h1>
         <div id="picTimestamp"></div>
         <img src="" width="90%" alt="rotating image" id="wasatchCam">
-            <script type="text/javascript">
+            <script text/javascript>
                 wasatchCamImgLoop('wasatchCam');
             </script>
 
@@ -80,8 +80,8 @@
 
     <h1>Skew T</h1>
         <a href="https://climate.cod.edu/flanis/analysis/raob/index.php?type=conus-current-current-skewt-KSLC-0#" target="_blank">
-        <img id='skewT', width="90%">
-            <script type="text/javascript">
+            <img id='skewT', width="90%"></a>
+            <script>
                 function getSkewTURL(){
                     return "https://climate.cod.edu/data/raob/KSLC/skewt/KSLC.skewt." + yyyy + mm + dd + ".12.gif";
                 }
