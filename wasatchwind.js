@@ -110,9 +110,17 @@ forecastedImgLoop;
 
 // Camera loop -----------------------------------------------------------------------------------------------------
 
-function wasatchCamImgLoop(loopId) {
+function wasatchCamImgLoop() {
     
     function getPicURLArray() {
+        var today = new Date();
+        var mn = today.getMinutes();
+        var hr = today.getHours()-1; //First pic back an hour for loop
+        //var mn = 30;
+        //var hr = 23;
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //Add 1 to get current month (starts at 0)
+        var yyyy = today.getFullYear();
         var images = [];
         var timestamp = [];
             
@@ -139,18 +147,30 @@ function wasatchCamImgLoop(loopId) {
         }
             
         //Load images array
+        
         hr = hr >= 10 ? hr : '0' + hr; //Force double-digit hours
         for (i = 0; i < 5; i++) {
             images[i] = "https://cameras-cam.cdn.weatherbug.net/SALTC/" + yyyy + '/' + mm + '/' + dd + '/' + mm + dd + yyyy + hr + mn + "_l.jpg";
-            if (hr > 12) {
-                timestamp[i] = (hr - 12) + ":" + mn + " pm";
+            if (hr > 11) {
+                timestamp[i] = (hr - 12) + ":" + mn + " pm, " + mm + "/" + dd;
+                if (hr == 12) {
+                  timestamp[i] = hr + ":" + mn + " pm, " + mm + "/" + dd;
+                }
             } else {
-                timestamp[i] = (hr - 0) + ":" + mn + " am";
+                timestamp[i] = (hr - 0) + ":" + mn + " am, " + mm + "/" + dd;
+                if (hr == 0) {
+                  timestamp[i] = "12:" + mn + " am, " + mm + "/" + dd;
+                }
             }
             
             mn = mn + 15;
-            if (mn === 71) {
+            if (mn == 71) {
                 hr++;
+                  if (hr == 24) {
+                    hr = 0;
+                    dd++;
+                    dd = dd >= 10 ? dd : '0' + dd;
+                  }
                 hr = hr >= 10 ? hr : '0' + hr; //Force double-digit hours
                 mn = 11;
             }
@@ -161,7 +181,7 @@ function wasatchCamImgLoop(loopId) {
         return [images, timestamp];
     }
 
-  var rotator = document.getElementById(loopId);
+  var rotator = document.getElementById('wasatchCam');
   var delay = 800;
   var [images, timestamp] = getPicURLArray();
   var loopCount = 0;
