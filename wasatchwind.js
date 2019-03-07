@@ -113,14 +113,6 @@ forecastedImgLoop;
 function wasatchCamImgLoop() {
     
     function getPicURLArray() {
-        var today = new Date();
-        var mn = today.getMinutes();
-        var hr = today.getHours()-1; //First pic back an hour for loop
-        //var mn = 30;
-        //var hr = 23;
-        var dd = today.getDate();
-        var mm = today.getMonth()+1; //Add 1 to get current month (starts at 0)
-        var yyyy = today.getFullYear();
         var images = [];
         var timestamp = [];
             
