@@ -143,9 +143,9 @@ function wasatchCamImgLoop(loopId) {
         for (i = 0; i < 5; i++) {
             images[i] = "https://cameras-cam.cdn.weatherbug.net/SALTC/" + yyyy + '/' + mm + '/' + dd + '/' + mm + dd + yyyy + hr + mn + "_l.jpg";
             if (hr > 12) {
-                timestamp[i] = (hr - 12) + ":" + mn;
+                timestamp[i] = (hr - 12) + ":" + mn + " pm";
             } else {
-                timestamp[i] = hr + ":" + mn;
+                timestamp[i] = (hr - 0) + ":" + mn + " am";
             }
             
             mn = mn + 15;
