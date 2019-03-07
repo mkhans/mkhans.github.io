@@ -1,18 +1,23 @@
-google.load('visualization', '1', {
-    packages: ['table']
-});
-
 // Global variables
-var visualization;
-var today = new Date();
-var mn = today.getMinutes();
-var hr = today.getHours()-1; //First pic back an hour for loop
-var dd = today.getDate();
-var mm = today.getMonth()+1; //Add 1 to get current month (starts at 0)
-var yyyy = today.getFullYear();
+
+var visualization;              //For Draw Tables
+var today = new Date();         //For wasatchCam loop & skewT
+var mn = today.getMinutes();    //wasatchCam loop only
+var hr = today.getHours()-1;    //wasatchCam loop only, first pic back an hour for loop
+var dd = today.getDate();       //For wasatchCam loop & skewT
+var mm = today.getMonth()+1;    //For wasatchCam loop & skewT, add 1 to get current month (starts at 0)
+var yyyy = today.getFullYear(); //For wasatchCam loop & skewT
+
+mm = mm >= 10 ? mm : '0' + mm;  //Force double-digit month
+dd = dd >= 10 ? dd : '0' + dd;  //Force double-digit date
 
 
 // Draw Tables -----------------------------------------------------------------------------------------------------
+
+// Initialize Google Table API
+google.load('visualization', '1', {
+    packages: ['table']
+});
 
 // Draw Summary Table
 function drawVisualizationSummaryTable() {
@@ -115,11 +120,8 @@ function wasatchCamImgLoop() {
     function getPicURLArray() {
         var images = [];
         var timestamp = [];
-            
-            mm = mm >= 10 ? mm : '0' + mm; //Force double-digit month
-            dd = dd >= 10 ? dd : '0' + dd; //Force double-digit date
-            
-        //This block forces minutes to 11, 26, 41, or 56 (when pics are updated)
+        
+        //Force minutes to 11, 26, 41, or 56 (when pics are updated)
         if (mn > 56) {
                 mn = 41;
         }
@@ -138,38 +140,37 @@ function wasatchCamImgLoop() {
                 mn = 41;
         }
             
-        //Load images array
-        
+        //Load images array        
         hr = hr >= 10 ? hr : '0' + hr; //Force double-digit hours
         for (i = 0; i < 5; i++) {
             images[i] = "https://cameras-cam.cdn.weatherbug.net/SALTC/" + yyyy + '/' + mm + '/' + dd + '/' + mm + dd + yyyy + hr + mn + "_l.jpg";
-            if (hr > 11) {
+            if (hr > 11) {                                                      //Convert to PM hours
                 timestamp[i] = (hr - 12) + ":" + mn + " pm, " + mm + "/" + dd;
-                if (hr == 12) {
+                if (hr == 12) {                                                 //Don't change 12 for PM hours start
                   timestamp[i] = hr + ":" + mn + " pm, " + mm + "/" + dd;
                 }
             } else {
-                timestamp[i] = (hr - 0) + ":" + mn + " am, " + mm + "/" + dd;
+                timestamp[i] = (hr - 0) + ":" + mn + " am, " + mm + "/" + dd;   //Add AM to AM hours
                 if (hr == 0) {
-                  timestamp[i] = "12:" + mn + " am, " + mm + "/" + dd;
+                  timestamp[i] = "12:" + mn + " am, " + mm + "/" + dd;          //Don't change 12 for AM hours start
                 }
             }
             
-            mn = mn + 15;
-            if (mn == 71) {
-                hr++;
-                  if (hr == 24) {
-                    hr = 0;
-                    dd++;
-                    dd = dd >= 10 ? dd : '0' + dd;
+            mn = mn + 15;                           //Increment minutes for next image
+            if (mn == 71) {                         //If minutes > 60
+                hr++;                               //Increment hour
+                  if (hr == 24) {                   //If hours > 23
+                    hr = 0;                         //Reset hours
+                    dd++;                           //Incrment day
+                    dd = dd >= 10 ? dd : '0' + dd;  //Re-force double-digit day
                   }
-                hr = hr >= 10 ? hr : '0' + hr; //Force double-digit hours
-                mn = 11;
+                hr = hr >= 10 ? hr : '0' + hr;      //Re-force double-digit hours
+                mn = 11;                            //Start new minutes cycle
             }
         }
           
-        images.push(images[4]); //Append duplicate at end of array for visual pause
-        timestamp.push(timestamp[4]);
+        images.push(images[4]);         //Append duplicate image at end of array for visual pause
+        timestamp.push(timestamp[4]);   //Append duplicate timestamp at end or arrary for visual pause
         return [images, timestamp];
     }
 
@@ -182,8 +183,6 @@ function wasatchCamImgLoop() {
       var length = images.length;
       rotator.src = images[loopCount];
       document.getElementById("picTimestamp").innerHTML = timestamp[loopCount];
-      //document.write(images[loopCount]+" "); // See output data for images array
-      //document.write(timestamp[loopCount]+" "); // See output data for timestamp array
       loopCount++;
       if (loopCount == length) {
         loopCount = 0;
