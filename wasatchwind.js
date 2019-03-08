@@ -1,6 +1,5 @@
 // Global variables
 
-var visualization;              //For Draw Tables
 var today = new Date();         //For wasatchCam loop & skewT
 var mn = today.getMinutes();    //wasatchCam loop only
 var hr = today.getHours()-1;    //wasatchCam loop only, first pic back an hour for loop
@@ -14,66 +13,38 @@ dd = dd >= 10 ? dd : '0' + dd;  //Force double-digit date
 
 // Draw Tables -----------------------------------------------------------------------------------------------------
 
-// Initialize Google Table API
-google.load('visualization', '1', {
-    packages: ['table']
-});
+google.charts.load('current', {packages: ['table']}); //Initialize Google Table API
+google.charts.setOnLoadCallback(drawTable);
 
-// Draw Summary Table
-function drawVisualizationSummaryTable() {
-    var query = new google.visualization.Query('https://spreadsheets.google.com/tq?key=1CpOU9TKZXwGu4h40TuGeVHI4fw8eMX_bube2AJY4taY&output=html&usp=sharing');
-    //query.setQuery('SELECT A, B, C label A "col1 th", B "col2 th", C "col3 th"');
-    query.send(handleQueryResponseSummaryTable);
-}
+var quickStatsTableURL = 'https://spreadsheets.google.com/tq?key=1CpOU9TKZXwGu4h40TuGeVHI4fw8eMX_bube2AJY4taY&output=html&usp=sharing';
+var windsAloftTableURL = 'https://spreadsheets.google.com/tq?key=1CpOU9TKZXwGu4h40TuGeVHI4fw8eMX_bube2AJY4taY&output=html&gid=1991668311&usp=sharing';
+var threeDaysTableURL = 'https://spreadsheets.google.com/tq?key=1CpOU9TKZXwGu4h40TuGeVHI4fw8eMX_bube2AJY4taY&output=html&gid=1300046306&usp=sharing';
 
-// Draw Winds Aloft Table
-function drawVisualizationWindsAloftTable() {
-    var query = new google.visualization.Query('https://spreadsheets.google.com/tq?key=1CpOU9TKZXwGu4h40TuGeVHI4fw8eMX_bube2AJY4taY&output=html&gid=1991668311&usp=sharing');
-    query.send(handleQueryResponseWindsAloftTable);
-}
+function drawTable() {
+    var quickStatsData = new google.visualization.Query(quickStatsTableURL);
+    var windsAloftData = new google.visualization.Query(windsAloftTableURL);
+    var threeDaysData = new google.visualization.Query(threeDaysTableURL);
+    quickStatsData.send(handleQuickStatsQuery);
+    windsAloftData.send(handleWindsAloftQuery);
+    threeDaysData.send(handleThreeDaysQuery);
 
-// Draw 72hr Table
-function drawVisualization72hrTable() {
-    var query = new google.visualization.Query('https://spreadsheets.google.com/tq?key=1CpOU9TKZXwGu4h40TuGeVHI4fw8eMX_bube2AJY4taY&output=html&gid=1300046306&usp=sharing');
-    query.send(handleQueryResponse72hrTable);
-}
-
-// Get spreadsheet data for Summary Table
-function handleQueryResponseSummaryTable(response) {
+} function handleQuickStatsQuery(response) {
     var data = response.getDataTable();
-    visualization = new google.visualization.Table(document.getElementById('summaryTable'));
-    visualization.draw(data, {
-        allowHtml: true
-    });
+    visualization = new google.visualization.Table(document.getElementById('QuickStatsTable'));
+    visualization.draw(data, {allowHtml: true});
 }
 
-// Get spreadsheet data for Winds Aloft Table
-function handleQueryResponseWindsAloftTable(response) {
+function handleWindsAloftQuery(response) {
     var data = response.getDataTable();
-    visualization = new google.visualization.Table(document.getElementById('windsAloftTable'));
-    visualization.draw(data, {
-        allowHtml: true
-    });
+    visualization = new google.visualization.Table(document.getElementById('WindsAloftTable'));
+    visualization.draw(data, {allowHtml: true});
 }
 
-// Get spreadsheet data for 72hr Table
-function handleQueryResponse72hrTable(response) {
+function handleThreeDaysQuery(response) {
     var data = response.getDataTable();
-    visualization = new google.visualization.Table(document.getElementById('72hrTable'));
-    visualization.draw(data, {
-        allowHtml: true
-    });
+    visualization = new google.visualization.Table(document.getElementById('ThreeDaysTable'));
+    visualization.draw(data, {allowHtml: true});
 }
-
-// Execute callback to draw Summary Table
-google.setOnLoadCallback(drawVisualizationSummaryTable);
-
-// Execute callback to draw Winds Aloft Table
-google.setOnLoadCallback(drawVisualizationWindsAloftTable);
-
-// Execute callback to draw 72hr Table
-google.setOnLoadCallback(drawVisualization72hrTable);
-
 
 // Animate forecasted wind images ----------------------------------------------------------------------------------
 
@@ -174,7 +145,7 @@ function wasatchCamImgLoop() {
         return [images, timestamp];
     }
 
-  var rotator = document.getElementById('wasatchCam');
+  var rotator = document.getElementById('WasatchCam');
   var delay = 800;
   var [images, timestamp] = getPicURLArray();
   var loopCount = 0;
@@ -182,7 +153,7 @@ function wasatchCamImgLoop() {
   var changeImage = function() {
       var length = images.length;
       rotator.src = images[loopCount];
-      document.getElementById("picTimestamp").innerHTML = timestamp[loopCount];
+      document.getElementById('picTimestamp').innerHTML = timestamp[loopCount];
       loopCount++;
       if (loopCount == length) {
         loopCount = 0;
