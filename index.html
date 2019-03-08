@@ -1,117 +1,83 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Wasatch Wind</title>
-    <link href="main.css" rel="stylesheet">
-    <script src="https://www.google.com/jsapi" type="text/javascript"></script>
-    <script src="wasatchwind.js" type="text/javascript"></script>
-</head>
+    <head>
+        <title>Wasatch Wind</title>
+        <link href="https://mkhans.github.io/main.css" rel="stylesheet">
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript" src="wasatchwind.js"></script>
+    </head>
 
 <body>
     <h3>Wasatch Wind - For Private Use Only</h3>
 
-    <nav>
-        <a href="index.html">Home</a> |
-        <a href="northside.html">Northside</a>
-    </nav>
-
-            <br><br>
+        <nav>
+            <a href="index.html">Home</a> |
+            <a href="northside.html">Northside</a>
+        </nav><br><br>
 
     <h1>Quick Stats</h1>
-        <div id="summaryTable"></div>
-
-            <br><br>
+        <div id="QuickStatsTable"></div><br><br>
 
     <h1>Surface Wind</h1>
         <a href="http://www.wrh.noaa.gov/slc/current/meso.slv.php" target="_blank">
-        <img src="http://www.wrh.noaa.gov/mesowest/symmap.php?map=slc&dem=&scale=6&wx=0&res=60&disp=&limit=&wfo=" width="90%"></a>
-
-            <br><br>
+        <img src="http://www.wrh.noaa.gov/mesowest/symmap.php?map=slc&dem=&scale=6&wx=0&res=60&disp=&limit=&wfo=" width="90%"></a><br><br>
 
     <h1>Clouds & Precip</h1>
         <a href="https://www.accuweather.com/en/us/utah/weather-radar-rs?play=1" target="_blank">
-        <img src="http://sirocco.accuweather.com/sat_mosaic_640x480_public/rs/isarUT_.gif" width="90%"></a>
-
-            <br><br>
+        <img src="http://sirocco.accuweather.com/sat_mosaic_640x480_public/rs/isarUT_.gif" width="90%"></a><br><br>
 
     <h1>Fronts</h1>
         <a href="http://maps.wunderground.com/maps/us/southwest/2xFronts.html" target="_blank">
-        <img src="http://icons.wxug.com/data/640x480/2xsw_sf_anim.gif" width="90%"></a>
-
-            <br><br>
+        <img src="http://icons.wxug.com/data/640x480/2xsw_sf_anim.gif" width="90%"></a><br><br>
 
     <h1>Winds Aloft</h1>
-        <div id="windsAloftTable"></div>
-
-            <br><br>
+        <div id="WindsAloftTable"></div><br><br>
 
     <h1>Surface Wind Forecast</h1>
         <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
-        <img src="https://graphical.weather.gov/images/slc/WindSpd1_slc.png" width="90%" alt="rotating image" id="rotatorWind"></a>
-            <script text/javascript>
-                forecastedImgLoop('rotatorWind', "WindSpd");
-            </script>
-
-            <br><br>
+        <img src="https://graphical.weather.gov/images/slc/WindSpd1_slc.png" width="90%" alt="rotating image" id="rotatorWind"></a><br><br>
+        <script type= "text/javascript">
+            forecastedImgLoop('rotatorWind', "WindSpd");</script>
 
     <h1>Sky Cover Forecast</h1>
         <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
-        <img src="https://graphical.weather.gov/images/slc/WindSpd1_slc.png" width="90%" alt="rotating image" id="rotatorSky"></a>
-            <script text/javascript>
-                forecastedImgLoop('rotatorSky', "Sky");
-            </script>
-
-            <br><br>
+        <img src="https://graphical.weather.gov/images/slc/WindSpd1_slc.png" width="90%" alt="rotating image" id="rotatorSky"></a><br><br>
+        <script type= "text/javascript">
+            forecastedImgLoop('rotatorSky', "Sky");</script>            
 
     <h1>Hourly Graphical Forecast</h1>
         <a href="https://forecast.weather.gov/MapClick.php?w0=t&w3=sfcwind&w3u=1&w4=sky&w5=pop&w7=rain&w9=snow&w13u=0&w16u=1&w17u=1&AheadHour=0&Submit=Submit&FcstType=graphical&textField1=40.7603&textField2=-111.8882&site=all&unit=0&dd=&bw=" target="_blank">
-        <img src="https://forecast.weather.gov/meteograms/Plotter.php?lat=40.7603&lon=-111.8882&wfo=SLC&zcode=UTZ003&gset=30&gdiff=10&unit=0&tinfo=MY7&ahour=0&pcmd=10001110101000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6" width="90%"></a>
-
-            <br><br>
+        <img src="https://forecast.weather.gov/meteograms/Plotter.php?lat=40.7603&lon=-111.8882&wfo=SLC&zcode=UTZ003&gset=30&gdiff=10&unit=0&tinfo=MY7&ahour=0&pcmd=10001110101000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6" width="90%"></a><br><br>
 
     <h1>Wasatch Cam</h1>
         <div id="picTimestamp"></div>
-        <img src="" width="90%" alt="rotating image" id="wasatchCam">
-            <script text/javascript>
-                wasatchCamImgLoop('wasatchCam');
-            </script>
-
-            <br><br>
+        <img src="" width="90%" alt="rotating image" id="WasatchCam"><br><br>
+        <script type= "text/javascript">
+            wasatchCamImgLoop('WasatchCam');</script>
 
     <h1>Skew T</h1>
         <a href="https://climate.cod.edu/flanis/analysis/raob/index.php?type=conus-current-current-skewt-KSLC-0#" target="_blank">
-            <img id='skewT', width="90%"></a>
-            <script>
-                function getSkewTURL(){
-                    return "https://climate.cod.edu/data/raob/KSLC/skewt/KSLC.skewt." + yyyy + mm + dd + ".12.gif";
-                }
-                document.getElementById('skewT').src = getSkewTURL();
-            </script>
-
-            <br><br>
+        <img id='skewT', width="90%"></a><br><br>
+        <script type= "text/javascript">
+            function getSkewTURL(){
+                return "https://climate.cod.edu/data/raob/KSLC/skewt/KSLC.skewt." + yyyy + mm + dd + ".12.gif";
+            }
+            document.getElementById('skewT').src = getSkewTURL();</script>
 
     <h1>Jetstream</h1>
         <a href="https://www.wunderground.com/maps/wind/jet-stream" target="_blank">
-        <img src="https://s.w-x.co/staticmaps/wu/wu/jetstream1200_cur/conus/animate.png" width="90%"></a>
-
-            <br><br>
+        <img src="https://s.w-x.co/staticmaps/wu/wu/jetstream1200_cur/conus/animate.png" width="90%"></a><br><br>
 
     <h1>72 Hour Forecast</h1>
-        <div id="72hrTable"></div>
+        <div id="ThreeDaysTable"></div><br><br>
 
-            <br><br>
+    <h1>Other Useful Links:</h1><br><br>
 
-    <h1>Other Useful Links:</h1>
-
-            <br><br>
-
-    <nav>
-        <a href="https://www.windy.com/?40.647,-111.967,9" target="_blank">Windy.com</a>
-            <br>--- --- ---<br>
-        <a href="https://www.wrh.noaa.gov/total_forecast/getprod.php?prod=XXXAFDSLC&wfo=SLC" target="_blank">Area Forecast Discussion</a>
-    </nav>
-
-            <br><br>
+        <nav>
+            <a href="https://www.windy.com/?40.647,-111.967,9" target="_blank">Windy.com</a>
+                <br>--- --- ---<br>
+            <a href="https://www.wrh.noaa.gov/total_forecast/getprod.php?prod=XXXAFDSLC&wfo=SLC" target="_blank">Area Forecast Discussion</a>
+        </nav><br><br>
 
 </body>
 </html>
