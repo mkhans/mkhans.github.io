@@ -6,6 +6,7 @@ var hr = today.getHours()-1;    //wasatchCam loop only, first pic back an hour f
 var dd = today.getDate();       //For wasatchCam loop & skewT
 var mm = today.getMonth()+1;    //For wasatchCam loop & skewT, add 1 to get current month (starts at 0)
 var yyyy = today.getFullYear(); //For wasatchCam loop & skewT
+var month = today.toLocaleString('en-us', {month: 'short'});  //For wasatchCam loop timestamp
 
 mm = mm >= 10 ? mm : '0' + mm;  //Force double-digit month
 dd = dd >= 10 ? dd : '0' + dd;  //Force double-digit date
@@ -124,15 +125,15 @@ function wasatchCamImgLoop() {
         hr = hr >= 10 ? hr : '0' + hr; //Force double-digit hours
         for (i = 0; i < 5; i++) {
             images[i] = "https://cameras-cam.cdn.weatherbug.net/SALTC/" + yyyy + '/' + mm + '/' + dd + '/' + mm + dd + yyyy + hr + mn + "_l.jpg";
-            if (hr > 11) {                                                      //Convert to PM hours
-                timestamp[i] = (hr - 12) + ":" + mn + " pm, " + mm + "/" + dd;
+            if (hr > 11) {                                                     //Convert to PM hours
+                timestamp[i] = (hr - 12) + ":" + mn + " pm, " + month + " " + dd;
                 if (hr == 12) {                                                 //Don't change 12 for PM hours start
-                  timestamp[i] = hr + ":" + mn + " pm, " + mm + "/" + dd;
+                  timestamp[i] = hr + ":" + mn + " pm, " + month + " " + dd;
                 }
             } else {
-                timestamp[i] = (hr - 0) + ":" + mn + " am, " + mm + "/" + dd;   //Add AM to AM hours
+                timestamp[i] = (hr - 0) + ":" + mn + " am, " + month + " " + dd;   //Add AM to AM hours
                 if (hr == 0) {
-                  timestamp[i] = "12:" + mn + " am, " + mm + "/" + dd;          //Don't change 12 for AM hours start
+                  timestamp[i] = "12:" + mn + " am, " + month + " " + dd;          //Don't change 12 for AM hours start
                 }
             }
             
