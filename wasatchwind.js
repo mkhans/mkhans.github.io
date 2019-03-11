@@ -21,16 +21,19 @@ var quickStatsTableURL = 'https://spreadsheets.google.com/tq?key=1CpOU9TKZXwGu4h
 var windsAloftTableURL = 'https://spreadsheets.google.com/tq?key=1CpOU9TKZXwGu4h40TuGeVHI4fw8eMX_bube2AJY4taY&output=html&gid=1991668311&usp=sharing';
 var threeDaysTableURL = 'https://spreadsheets.google.com/tq?key=1CpOU9TKZXwGu4h40TuGeVHI4fw8eMX_bube2AJY4taY&output=html&gid=1300046306&usp=sharing';
 var fpnStationTableURL = 'https://spreadsheets.google.com/tq?key=1NE_sLJtvxuOLVt8NgZgn8e3TmjpRKBOAa-bT0pZVvuU&output=html&usp=sharing';
+var ku42StationTableURL = 'https://spreadsheets.google.com/tq?key=1NE_sLJtvxuOLVt8NgZgn8e3TmjpRKBOAa-bT0pZVvuU&output=html&gid=1503493220&usp=sharing';
 
 function drawTable() {
     var quickStatsData = new google.visualization.Query(quickStatsTableURL);
     var windsAloftData = new google.visualization.Query(windsAloftTableURL);
     var threeDaysData = new google.visualization.Query(threeDaysTableURL);
     var fpnStationData = new google.visualization.Query(fpnStationTableURL);
+    var ku42StationData = new google.visualization.Query(ku42StationTableURL);
     quickStatsData.send(handleQuickStatsQuery);
     windsAloftData.send(handleWindsAloftQuery);
     threeDaysData.send(handleThreeDaysQuery);
     fpnStationData.send(handleFPNStationQuery);
+    ku42StationData.send(handleKU42StationQuery);
 
 } function handleQuickStatsQuery(response) {
     var data = response.getDataTable();
@@ -53,6 +56,12 @@ function handleThreeDaysQuery(response) {
 function handleFPNStationQuery(response) {
     var data = response.getDataTable();
     visualization = new google.visualization.Table(document.getElementById('FPNStationTable'));
+    visualization.draw(data, {allowHtml: true});
+}
+
+function handleKU42StationQuery(response) {
+    var data = response.getDataTable();
+    visualization = new google.visualization.Table(document.getElementById('KU42StationTable'));
     visualization.draw(data, {allowHtml: true});
 }
 
