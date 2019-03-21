@@ -37,7 +37,13 @@ function handleWindCompareQuery(response) {
         hAxis: {
             slantedTextAngle: 70},
         vAxis: {
-            title: 'Wind Speed (mph)'},
+            title: 'Wind Speed (mph)',
+            titleTextStyle: {
+                color: 'red',
+                fontSize: 40},
+            textStyle: {
+                fontSize: 20,
+                bold: 'true'},},
     };
     visualization = new google.visualization.LineChart(document.getElementById('WindCompareChart'));
     visualization.draw(data, options);
