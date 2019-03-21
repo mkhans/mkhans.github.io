@@ -43,7 +43,10 @@ function handleWindCompareQuery(response) {
                 fontSize: 40},
             textStyle: {
                 fontSize: 20,
-                bold: 'true'},},
+                bold: 'true'},
+            viewWindow: {
+                min: 0},
+        },
     };
     visualization = new google.visualization.LineChart(document.getElementById('WindCompareChart'));
     visualization.draw(data, options);
