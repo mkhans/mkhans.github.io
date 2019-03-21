@@ -35,7 +35,6 @@ function handleWindCompareQuery(response) {
         curveType: 'function',
         interpolateNulls: true,
         hAxis: {
-            title: 'Last 2 Hours',
             slantedTextAngle: 70},
         vAxis: {
             title: 'Wind Speed (mph)'},
