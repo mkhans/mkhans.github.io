@@ -52,29 +52,27 @@ function handleThreeDaysQuery(response) {
 function forecastedImgLoop(loopId, imgType) {
   var rotator = document.getElementById(loopId);
   var delay = 1800;
-  var time = new Date();
-  var timejump = 1;
+  var startTime = 1;
   var images = [];
   
-  if (time.getHours() > 18) { //Switch to next day images if after 9pm
-      timejump = timejump + 4;
+  if (today.getHours() > 21) { //Switch to next day images if after 9pm
+      startTime = startTime + 4;
   }
     
   for (i = 0; i < 6; i++) { //Load images array
-      images[i] = `https://graphical.weather.gov/images/slc/${imgType}${i + timejump}_slc.png`;
+      images[i] = `https://graphical.weather.gov/images/slc/${imgType}${i + startTime}_slc.png`;
   }
   
-  if (timejump === 5) { //Duplicate 2/3pm for visual pause
-  	images.splice (3, 0, "https://graphical.weather.gov/images/slc/"+imgType+"7_slc.png");
+  if (startTime === 5) { //Duplicate afternoon img for visual pause
+  	images.splice (3, 0, "https://graphical.weather.gov/images/slc/"+imgType+"7_slc.png"); //Next day
   } else {
-  	images.splice (3, 0, "https://graphical.weather.gov/images/slc/"+imgType+"3_slc.png");
+  	images.splice (3, 0, "https://graphical.weather.gov/images/slc/"+imgType+"3_slc.png"); //Current day
   }
 
   var loopCount = 0;
   var changeImage = function() {
-      var length = images.length - 1;
       rotator.src = images[loopCount++];
-      if (loopCount == length) {
+      if (loopCount == 6) {
           loopCount = 0;
       }
 };
