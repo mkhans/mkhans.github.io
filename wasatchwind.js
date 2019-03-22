@@ -55,7 +55,7 @@ function forecastedImgLoop(loopId, imgType) {
   var startTime = 1;
   var images = [];
   
-  if (today.getHours() > 19) { //Switch to next day images if after 9pm
+  if (today.getHours() > 19 || today.getHours() < 7) { //Switch to next day images if after 7pm, switch back after 7am
       startTime = startTime + 4;
   }
     
