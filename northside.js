@@ -42,7 +42,7 @@ function handleWindCompareQuery(response) {
                 color: 'black',
                 fontSize: 40},
             textStyle: {
-                fontSize: 30,
+                fontSize: 40,
                 bold: 'true'},
             viewWindow: {
                 min: 0},
