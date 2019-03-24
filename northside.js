@@ -39,7 +39,7 @@ function handleWindCompareQuery(response) {
         vAxis: {
             title: 'Wind Speed (mph)',
             titleTextStyle: {
-                color: 'red',
+                color: 'black',
                 fontSize: 40},
             textStyle: {
                 fontSize: 20,
