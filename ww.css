@@ -1,0 +1,51 @@
+body {
+    font-family: 'Arial';
+    background-color: #000034;
+    text-align: left;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 20px;
+    color: white;
+}
+nav {
+    font-size: 400%;
+    color: white;
+    text-align: center;
+}
+a:link {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:visited {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:hover {
+    color: white;
+    background-color: transparent;
+    text-decoration: underline;
+}
+a:active {
+    color: white;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    font-size: 200%;
+}
+
+#kslc-date-time {
+    color: lightblue;
+    font-size: 150%;
+}
+
+#picTimestamp {
+    color: lightblue;
+    font-size: 100%;
+    font-weight: bold;
+}
