@@ -1,4 +1,5 @@
-// Get KSLC timeseries data in JSON format, parse, and modify for output -----------------------------------------------
+// Get KSLC timeseries data in JSON format, parse, and modify for output
+// ---------------------------------------------------------------------
 
 var xhrTimeSeries = new XMLHttpRequest(); // xhr to hold the timeseries JSON data for KSLC
 xhrTimeSeries.open('GET', 'https://api.mesowest.net/v2/station/timeseries?&stid=kslc&recent=30&obtimezone=local&timeformat=%b%20%d%20-%20%H:%M&vars=air_temp,wind_speed,wind_direction,wind_cardinal_direction,altimeter&units=english,speed|mph&token=6243aadc536049fc9329c17ff2f88db3', true);
@@ -24,9 +25,22 @@ xhrTimeSeries.onload = function() {
                     dateHour = dateHour - 12;
                 }
             }
-        var dateAndTime = reportMonth + " " + reportDay + " @ " + dateHour + ":" + weatherData.STATION["0"].OBSERVATIONS.date_time[dataArrayLength].substr(12, 2) + ampm;
+        var dateToday = new Date();
+        var weekdayNumber = dateToday.getDay();
+        var weekdays = [];
+            weekdays[0] = "Sun";
+            weekdays[1] = "Mon";
+            weekdays[2] = "Tue";
+            weekdays[3] = "Wed";
+            weekdays[4] = "Thu";
+            weekdays[5] = "Fri";
+            weekdays[6] = "Sat";
+        var weekday = weekdays[weekdayNumber];
+    
         
-        document.getElementById('kslc-date-time').innerHTML = "KSLC, " + dateAndTime;
+        var dateAndTime = weekday + ", " + reportMonth + " " + reportDay + " @ " + dateHour + ":" + weatherData.STATION["0"].OBSERVATIONS.date_time[dataArrayLength].substr(12, 2) + ampm;
+        
+        document.getElementById('kslc-date-time').innerHTML = dateAndTime;
         
         // Get wind direction image
         var windDir = weatherData.STATION[0].OBSERVATIONS.wind_direction_set_1[dataArrayLength];
@@ -54,6 +68,38 @@ xhrTimeSeries.onload = function() {
         // Get temp, round to integer
         var temp = Math.round(weatherData.STATION[0].OBSERVATIONS.air_temp_set_1[dataArrayLength]) + "°";
         document.getElementById('temp').innerHTML = temp;
+
+    } else {
+        return "Data Error";
+    }
+}
+
+// Get Soaring Forecast data in JSON format, parse, and modify for output
+// ----------------------------------------------------------------------
+
+var xhrSoringForecast = new XMLHttpRequest(); // xhr to hold Soaring Forecast JSON data
+xhrSoringForecast.open('GET', 'https://mkhans.github.io/soarfcastjson.json', true);
+xhrSoringForecast.responseType = 'text';
+xhrSoringForecast.send();
+xhrSoringForecast.onload = function() {
+    if(xhrSoringForecast.status === 200) { // 200 indicates successful query
+        var soaringForecastData = JSON.parse(xhrSoringForecast.responseText);
+        console.log(soaringForecastData);
+        
+        var reportDate = soaringForecastData.SOARING_FORECAST_DATA[0].report_date;
+        document.getElementById('report-date').innerHTML = reportDate;
+        
+        var maxRateOfLift = soaringForecastData.SOARING_FORECAST_DATA[1].max_rol;
+        document.getElementById('max-rol').innerHTML = maxRateOfLift;
+        
+        var topOfLift = soaringForecastData.SOARING_FORECAST_DATA[2].top_of_lift;
+        document.getElementById('top-of-lift').innerHTML = topOfLift;
+        
+        var overDevTime = soaringForecastData.SOARING_FORECAST_DATA[3].od;
+        document.getElementById('od-time').innerHTML = overDevTime;
+        
+        var neg3Index = soaringForecastData.SOARING_FORECAST_DATA[4].neg3_index;
+        document.getElementById('neg3-index').innerHTML = neg3Index;
 
     } else {
         return "Data Error";

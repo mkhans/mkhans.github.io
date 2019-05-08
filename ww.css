@@ -32,18 +32,11 @@ a:active {
     background-color: transparent;
     text-decoration: underline;
 }
-
 h1 {
     text-align: center;
     color: white;
     font-size: 200%;
 }
-
-#kslc-date-time {
-    color: lightblue;
-    font-size: 150%;
-}
-
 #picTimestamp {
     color: lightblue;
     font-size: 100%;
