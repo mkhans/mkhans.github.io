@@ -78,7 +78,7 @@ xhrTimeSeries.onload = function() {
 // ----------------------------------------------------------------------
 
 var xhrSoringForecast = new XMLHttpRequest(); // xhr to hold Soaring Forecast JSON data
-xhrSoringForecast.open('GET', 'https://mkhans.github.io/soarfcastjson.json', true);
+xhrSoringForecast.open('GET', 'http://www.pythonanywhere.com/user/mkhans/files/home/mkhans/soarfcastjson.json', true);
 xhrSoringForecast.responseType = 'text';
 xhrSoringForecast.send();
 xhrSoringForecast.onload = function() {
