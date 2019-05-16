@@ -2,15 +2,119 @@
 <html>
     <head>
         <title>Wasatch Wind</title>
-        <meta charset="UTF-8">
-        <link href="ww.css" rel="stylesheet">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script type="text/javascript" src="ww.js"></script>
+        <link href="ww.css" rel="stylesheet">
     </head>
 
 <body>
 
     <img src="images/logo.png" width="15%">
     <img src="https://mkhans.github.io/images/pg.gif" width="10%"><p></p>
+    
+    <h1>Current Conditions</h1>
+    
+    <table>
+        <tr>
+            <td id="noaa-current-img" rowspan="3"></td>
+            <td id="noaa-current-sky" class="text-indent"></td>
+        </tr>
+        <tr>
+            <td id="noaa-current-temp" class="text-indent-lrg"></td>
+        </tr>
+        <tr>
+            <td id="noaa-current-pres" class="text-indent"></td>
+        </tr>
+    </table>
+    
+    
+        
+        <!--<img src="http://hazecam.x10host.com/slc/SLC.JPG" height=134px>
+        <img src="https://www.wrh.noaa.gov/images/slc/camera/latest/westvalleycity.latest.jpg" height=134px>-->
+        
+    
+    
+    <p>Today/This Afternoon Graphic & Forecast, Current Temp/HI, Current Pressure, Sunset Time</p>
+    
+    <button class="collapsible">Wind Speed (mph) & Direction</button>
+    <div class="current-wind">
+        <table class="roundedCorners">
+            <tr>
+                <th>Station</th>
+                <th>Time</th>
+                <th>Speed</th>
+                <th>Gust</th>
+                <th>Cardinal</th>
+                <th>Graphic</th>                
+            </tr>
+            <tr>
+                <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KSLC&table=1&banner=off" target="_blank">KSLC</a></td>
+                <td>2:10 pm</td>
+                <td id="wind-speed"></td>
+                <td>11</td>
+                <td id="wind-dir-card"></td>
+                <td><img src="http://www.usairnet.com/weather/winds_aloft/a170.gif"></td>
+            </tr>
+            <tr>
+                <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OC1WX&table=1&banner=off" target="_blank">Olympus MSI</a></td>
+                <td>2:10 pm</td>
+                <td>9</td>
+                <td>11</td>
+                <td>NNW</td>
+                <td><img src="http://www.usairnet.com/weather/winds_aloft/a170.gif"></td>
+            </tr>
+            <tr>
+                <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KU42&table=1&banner=off" target="_blank">Airport 2</a></td>
+                <td>2:10 pm</td>
+                <td>9</td>
+                <td>11</td>
+                <td>NNW</td>
+                <td><img src="http://www.usairnet.com/weather/winds_aloft/a170.gif"></td>
+            </tr>
+            <tr>
+                <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=FPN&table=1&banner=off" target="_blank">Northside</a></td>
+                <td>2:10 pm</td>
+                <td>9</td>
+                <td>11</td>
+                <td>NNW</td>
+                <td><img src="http://www.usairnet.com/weather/winds_aloft/a170.gif"></td>
+            </tr>
+            <tr>
+                <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=FPS&table=1&banner=off" target="_blank">Southside</a></td>
+                <td>2:10 pm</td>
+                <td>9</td>
+                <td>11</td>
+                <td>NNW</td>
+                <td><img src="http://www.usairnet.com/weather/winds_aloft/a170.gif"></td>
+            </tr>
+            <tr>
+                <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=C8948&table=1&banner=off" target="_blank">Centerville</a></td>
+                <td>2:10 pm</td>
+                <td>9</td>
+                <td>11</td>
+                <td>NNW</td>
+                <td><img src="http://www.usairnet.com/weather/winds_aloft/a170.gif"></td>
+            </tr>
+            <tr>
+                <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=AMB&table=1&banner=off" target="_blank">Baldy</a></td>
+                <td>2:10 pm</td>
+                <td>9</td>
+                <td>11</td>
+                <td>NNW</td>
+                <td><img src="http://www.usairnet.com/weather/winds_aloft/a170.gif"></td>
+            </tr>
+            <tr>
+                <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OGP&table=1&banner=off" target="_blank">Ogden Peak</a></td>
+                <td>2:10 pm</td>
+                <td>9</td>
+                <td>11</td>
+                <td>NNW</td>
+                <td><img src="http://www.usairnet.com/weather/winds_aloft/a170.gif"></td>
+            </tr>
+        </table>
+    </div>
+    
+    <br><br>
     
     KSLC as of:<div id="kslc-date-time"></div><br>
     Wind direction graphic:<div id="wind-dir-img"></div><br>
@@ -25,7 +129,22 @@
     Maximum Rate of Lift (ft/min):<div id="max-rol"></div><br>
     Top of Lift (ft):<div id="top-of-lift"></div><br>
     Overdevelopment Time:<div id="od-time"></div><br>
-    Height of the -3 Index (ft):<div id="neg3-index"></div>
-
+    Height of the -3 Index (ft):<div id="neg3-index"></div><br>
+    
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var currentWind = this.nextElementSibling;
+            if (currentWind.style.maxHeight){
+                currentWind.style.maxHeight = null;
+            } else {
+                currentWind.style.maxHeight = currentWind.scrollHeight + "px";
+            }
+            });
+        }
+    </script>
+    
 </body>
 </html>
