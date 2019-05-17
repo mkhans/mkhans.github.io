@@ -75,7 +75,7 @@ xhrTimeSeries.onload = function() {
             } else {
                 windDir = windDir + 180;
             }
-        var windDirURL = "<img src='http://www.usairnet.com/weather/winds_aloft/a" + windDir + ".gif'>";
+        var windDirURL = "<img src='https://www.usairnet.com/weather/winds_aloft/a" + windDir + ".gif'>";
         document.getElementById('wind-dir-img').innerHTML = windDirURL;
 
         // Get wind direction cardinal
