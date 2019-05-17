@@ -2,7 +2,7 @@
 // ---------------------------------------------------------------------------------------------
 
 var noaaForecastURL = "https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XNmCho5KhPY";
-$.getJSON('https://www.whateverorigin.org/get?url=' + encodeURIComponent(noaaForecastURL) + '&callback=?', function(noaafdata) {
+$.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(noaaForecastURL) + '&callback=?', function(noaafdata) {
     
     // Find URL for current weather image, add html for display
     var noaaCurrentImg = String('<img src="https://forecast.weather.gov/newimages/' + noaafdata.contents.match(/large?\S*png/) + '" height=200px>');
