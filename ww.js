@@ -108,7 +108,7 @@ xhrTimeSeries.onload = function() {
 // ------------------------------------------------------------------------------------------------------------
 
 var soaringForecastURL = "https://www.weather.gov/source/slc/aviation/files/SLCSRGSLC0.txt";
-$.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent(soaringForecastURL) + '&callback=?', function(sfdata) {
+$.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(soaringForecastURL) + '&callback=?', function(sfdata) {
     //console.log(sfdata); // For troubleshooting
     // Split page text content into individual lines
     var sfLines = sfdata.contents.split("\n");
