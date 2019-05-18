@@ -41,6 +41,10 @@ td.text-indent-lrg {
     font-size: 200%;
     font-weight: bold;
 }
+th, td {
+    font-size: 120%;
+    vertical-align: middle;
+}
 .bottom-pad {
     margin-bottom: 3px;
 }
@@ -53,14 +57,13 @@ td.text-indent-lrg {
   border: none;
   text-align: center;
   outline: none;
-  font-size: 100%;
+  font-size: 150%;
 }
 .collapsible:after {
   content: '\002B';
   color: yellow;
   font-weight: bold;
   float: right;
-  
 }
 .active:after {
   content: "\2212";
