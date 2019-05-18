@@ -1,11 +1,11 @@
-// Scrape NOAA Forecast data via JQuery (in HTML <head>), bypassing CORS with whateverorigin.org
-// ---------------------------------------------------------------------------------------------
+// Scrape NOAA Forecast data via JQuery, bypassing CORS with whateverorigin
+// ------------------------------------------------------------------------
 
 var noaaForecastURL = "https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XNmCho5KhPY";
 $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(noaaForecastURL) + '&callback=?', function(noaafdata) {
     
     // Find URL for current weather image, add html for display
-    var noaaCurrentImg = String('<img src="https://forecast.weather.gov/newimages/' + noaafdata.contents.match(/large?\S*png/) + '" height=200px>');
+    var noaaCurrentImg = String('<a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank"><img src="https://forecast.weather.gov/newimages/' + noaafdata.contents.match(/large?\S*png/) + '" height=200px></a>');
     document.getElementById('noaa-current-img').innerHTML = noaaCurrentImg;
     
     // Find string for current conditions/sky cover
@@ -16,7 +16,7 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
     // Find string for current temp
     var noaaCurrentTemp = String(noaafdata.contents.match(/\d{1,3}(?=&deg;F<)/));
     var noaaHighTemp = String(noaafdata.contents.match(/\d{1,3}(?=\s&deg)/));
-    document.getElementById('noaa-current-temp').innerHTML = noaaCurrentTemp + "&deg F<span style='color:#ffb380; font-size:60%;'> &nbsp;(" + noaaHighTemp + ")</span>";
+    document.getElementById('noaa-current-temp').innerHTML = noaaCurrentTemp + "&deg F<span style='color:white; font-size:60%;'> &nbsp;(" + noaaHighTemp + ")</span>";
     
     // Find string for current pressure
     var noaaCurrentPres = String(noaafdata.contents.match(/\d{1,2}.\d{1,2}(?=\sin)/));
@@ -28,29 +28,32 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
 // -----------------------------------------------------------------------------
 
 var xhrTimeSeries = new XMLHttpRequest(); // xhr to hold the timeseries JSON data for KSLC
-xhrTimeSeries.open('GET', 'https://api.mesowest.net/v2/station/timeseries?&stid=kslc&recent=30&obtimezone=local&timeformat=%b%20%d%20-%20%H:%M&vars=air_temp,wind_speed,wind_direction,wind_cardinal_direction,altimeter&units=english,speed|mph&token=6243aadc536049fc9329c17ff2f88db3', true);
+xhrTimeSeries.open('GET', 'https://api.mesowest.net/v2/station/timeseries?&stid=kslc&stid=OC1WX&recent=120&obtimezone=local&timeformat=%b%20%d%20-%20%H:%M&vars=wind_speed,wind_gust,wind_direction,wind_cardinal_direction&units=english,speed|mph&token=6243aadc536049fc9329c17ff2f88db3', true);
 xhrTimeSeries.responseType = 'text';
 xhrTimeSeries.send();
 xhrTimeSeries.onload = function() {
-    if(xhrTimeSeries.status === 200) { // 200 indicates successful query
+    if (xhrTimeSeries.status === 200) { // 200 indicates successful query
         var weatherData = JSON.parse(xhrTimeSeries.responseText);
         //console.log(weatherData); // For troubleshooting
-        var dataArrayLength = weatherData.STATION[0].OBSERVATIONS.date_time.length - 1; // Returned array varies; need to know where it ends to get most recent data point
+        
+    // KSLC Data
+        var kslcDataArrayLength = weatherData.STATION[0].OBSERVATIONS.date_time.length - 1; // Returned array varies; need to know where it ends to get most recent data point
 
-        // Get date (format "mmm dd") & most recent time (adjust for 12h)
-        var reportMonth = weatherData.STATION[0].OBSERVATIONS.date_time[dataArrayLength].substr(0, 3);
-        var reportDay = weatherData.STATION[0].OBSERVATIONS.date_time[dataArrayLength].substr(4, 2);
-            if(parseInt(reportDay) < 10) {
+        // Get date (format "ddd, mmm dd") & most recent time (adjust for 12h)
+        var reportMonth = weatherData.STATION[0].OBSERVATIONS.date_time[kslcDataArrayLength].substr(0, 3);
+        var reportDay = weatherData.STATION[0].OBSERVATIONS.date_time[kslcDataArrayLength].substr(4, 2);
+            if (parseInt(reportDay) < 10) {
                 reportDay = reportDay.substr(1, 1);
             }
         var ampm = " am";
-        var dateHour = parseInt(weatherData.STATION[0].OBSERVATIONS.date_time[dataArrayLength].substr(9, 2));
-            if(dateHour > 11) {
+        var dateHour = parseInt(weatherData.STATION[0].OBSERVATIONS.date_time[kslcDataArrayLength].substr(9, 2));
+            if (dateHour > 11) {
                 ampm = " pm";
                 if (dateHour > 12) {
                     dateHour = dateHour - 12;
                 }
             }
+        var latestTime = dateHour + ":" + weatherData.STATION[0].OBSERVATIONS.date_time[kslcDataArrayLength].substr(12, 2) + ampm;
         var dateToday = new Date();
         var weekdayNumber = dateToday.getDay();
         var weekdays = [];
@@ -62,47 +65,51 @@ xhrTimeSeries.onload = function() {
             weekdays[5] = "Fri";
             weekdays[6] = "Sat";
         var weekday = weekdays[weekdayNumber];
-
-
-        var dateAndTime = weekday + ", " + reportMonth + " " + reportDay + " @ " + dateHour + ":" + weatherData.STATION["0"].OBSERVATIONS.date_time[dataArrayLength].substr(12, 2) + ampm;
-
+        var dateAndTime = weekday + ", " + reportMonth + " " + reportDay + " @ " + latestTime;
+        document.getElementById('kslc-time').innerHTML = latestTime;
         document.getElementById('kslc-date-time').innerHTML = dateAndTime;
 
         // Get wind direction image
-        var windDir = weatherData.STATION[0].OBSERVATIONS.wind_direction_set_1[dataArrayLength];
+        var windDir = weatherData.STATION[0].OBSERVATIONS.wind_direction_set_1[kslcDataArrayLength];
             if (windDir > 180) {
                 windDir = windDir - 180;
             } else {
                 windDir = windDir + 180;
             }
         var windDirURL = "<img src='https://www.usairnet.com/weather/winds_aloft/a" + windDir + ".gif'>";
-        document.getElementById('wind-dir-img').innerHTML = windDirURL;
+        document.getElementById('kslc-wind-dir-img').innerHTML = windDirURL;
 
         // Get wind direction cardinal
-        var windDirCard = weatherData.STATION[0].OBSERVATIONS.wind_cardinal_direction_set_1d[dataArrayLength];
-        document.getElementById('wind-dir-card').innerHTML = windDirCard;
+        var windDirCard = weatherData.STATION[0].OBSERVATIONS.wind_cardinal_direction_set_1d[kslcDataArrayLength];
+        document.getElementById('kslc-wind-dir-card').innerHTML = windDirCard;
 
         // Get wind speed, round to integer
-        var windSpeed = Math.round(weatherData.STATION[0].OBSERVATIONS.wind_speed_set_1[dataArrayLength]);
-        document.getElementById('wind-speed').innerHTML = windSpeed;
+        var windSpeed = Math.round(weatherData.STATION[0].OBSERVATIONS.wind_speed_set_1[kslcDataArrayLength]);
+        document.getElementById('kslc-wind-speed').innerHTML = windSpeed;
 
-        // Get pressure
-        var pressure = weatherData.STATION[0].OBSERVATIONS.altimeter_set_1[dataArrayLength].toFixed(2);
-        document.getElementById('pressure').innerHTML = pressure;
-
-        // Get temp, round to integer
-        var temp = Math.round(weatherData.STATION[0].OBSERVATIONS.air_temp_set_1[dataArrayLength]) + "°";
-        document.getElementById('temp').innerHTML = temp;
+        // Get wind gust, round to integer, "--" if no gust
+        try {
+            var windGust = Math.round(weatherData.STATION[0].OBSERVATIONS.wind_gust_set_1[kslcDataArrayLength]);
+        }
+        catch(err) {
+            var windGust = "--";
+        }
+        if (windGust == 0) {
+            windGust = "--";
+        }
+        document.getElementById('kslc-wind-gust').innerHTML = windGust;
+        
+    // Olympus MSI Data
+        var omsiDataArrayLength = weatherData.STATION[1].OBSERVATIONS.date_time.length - 1; // Returned array varies; need to know where it ends to get most recent data point
+        
+        // Get wind speed, round to integer
+        //var windSpeed = Math.round(weatherData.STATION[0].OBSERVATIONS.wind_speed_set_1[kslcDataArrayLength]);
+        //document.getElementById('kslc-wind-speed').innerHTML = windSpeed;
 
     } else {
         return "Data Error";
     }
 }
-
-// Get timesseries data in JSON format, parse, and modify for stations:
-// Olympus, KU42, Northside, Southside, Centerville, Baldy, Ogden Peak
-
-
 
 // Scrape online Soaring Forecast text data via JQuery (in HTML <head>), bypassing CORS with whateverorigin.org
 // ------------------------------------------------------------------------------------------------------------

@@ -14,114 +14,58 @@
     
     <h1>Current Conditions</h1>
     
-    <table>
-        <tr>
-            <td id="noaa-current-img" rowspan="3"></td>
-            <td id="noaa-current-sky" class="text-indent"></td>
-        </tr>
-        <tr>
-            <td id="noaa-current-temp" class="text-indent-lrg"></td>
-        </tr>
-        <tr>
-            <td id="noaa-current-pres" class="text-indent"></td>
-        </tr>
-    </table>
+        <div style='float:left'>
+            <table>
+                <tr>
+                    <td id="noaa-current-img" rowspan="3"></td>
+                    <td id="noaa-current-sky" class="text-indent"></td>
+                </tr>
+                <tr>
+                    <td id="noaa-current-temp" class="text-indent-lrg"></td>
+                </tr>
+                <tr>
+                    <td id="noaa-current-pres" class="text-indent"></td>
+                </tr>
+            </table>
+        </div>
+        <div style='float:right'>
+            <a href="http://hazecam.x10host.com/slc/SLC.JPG" target="_blank">
+            <img src="http://hazecam.x10host.com/slc/SLC.JPG" height=170px></a><br>
+            East Bench Looking West
+            <p class="bottom-pad"></p>
+        </div>
     
-    
-        
-        <!--<img src="http://hazecam.x10host.com/slc/SLC.JPG" height=134px>
-        <img src="https://www.wrh.noaa.gov/images/slc/camera/latest/westvalleycity.latest.jpg" height=134px>-->
-        
-    
-    
-    <p>Today/This Afternoon Graphic & Forecast, Current Temp/HI, Current Pressure, Sunset Time</p>
-    
-    <button class="collapsible">Wind Speed (mph) & Direction</button>
-    <div class="current-wind">
-        <table class="roundedCorners">
-            <tr>
-                <th>Station</th>
-                <th>Time</th>
-                <th>Speed</th>
-                <th>Gust</th>
-                <th>Cardinal</th>
-                <th>Graphic</th>                
-            </tr>
-            <tr>
-                <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KSLC&table=1&banner=off" target="_blank">KSLC</a></td>
-                <td>2:10 pm</td>
-                <td id="wind-speed"></td>
-                <td>11</td>
-                <td id="wind-dir-card"></td>
-                <td><img src="https://www.usairnet.com/weather/winds_aloft/a170.gif"></td>
-            </tr>
-            <tr>
-                <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OC1WX&table=1&banner=off" target="_blank">Olympus MSI</a></td>
-                <td>2:10 pm</td>
-                <td>9</td>
-                <td>11</td>
-                <td>NNW</td>
-                <td><img src="https://www.usairnet.com/weather/winds_aloft/a170.gif"></td>
-            </tr>
-            <tr>
-                <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KU42&table=1&banner=off" target="_blank">Airport 2</a></td>
-                <td>2:10 pm</td>
-                <td>9</td>
-                <td>11</td>
-                <td>NNW</td>
-                <td><img src="https://www.usairnet.com/weather/winds_aloft/a170.gif"></td>
-            </tr>
-            <tr>
-                <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=FPN&table=1&banner=off" target="_blank">Northside</a></td>
-                <td>2:10 pm</td>
-                <td>9</td>
-                <td>11</td>
-                <td>NNW</td>
-                <td><img src="https://www.usairnet.com/weather/winds_aloft/a170.gif"></td>
-            </tr>
-            <tr>
-                <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=FPS&table=1&banner=off" target="_blank">Southside</a></td>
-                <td>2:10 pm</td>
-                <td>9</td>
-                <td>11</td>
-                <td>NNW</td>
-                <td><img src="https://www.usairnet.com/weather/winds_aloft/a170.gif"></td>
-            </tr>
-            <tr>
-                <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=C8948&table=1&banner=off" target="_blank">Centerville</a></td>
-                <td>2:10 pm</td>
-                <td>9</td>
-                <td>11</td>
-                <td>NNW</td>
-                <td><img src="https://www.usairnet.com/weather/winds_aloft/a170.gif"></td>
-            </tr>
-            <tr>
-                <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=AMB&table=1&banner=off" target="_blank">Baldy</a></td>
-                <td>2:10 pm</td>
-                <td>9</td>
-                <td>11</td>
-                <td>NNW</td>
-                <td><img src="https://www.usairnet.com/weather/winds_aloft/a170.gif"></td>
-            </tr>
-            <tr>
-                <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OGP&table=1&banner=off" target="_blank">Ogden Peak</a></td>
-                <td>2:10 pm</td>
-                <td>9</td>
-                <td>11</td>
-                <td>NNW</td>
-                <td><img src="https://www.usairnet.com/weather/winds_aloft/a170.gif"></td>
-            </tr>
-        </table>
-    </div>
-    
-    <br><br>
+    <button class="collapsible">Key Wind Stations</button>
+        <div class="current-wind">
+            <table width="100%">
+                <tr>
+                    <th>Station</th>
+                    <th>Time</th>
+                    <th>Speed</th>
+                    <th>Gust</th>
+                    <th>Cardinal</th>
+                    <th>Graphic</th>
+                </tr>
+                <tr>
+                    <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KSLC&table=1&banner=off" target="_blank">KSLC</a></td>
+                    <td id="kslc-time"></td>
+                    <td id="kslc-wind-speed"></td>
+                    <td id="kslc-wind-gust"></td>
+                    <td id="kslc-wind-dir-card"></td>
+                    <td id="kslc-wind-dir-img"></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OC1WX&table=1&banner=off" target="_blank">Olympus MSI</a></td>
+                    <td id="omsi-time"></td>
+                    <td id="omsi-wind-speed"></td>
+                    <td id="omsi-wind-gust"></td>
+                    <td id="omsi-wind-dir-card"></td>
+                    <td id="omsi-wind-dir-img"></td>
+                </tr>
+            </table>
+        </div><br><br><br>
     
     KSLC as of:<div id="kslc-date-time"></div><br>
-    Wind direction graphic:<div id="wind-dir-img"></div><br>
-    Wind direction cardinal:<div id="wind-dir-card"></div><br>
-    Wind speed (mph):<div id="wind-speed"></div><br>
-    Pressure (inHg):<div id="pressure"></div><br>
-    Temp (F):<div id="temp"></div><br>
     
     <hr>
     

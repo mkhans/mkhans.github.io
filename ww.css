@@ -7,11 +7,6 @@ body {
     font-size: 30px;
     color: white;
 }
-nav {
-    font-size: 400%;
-    color: white;
-    text-align: center;
-}
 a:link {
     color: yellow;
     background-color: transparent;
@@ -37,28 +32,35 @@ h1 {
     color: white;
     font-size: 200%;
 }
+td.text-indent {
+    padding-left: 20px;
+    font-size: 150%;
+}
+td.text-indent-lrg {
+    padding-left: 20px;
+    font-size: 200%;
+    font-weight: bold;
+}
+.bottom-pad {
+    margin-bottom: 3px;
+}
 .collapsible {
   background-color: #777;
   color: white;
   cursor: pointer;
-  padding: 12px;
+  padding: 10px;
   width: 100%;
   border: none;
-  text-align: left;
+  text-align: center;
   outline: none;
-  font-size: 20px;
+  font-size: 100%;
 }
-
-.active, .collapsible:hover {
-  background-color: #555;
-}
-
 .collapsible:after {
   content: '\002B';
-  color: white;
+  color: yellow;
   font-weight: bold;
   float: right;
-  margin-left: 5px;
+  
 }
 .active:after {
   content: "\2212";
@@ -69,30 +71,7 @@ h1 {
   overflow: hidden;
   transition: max-height 0.2s ease-out;
 }
-table.roundedCorners {
-    width: 100%;
-    border: 1px solid white;
-    border-spacing: 0;
-    border-radius: 20px;
-}
-table.roundedCorners td,
-table.roundedCorners th {
-    border-bottom: 1px solid white;
-    padding: 5px;
-    font-size: 150%
-}
-table.roundedCorners tr:last-child > td {
-    border-bottom: none;
-}
-td.text-indent {
-    padding-left: 20px;
-    font-size: 150%;
-}
-td.text-indent-lrg {
-    padding-left: 20px;
-    font-size: 200%;
-    font-weight: bold;
-}
+
 #picTimestamp {
     color: lightblue;
     font-size: 100%;
