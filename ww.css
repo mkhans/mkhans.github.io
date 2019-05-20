@@ -32,11 +32,10 @@ h1 {
     color: white;
     font-size: 200%;
 }
-td.text-indent {
+td.indent {
     padding-left: 20px;
-    font-size: 150%;
 }
-td.text-indent-lrg {
+td.indent-lrg {
     padding-left: 20px;
     font-size: 200%;
     font-weight: bold;
