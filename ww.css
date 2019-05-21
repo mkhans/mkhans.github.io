@@ -33,12 +33,21 @@ h1 {
     font-size: 200%;
 }
 td.indent {
-    padding-left: 20px;
+    padding-left: 25px;
 }
 td.indent-lrg {
-    padding-left: 20px;
+    padding-left: 25px;
     font-size: 200%;
     font-weight: bold;
+}
+td.subscript {
+    text-align: center;
+    font-size: 100%;
+}
+td.bold {
+    text-align: center;
+    font-weight: bold;
+    font-size: 200%;
 }
 th, td {
     font-size: 120%;

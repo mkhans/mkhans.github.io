@@ -13,7 +13,7 @@ var noaaForecastURL = "https://forecast.weather.gov/MapClick.php?lat=40.76031000
 $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(noaaForecastURL) + '&callback=?', function(noaafdata) {
     
     // Find URL for current weather image, add html for display
-    var noaaCurrentImg = String('<a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank"><img src="https://forecast.weather.gov/newimages/' + noaafdata.contents.match(/large?\S*png/) + '" height=60px></a>');
+    var noaaCurrentImg = String('<a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank"><img src="https://forecast.weather.gov/newimages/' + noaafdata.contents.match(/large?\S*png/) + '" height=85px></a>');
     document.getElementById('noaa-current-img').innerHTML = noaaCurrentImg;
     
     // Find string for current conditions/sky cover
@@ -86,23 +86,22 @@ xhrTimeSeries.onload = function() {
             latestTimes[i] = stationHour[i] + ":" + stationMins[i] + stationAMPM[i];
         }
         document.getElementById('kslc-time').innerHTML = latestTimes[0];
-        document.getElementById('omsi-time').innerHTML = latestTimes[1];
+        document.getElementById('ogpk-time').innerHTML = latestTimes[1];
         document.getElementById('pkcy-time').innerHTML = latestTimes[2];
-        document.getElementById('cvil-time').innerHTML = latestTimes[3];
-        document.getElementById('ogpk-time').innerHTML = latestTimes[4];
+        document.getElementById('omsi-time').innerHTML = latestTimes[3];
+        document.getElementById('cvil-time').innerHTML = latestTimes[4];
                 
-        // This loop rounds and loads wind speed for each station reading
+        // This loop rounds and loads wind speed & wind gust for each station reading, "--" if null
         for (i=0; i<stationsCount; i++) {
-            windSpeeds[i] = Math.round(weatherData.STATION[i].OBSERVATIONS.wind_speed_set_1[stationObservationsCount[i]]);
-        }
-        document.getElementById('kslc-wind-speed').innerHTML = windSpeeds[0];
-        document.getElementById('omsi-wind-speed').innerHTML = windSpeeds[1];
-        document.getElementById('pkcy-wind-speed').innerHTML = windSpeeds[2];
-        document.getElementById('cvil-wind-speed').innerHTML = windSpeeds[3];
-        document.getElementById('ogpk-wind-speed').innerHTML = windSpeeds[4];
-        
-        // This loop rounds and loads wind gust for each station, "--" if null
-        for (i=0; i<stationsCount; i++) {
+            try {
+                windSpeeds[i] = Math.round(weatherData.STATION[i].OBSERVATIONS.wind_speed_set_1[stationObservationsCount[i]]);
+            }
+            catch(err) {
+                windSpeeds[i] = "--";
+            }
+            if (windSpeeds[i] == 0) {
+                windSpeeds[i] = "--";
+            }
             try {
                 windGusts[i] = Math.round(weatherData.STATION[i].OBSERVATIONS.wind_gust_set_1[stationObservationsCount[i]]);
             }
@@ -113,37 +112,55 @@ xhrTimeSeries.onload = function() {
                 windGusts[i] = "--";
             }
         }
+        document.getElementById('kslc-wind-speed').innerHTML = windSpeeds[0];
+        document.getElementById('ogpk-wind-speed').innerHTML = windSpeeds[1];
+        document.getElementById('pkcy-wind-speed').innerHTML = windSpeeds[2];
+        document.getElementById('omsi-wind-speed').innerHTML = windSpeeds[3];
+        document.getElementById('cvil-wind-speed').innerHTML = windSpeeds[4];
         document.getElementById('kslc-wind-gust').innerHTML = windGusts[0];
-        document.getElementById('omsi-wind-gust').innerHTML = windGusts[1];
+        document.getElementById('ogpk-wind-gust').innerHTML = windGusts[1];
         document.getElementById('pkcy-wind-gust').innerHTML = windGusts[2];
-        document.getElementById('cvil-wind-gust').innerHTML = windGusts[3];
-        document.getElementById('ogpk-wind-gust').innerHTML = windGusts[4];
+        document.getElementById('omsi-wind-gust').innerHTML = windGusts[3];
+        document.getElementById('cvil-wind-gust').innerHTML = windGusts[4];
         
         // This loop extracts wind direction cardinal for each station
         for (i=0; i<stationsCount; i++) {
-            windDirCards[i] = weatherData.STATION[i].OBSERVATIONS.wind_cardinal_direction_set_1d[stationObservationsCount[i]];
+            try {
+                windDirCards[i] = weatherData.STATION[i].OBSERVATIONS.wind_cardinal_direction_set_1d[stationObservationsCount[i]];
+            }
+            catch(err) {
+                windDirCards[i] = "--";
+            }
+            if (windDirCards[i] == null) {
+                windDirCards[i] = "--";
+            }
         }
         document.getElementById('kslc-wind-dir-card').innerHTML = windDirCards[0];
-        document.getElementById('omsi-wind-dir-card').innerHTML = windDirCards[1];
+        document.getElementById('ogpk-wind-dir-card').innerHTML = windDirCards[1];
         document.getElementById('pkcy-wind-dir-card').innerHTML = windDirCards[2];
-        document.getElementById('cvil-wind-dir-card').innerHTML = windDirCards[3];
-        document.getElementById('ogpk-wind-dir-card').innerHTML = windDirCards[4];
+        document.getElementById('omsi-wind-dir-card').innerHTML = windDirCards[3];
+        document.getElementById('cvil-wind-dir-card').innerHTML = windDirCards[4];
         
         // This loop gets wind direction image for each station
         for (i=0; i<stationsCount; i++) {
-            windDirImgs[i] = Math.round(weatherData.STATION[i].OBSERVATIONS.wind_direction_set_1[stationObservationsCount[i]] / 10) * 10;
-            if (windDirImgs[i] > 180) {
-                windDirImgs[i] = windDirImgs[i] - 180;
-            } else {
-                windDirImgs[i] = windDirImgs[i] + 180;
+            try {
+                windDirImgs[i] = Math.round(weatherData.STATION[i].OBSERVATIONS.wind_direction_set_1[stationObservationsCount[i]] / 10) * 10;
+                if (windDirImgs[i] > 180) {
+                    windDirImgs[i] = windDirImgs[i] - 180;
+                } else {
+                    windDirImgs[i] = windDirImgs[i] + 180;
+                }
+                windDirURLs[i] = "<img src='https://www.usairnet.com/weather/winds_aloft/a" + windDirImgs[i] + ".gif'>";
             }
-            windDirURLs[i] = "<img src='https://www.usairnet.com/weather/winds_aloft/a" + windDirImgs[i] + ".gif'>";
+            catch(err) {
+                windDirURLs[i] = "Calm";
+            }
         }
         document.getElementById('kslc-wind-dir-img').innerHTML = windDirURLs[0];
-        document.getElementById('omsi-wind-dir-img').innerHTML = windDirURLs[1];
+        document.getElementById('ogpk-wind-dir-img').innerHTML = windDirURLs[1];
         document.getElementById('pkcy-wind-dir-img').innerHTML = windDirURLs[2];
-        document.getElementById('cvil-wind-dir-img').innerHTML = windDirURLs[3];
-        document.getElementById('ogpk-wind-dir-img').innerHTML = windDirURLs[4];
+        document.getElementById('omsi-wind-dir-img').innerHTML = windDirURLs[3];
+        document.getElementById('cvil-wind-dir-img').innerHTML = windDirURLs[4];
 
     } else {
         return "Data Error";

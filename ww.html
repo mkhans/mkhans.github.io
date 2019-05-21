@@ -14,30 +14,27 @@
     
     <h1>Current Conditions</h1>
     
-        <div style='float:left'>
-            <a href="http://hazecam.x10host.com/slc/SLC.JPG" target="_blank">
-            <img src="http://hazecam.x10host.com/slc/SLC.JPG" height=250px title="East Bench Looking West"></a><br>
-            <p class="bottom-pad"></p>
-        </div>
         <div>
-            <table height="250px">
+            <table height="250px" width=100%>
                 <tr>
+                    <td title="East Bench Looking West" rowspan="3" class="subscript">
+                        <a href="http://hazecam.x10host.com/slc/SLC.JPG" target="_blank">
+                            <img src="http://hazecam.x10host.com/slc/SLC.JPG" height=240px></a><br>
+                            East Bench Looking West</td>
                     <td id="noaa-current-img" class="indent"></td>
-                    <td id="noaa-current-sky"></td>
+                    <td id="noaa-current-sky" class="indent"></td>
                 </tr>
                 <tr>
-                    <td class="indent">Temp</td>
-                    <td id="noaa-current-temp"></td>
+                    <td class="indent"><img src="images/temp.png" height="85px"></td>
+                    <td id="noaa-current-temp" class="indent-lrg"></td>
                 </tr>
                 <tr>
-                    <td class="indent">Pres</td>
-                    <td id="noaa-current-pres"></td>
-                </tr>
-                <tr>
-                    <td class="indent" colspan="2">East Bench Looking West</td>
+                    <td class="indent"><img src="images/pressure.png" height="85px"></td>
+                    <td id="noaa-current-pres" class="indent"></td>
                 </tr>
             </table>
         </div>
+        <p class="bottom-pad"></p>
     
     <button class="collapsible">Key Wind Stations (mph)</button>
         <div class="current-wind">
@@ -53,7 +50,7 @@
                 <tr>
                     <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KSLC&table=1&banner=off" target="_blank">KSLC</a></td>
                     <td id="kslc-time"></td>
-                    <td id="kslc-wind-speed" style='text-align:center';></td>
+                    <td id="kslc-wind-speed" class="bold"></td>
                     <td id="kslc-wind-gust" style='text-align:center';></td>
                     <td id="kslc-wind-dir-card" style='text-align:center';></td>
                     <td id="kslc-wind-dir-img" style='text-align:center';></td>
@@ -61,7 +58,7 @@
                 <tr>
                     <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OC1WX&table=1&banner=off" target="_blank">Oly MSI</a></td>
                     <td id="omsi-time"></td>
-                    <td id="omsi-wind-speed" style='text-align:center';></td>
+                    <td id="omsi-wind-speed" class="bold"></td>
                     <td id="omsi-wind-gust" style='text-align:center';></td>
                     <td id="omsi-wind-dir-card" style='text-align:center';></td>
                     <td id="omsi-wind-dir-img" style='text-align:center';></td>
@@ -69,15 +66,15 @@
                 <tr>
                     <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=PKC&table=1&banner=off" target="_blank">Jupiter</a></td>
                     <td id="pkcy-time"></td>
-                    <td id="pkcy-wind-speed" style='text-align:center';></td>
+                    <td id="pkcy-wind-speed" class="bold"></td>
                     <td id="pkcy-wind-gust" style='text-align:center';></td>
                     <td id="pkcy-wind-dir-card" style='text-align:center';></td>
                     <td id="pkcy-wind-dir-img" style='text-align:center';></td>
                 </tr>
                 <tr>
-                    <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=C8948&table=1&banner=off" target="_blank">Cville</a></td>
+                    <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=C8948&table=1&banner=off" target="_blank">Legacy</a></td>
                     <td id="cvil-time"></td>
-                    <td id="cvil-wind-speed" style='text-align:center';></td>
+                    <td id="cvil-wind-speed" class="bold"></td>
                     <td id="cvil-wind-gust" style='text-align:center';></td>
                     <td id="cvil-wind-dir-card" style='text-align:center';></td>
                     <td id="cvil-wind-dir-img" style='text-align:center';></td>
@@ -85,7 +82,7 @@
                 <tr>
                     <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OGP&table=1&banner=off" target="_blank">Ogden Pk</a></td>
                     <td id="ogpk-time"></td>
-                    <td id="ogpk-wind-speed" style='text-align:center';></td>
+                    <td id="ogpk-wind-speed" class="bold"></td>
                     <td id="ogpk-wind-gust" style='text-align:center';></td>
                     <td id="ogpk-wind-dir-card" style='text-align:center';></td>
                     <td id="ogpk-wind-dir-img" style='text-align:center';></td>
