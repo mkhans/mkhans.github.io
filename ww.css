@@ -32,56 +32,81 @@ h1 {
     color: white;
     font-size: 200%;
 }
+h1.section {
+    text-align: center;
+    color: white;
+    background-color: #777;
+    font-size: 250%;
+    border: 5px solid white;
+}
 td.indent {
     padding-left: 25px;
+    text-align: left;
 }
 td.indent-lrg {
     padding-left: 25px;
     font-size: 200%;
     font-weight: bold;
+    text-align: left;
 }
 td.subscript {
     text-align: center;
     font-size: 100%;
 }
-td.bold {
+td.bold-lrg {
     text-align: center;
     font-weight: bold;
     font-size: 200%;
 }
+td.bold {
+    font-weight: bold;
+    text-align: center;
+}
+th.left, td.left {
+    text-align: left;
+}
 th, td {
     font-size: 120%;
     vertical-align: middle;
+    text-align: center;
 }
 .bottom-pad {
-    margin-bottom: 3px;
+    margin-bottom: 5px;
 }
 .collapsible {
-  background-color: #777;
-  color: white;
-  cursor: pointer;
-  padding: 10px;
-  width: 100%;
-  border: none;
-  text-align: center;
-  outline: none;
-  font-size: 150%;
+    background-color: #000034;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    border: 5px solid white;
+    border-radius: 25px;
+    text-align: left;
+    font-size: 150%;
+    font-weight: bold;
 }
 .collapsible:after {
-  content: '\002B';
-  color: yellow;
-  font-weight: bold;
-  float: right;
+    content: '\002B';
+    color: yellow;
+    font-weight: bold;
+    font-size: 150%;
+    float: right;
 }
 .active:after {
-  content: "\2212";
+    content: "\2212";
 }
 .current-wind {
-  padding: 0 18px;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
 }
+
+
+
+
+
+
 
 #picTimestamp {
     color: lightblue;

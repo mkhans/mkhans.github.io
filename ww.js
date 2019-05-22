@@ -122,7 +122,7 @@ xhrTimeSeries.onload = function() {
         document.getElementById('pkcy-wind-gust').innerHTML = windGusts[2];
         document.getElementById('omsi-wind-gust').innerHTML = windGusts[3];
         document.getElementById('cvil-wind-gust').innerHTML = windGusts[4];
-        
+
         // This loop extracts wind direction cardinal for each station
         for (i=0; i<stationsCount; i++) {
             try {
@@ -145,12 +145,16 @@ xhrTimeSeries.onload = function() {
         for (i=0; i<stationsCount; i++) {
             try {
                 windDirImgs[i] = Math.round(weatherData.STATION[i].OBSERVATIONS.wind_direction_set_1[stationObservationsCount[i]] / 10) * 10;
-                if (windDirImgs[i] > 180) {
-                    windDirImgs[i] = windDirImgs[i] - 180;
+                if (windDirImgs[i] !== 0) {
+                    if (windDirImgs[i] > 180) {
+                        windDirImgs[i] = windDirImgs[i] - 180;
+                    } else {
+                        windDirImgs[i] = windDirImgs[i] + 180;
+                    }
+                    windDirURLs[i] = "<img src='https://www.usairnet.com/weather/winds_aloft/a" + windDirImgs[i] + ".gif'>";
                 } else {
-                    windDirImgs[i] = windDirImgs[i] + 180;
+                    windDirURLs[i] = "Calm";
                 }
-                windDirURLs[i] = "<img src='https://www.usairnet.com/weather/winds_aloft/a" + windDirImgs[i] + ".gif'>";
             }
             catch(err) {
                 windDirURLs[i] = "Calm";

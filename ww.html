@@ -9,10 +9,12 @@
 
 <body>
 
-    <img src="images/logo.png" width="15%">
-    <img src="https://mkhans.github.io/images/pg.gif" width="10%"><p></p>
+    <img src="images/logo.png" width="30%">
+    <img src="https://mkhans.github.io/images/pg.gif" width="20%" align="right">
+        <p class="bottom-pad"></p>
     
-    <h1>Current Conditions</h1>
+    <h1 class="section">Current Conditions</h1>
+        <p class="bottom-pad"></p>
     
         <div>
             <table height="250px" width=100%>
@@ -30,17 +32,22 @@
                 </tr>
                 <tr>
                     <td class="indent"><img src="images/pressure.png" height="85px"></td>
-                    <td id="noaa-current-pres" class="indent"></td>
+                    <td id="noaa-current-pres" class="indent" style="font-weight:bold"></td>
                 </tr>
             </table>
         </div>
         <p class="bottom-pad"></p>
     
-    <button class="collapsible">Key Wind Stations (mph)</button>
-        <div class="current-wind">
+    <h1>Surface Wind</h1>
+        <a href="http://www.wrh.noaa.gov/slc/current/meso.slv.php" target="_blank">
+        <img src="http://www.wrh.noaa.gov/mesowest/symmap.php?map=slc&dem=&scale=6&wx=0&res=60&disp=&limit=&wfo=" width="100%"></a>
+        <p class="bottom-pad"></p>
+    
+    <button class="collapsible">Key Wind Stations (mph)<br>Click to expand</button>
+        <div class="current-wind"><br>
             <table width="100%">
                 <tr>
-                    <th>Station</th>
+                    <th class="left">Station</th>
                     <th>Time</th>
                     <th>Speed</th>
                     <th>Gust</th>
@@ -48,49 +55,58 @@
                     <th>Graphic</th>
                 </tr>
                 <tr>
-                    <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KSLC&table=1&banner=off" target="_blank">KSLC</a></td>
+                    <td class="left"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KSLC&table=1&banner=off" target="_blank">KSLC</a></td>
                     <td id="kslc-time"></td>
-                    <td id="kslc-wind-speed" class="bold"></td>
-                    <td id="kslc-wind-gust" style='text-align:center';></td>
-                    <td id="kslc-wind-dir-card" style='text-align:center';></td>
-                    <td id="kslc-wind-dir-img" style='text-align:center';></td>
+                    <td id="kslc-wind-speed" class="bold-lrg"></td>
+                    <td id="kslc-wind-gust" class="bold"></td>
+                    <td id="kslc-wind-dir-card" class="bold"></td>
+                    <td id="kslc-wind-dir-img"></td>
                 </tr>
                 <tr>
-                    <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OC1WX&table=1&banner=off" target="_blank">Oly MSI</a></td>
+                    <td class="left"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OC1WX&table=1&banner=off" target="_blank">Oly MSI</a></td>
                     <td id="omsi-time"></td>
-                    <td id="omsi-wind-speed" class="bold"></td>
-                    <td id="omsi-wind-gust" style='text-align:center';></td>
-                    <td id="omsi-wind-dir-card" style='text-align:center';></td>
-                    <td id="omsi-wind-dir-img" style='text-align:center';></td>
+                    <td id="omsi-wind-speed" class="bold-lrg"></td>
+                    <td id="omsi-wind-gust" class="bold";></td>
+                    <td id="omsi-wind-dir-card" class="bold"></td>
+                    <td id="omsi-wind-dir-img"></td>
                 </tr>
                 <tr>
-                    <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=PKC&table=1&banner=off" target="_blank">Jupiter</a></td>
+                    <td class="left"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=PKC&table=1&banner=off" target="_blank">Jupiter</a></td>
                     <td id="pkcy-time"></td>
-                    <td id="pkcy-wind-speed" class="bold"></td>
-                    <td id="pkcy-wind-gust" style='text-align:center';></td>
-                    <td id="pkcy-wind-dir-card" style='text-align:center';></td>
-                    <td id="pkcy-wind-dir-img" style='text-align:center';></td>
+                    <td id="pkcy-wind-speed" class="bold-lrg"></td>
+                    <td id="pkcy-wind-gust" class="bold"></td>
+                    <td id="pkcy-wind-dir-card" class="bold"></td>
+                    <td id="pkcy-wind-dir-img"></td>
                 </tr>
                 <tr>
-                    <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=C8948&table=1&banner=off" target="_blank">Legacy</a></td>
+                    <td class="left"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=C8948&table=1&banner=off" target="_blank">Legacy</a></td>
                     <td id="cvil-time"></td>
-                    <td id="cvil-wind-speed" class="bold"></td>
-                    <td id="cvil-wind-gust" style='text-align:center';></td>
-                    <td id="cvil-wind-dir-card" style='text-align:center';></td>
-                    <td id="cvil-wind-dir-img" style='text-align:center';></td>
+                    <td id="cvil-wind-speed" class="bold-lrg"></td>
+                    <td id="cvil-wind-gust" class="bold"></td>
+                    <td id="cvil-wind-dir-card" class="bold"></td>
+                    <td id="cvil-wind-dir-img"></td>
                 </tr>
                 <tr>
-                    <td><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OGP&table=1&banner=off" target="_blank">Ogden Pk</a></td>
+                    <td class="left"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OGP&table=1&banner=off" target="_blank">Ogden Pk</a></td>
                     <td id="ogpk-time"></td>
-                    <td id="ogpk-wind-speed" class="bold"></td>
-                    <td id="ogpk-wind-gust" style='text-align:center';></td>
-                    <td id="ogpk-wind-dir-card" style='text-align:center';></td>
-                    <td id="ogpk-wind-dir-img" style='text-align:center';></td>
+                    <td id="ogpk-wind-speed" class="bold-lrg"></td>
+                    <td id="ogpk-wind-gust" class="bold"></td>
+                    <td id="ogpk-wind-dir-card" class="bold"></td>
+                    <td id="ogpk-wind-dir-img"></td>
                 </tr>
             </table>
-        </div><br><br><br>
+        </div>
+        <p class="bottom-pad"></p>
     
-    <hr>
+    <h1 class="section">Recent Past</h1>
+    
+    <h1>Clouds & Precip</h1>
+        <a href="https://www.accuweather.com/en/us/utah/weather-radar-rs?play=1" target="_blank">
+        <img src="http://sirocco.accuweather.com/sat_mosaic_640x480_public/rs/isarUT_.gif" width="100%"></a><br><br>
+    
+    
+    
+    
     
     Soaring Forecast Report Date:<div id="report-date"></div><br>
     Maximum Rate of Lift (ft/min):<div id="max-rol"></div><br>
