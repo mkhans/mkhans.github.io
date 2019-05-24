@@ -145,7 +145,7 @@ xhrTimeSeries.onload = function() {
         for (i=0; i<stationsCount; i++) {
             try {
                 windDirImgs[i] = Math.round(weatherData.STATION[i].OBSERVATIONS.wind_direction_set_1[stationObservationsCount[i]] / 10) * 10;
-                if (windDirImgs[i] !== 0) {
+                if (windDirImgs[i] !== null) {
                     if (windDirImgs[i] > 180) {
                         windDirImgs[i] = windDirImgs[i] - 180;
                     } else {
@@ -153,11 +153,11 @@ xhrTimeSeries.onload = function() {
                     }
                     windDirURLs[i] = "<img src='https://www.usairnet.com/weather/winds_aloft/a" + windDirImgs[i] + ".gif'>";
                 } else {
-                    windDirURLs[i] = "Calm";
+                    windDirURLs[i] = "http://www.usairnet.com/weather/winds_aloft/calm.gif";
                 }
             }
             catch(err) {
-                windDirURLs[i] = "Calm";
+                windDirURLs[i] = "No Read";
             }
         }
         document.getElementById('kslc-wind-dir-img').innerHTML = windDirURLs[0];

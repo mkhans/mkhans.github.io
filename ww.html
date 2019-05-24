@@ -11,41 +11,35 @@
 
     <img src="images/logo.png" width="30%">
     <img src="https://mkhans.github.io/images/pg.gif" width="20%" align="right">
-        <p class="bottom-pad"></p>
     
     <h1 class="section">Current Conditions</h1>
-        <p class="bottom-pad"></p>
     
-        <div>
-            <table height="250px" width=100%>
-                <tr>
-                    <td title="East Bench Looking West" rowspan="3" class="subscript">
-                        <a href="http://hazecam.x10host.com/slc/SLC.JPG" target="_blank">
-                            <img src="http://hazecam.x10host.com/slc/SLC.JPG" height=240px></a><br>
-                            East Bench Looking West</td>
-                    <td id="noaa-current-img" class="indent"></td>
-                    <td id="noaa-current-sky" class="indent"></td>
-                </tr>
-                <tr>
-                    <td class="indent"><img src="images/temp.png" height="85px"></td>
-                    <td id="noaa-current-temp" class="indent-lrg"></td>
-                </tr>
-                <tr>
-                    <td class="indent"><img src="images/pressure.png" height="85px"></td>
-                    <td id="noaa-current-pres" class="indent" style="font-weight:bold"></td>
-                </tr>
-            </table>
-        </div>
-        <p class="bottom-pad"></p>
+        <table height="250px">
+            <tr>
+                <td title="East Bench Looking West" rowspan="3">
+                    <a href="http://hazecam.x10host.com/slc/SLC.JPG" target="_blank">
+                        <img src="http://hazecam.x10host.com/slc/SLC.JPG" height=240px></a><br>
+                        East Bench Looking West</td>
+                <td id="noaa-current-img"></td>
+                <td id="noaa-current-sky" class="indent"></td>
+            </tr>
+            <tr>
+                <td class="indent"><img src="images/temp.png" height="85px"></td>
+                <td id="noaa-current-temp" class="indent-lrg"></td>
+            </tr>
+            <tr>
+                <td class="indent"><img src="images/pressure.png" height="85px"></td>
+                <td id="noaa-current-pres" class="indent bold"></td>
+            </tr>
+        </table>
     
     <h1>Surface Wind</h1>
         <a href="http://www.wrh.noaa.gov/slc/current/meso.slv.php" target="_blank">
-        <img src="http://www.wrh.noaa.gov/mesowest/symmap.php?map=slc&dem=&scale=6&wx=0&res=60&disp=&limit=&wfo=" width="100%"></a>
-        <p class="bottom-pad"></p>
+        <img src="http://www.wrh.noaa.gov/mesowest/symmap.php?map=slc&dem=&scale=6&wx=0&res=60&disp=&limit=&wfo=" width="100%"></a><br><br>
     
-    <button class="collapsible">Key Wind Stations (mph)<br>Click to expand</button>
+    <button class="collapsible">Key Wind Stations (mph)</button>
         <div class="current-wind"><br>
-            <table width="100%">
+            <table>
                 <tr>
                     <th class="left">Station</th>
                     <th>Time</th>

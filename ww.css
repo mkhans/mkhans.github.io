@@ -29,85 +29,71 @@ a:active {
 }
 h1 {
     text-align: center;
-    color: white;
-    font-size: 200%;
+    font-size: 175%;
 }
-h1.section {
-    text-align: center;
-    color: white;
-    background-color: #777;
-    font-size: 250%;
+table {
+    width: 100%;
     border: 5px solid white;
-}
-td.indent {
-    padding-left: 25px;
-    text-align: left;
-}
-td.indent-lrg {
-    padding-left: 25px;
-    font-size: 200%;
-    font-weight: bold;
-    text-align: left;
-}
-td.subscript {
-    text-align: center;
-    font-size: 100%;
-}
-td.bold-lrg {
-    text-align: center;
-    font-weight: bold;
-    font-size: 200%;
-}
-td.bold {
-    font-weight: bold;
-    text-align: center;
-}
-th.left, td.left {
-    text-align: left;
+    border-radius: 25px;
+    padding: 10px;
 }
 th, td {
     font-size: 120%;
     vertical-align: middle;
     text-align: center;
 }
-.bottom-pad {
-    margin-bottom: 5px;
+.section {
+    text-align: center;
+    background-color: #777;
+    font-size: 250%;
+    border: 5px solid white;
+    margin-bottom: 40px;
+}
+.indent {
+    padding-left: 25px;
+    text-align: left;
+}
+.indent-lrg {
+    padding-left: 25px;
+    font-size: 200%;
+    font-weight: bold;
+    text-align: left;
+}
+.bold {
+    font-weight: bold;
+}
+.bold-lrg {
+    font-weight: bold;
+    font-size: 200%;
+}
+.left {
+    text-align: left;
 }
 .collapsible {
-    background-color: #000034;
+    background-color: transparent;
     color: white;
     cursor: pointer;
     padding: 10px;
+    padding-top: 15px;
     width: 100%;
     border: 5px solid white;
     border-radius: 25px;
-    text-align: left;
-    font-size: 150%;
+    font-size: 175%;
     font-weight: bold;
+    text-align: left;
 }
 .collapsible:after {
-    content: '\002B';
-    color: yellow;
-    font-weight: bold;
-    font-size: 150%;
+    content: url(images/plus.png);
     float: right;
 }
 .active:after {
-    content: "\2212";
+    content: url(images/minus.png);
 }
 .current-wind {
-    padding: 0 18px;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
-
-
-
-
-
-
-
 #picTimestamp {
     color: lightblue;
     font-size: 100%;
