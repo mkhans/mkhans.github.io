@@ -1,14 +1,20 @@
 // Global variables
 // ----------------
+// ----------------
     
     // For comparing current month & date to report month & date
     var today = new Date(); // Get today's date
     var yyyy = today.getFullYear();
     var monthName = today.toLocaleString('en-us', {month: 'short'}); // Get month short format "mmm"
     var monthNum = today.getMonth() + 1;
+    var twoDigMonthNum;
+        if (monthNum < 10) {
+            twoDigMonthNum = "0" + monthNum;
+        }
     var dayNum = String(today.getDate()); // Get date #
 
 // Scrape & search NOAA Forecast data via JQuery, bypassing CORS with whateverorigin
+// ---------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------
 
 var noaaForecastURL = "https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XNmCho5KhPY";
@@ -35,6 +41,7 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
 });
 
 // Get timeseries data for key stations in JSON format via API, parse, and modify for output
+// -----------------------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------------
 
 var xhrTimeSeries = new XMLHttpRequest(); // xhr to hold the timeseries JSON data for KSLC
@@ -174,6 +181,7 @@ xhrTimeSeries.onload = function() {
 }
 
 // Scrape online Soaring Forecast text data via JQuery (in HTML <head>), bypassing CORS with whateverorigin.org
+// ------------------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
 
 var soaringForecastURL = "https://www.weather.gov/source/slc/aviation/files/SLCSRGSLC0.txt";

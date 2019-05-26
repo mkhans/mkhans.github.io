@@ -107,6 +107,20 @@
                     }
                     document.getElementById('slc-recent').src = slcRecentURL();
                 </script>
+    
+    <h1>Skew T<br>@ 6am</h1>
+        <a href="https://climate.cod.edu/flanis/analysis/raob/index.php?type=conus-current-current-skewt-KSLC-0#" target="_blank">
+            <img id='skewT', width="100%"></a>
+                <script type= "text/javascript">
+                    function getSkewTURL(){
+                        return "https://climate.cod.edu/data/raob/KSLC/skewt/KSLC.skewt." + yyyy + twoDigMonthNum + dayNum + ".12.gif";
+                    }
+                    document.getElementById('skewT').src = getSkewTURL();
+                </script>
+
+    <h1>Jetstream<br>Last 6 hrs</h1>
+        <a href="https://www.wunderground.com/maps/wind/jet-stream" target="_blank">
+        <img src="https://s.w-x.co/staticmaps/wu/wu/jetstream1200_cur/conus/animate.png" width="100%"></a><br><br>
 
     <h1 class="section">Forecast</h1>
     
