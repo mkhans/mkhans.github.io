@@ -3,8 +3,10 @@
     
     // For comparing current month & date to report month & date
     var today = new Date(); // Get today's date
-    var monthNow = today.toLocaleString('en-us', {month: 'short'}); // Get month short format "mmm"
-    var dayNow = String(today.getDate()); // Get date #
+    var yyyy = today.getFullYear();
+    var monthName = today.toLocaleString('en-us', {month: 'short'}); // Get month short format "mmm"
+    var monthNum = today.getMonth() + 1;
+    var dayNum = String(today.getDate()); // Get date #
 
 // Scrape & search NOAA Forecast data via JQuery, bypassing CORS with whateverorigin
 // ---------------------------------------------------------------------------------
@@ -145,7 +147,7 @@ xhrTimeSeries.onload = function() {
         for (i=0; i<stationsCount; i++) {
             try {
                 windDirImgs[i] = Math.round(weatherData.STATION[i].OBSERVATIONS.wind_direction_set_1[stationObservationsCount[i]] / 10) * 10;
-                if (windDirImgs[i] !== null) {
+                if (windDirImgs[i] != null) {
                     if (windDirImgs[i] > 180) {
                         windDirImgs[i] = windDirImgs[i] - 180;
                     } else {
@@ -153,11 +155,11 @@ xhrTimeSeries.onload = function() {
                     }
                     windDirURLs[i] = "<img src='https://www.usairnet.com/weather/winds_aloft/a" + windDirImgs[i] + ".gif'>";
                 } else {
-                    windDirURLs[i] = "http://www.usairnet.com/weather/winds_aloft/calm.gif";
+                    windDirURLs[i] = "<img src='http://www.usairnet.com/weather/winds_aloft/calm.gif'>";
                 }
             }
             catch(err) {
-                windDirURLs[i] = "No Read";
+                windDirURLs[i] = "Null";
             }
         }
         document.getElementById('kslc-wind-dir-img').innerHTML = windDirURLs[0];
@@ -165,7 +167,7 @@ xhrTimeSeries.onload = function() {
         document.getElementById('pkcy-wind-dir-img').innerHTML = windDirURLs[2];
         document.getElementById('omsi-wind-dir-img').innerHTML = windDirURLs[3];
         document.getElementById('cvil-wind-dir-img').innerHTML = windDirURLs[4];
-
+        
     } else {
         return "Data Error";
     }
@@ -218,3 +220,4 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
     document.getElementById('neg3-index').innerHTML = neg3Index;
 
 });
+
