@@ -49,44 +49,44 @@
                     <th>Graphic</th>
                 </tr>
                 <tr>
-                    <td class="left"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KSLC&table=1&banner=off" target="_blank">KSLC</a></td>
-                    <td id="kslc-time"></td>
-                    <td id="kslc-wind-speed" class="bold-lrg"></td>
-                    <td id="kslc-wind-gust" class="bold"></td>
-                    <td id="kslc-wind-dir-card" class="bold"></td>
-                    <td id="kslc-wind-dir-img"></td>
+                    <td id="station0-name" class="left"></td>
+                    <td id="station0-time"></td>
+                    <td id="station0-wind-speed" class="bold-lrg"></td>
+                    <td id="station0-wind-gust" class="bold"></td>
+                    <td id="station0-wind-dir-card" class="bold"></td>
+                    <td id="station0-wind-dir-img"></td>
                 </tr>
                 <tr>
-                    <td class="left"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OC1WX&table=1&banner=off" target="_blank">Oly MSI</a></td>
-                    <td id="omsi-time"></td>
-                    <td id="omsi-wind-speed" class="bold-lrg"></td>
-                    <td id="omsi-wind-gust" class="bold";></td>
-                    <td id="omsi-wind-dir-card" class="bold"></td>
-                    <td id="omsi-wind-dir-img"></td>
+                    <td id="station1-name" class="left"></td>
+                    <td id="station1-time"></td>
+                    <td id="station1-wind-speed" class="bold-lrg"></td>
+                    <td id="station1-wind-gust" class="bold";></td>
+                    <td id="station1-wind-dir-card" class="bold"></td>
+                    <td id="station1-wind-dir-img"></td>
                 </tr>
                 <tr>
-                    <td class="left"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=PKC&table=1&banner=off" target="_blank">Jupiter</a></td>
-                    <td id="pkcy-time"></td>
-                    <td id="pkcy-wind-speed" class="bold-lrg"></td>
-                    <td id="pkcy-wind-gust" class="bold"></td>
-                    <td id="pkcy-wind-dir-card" class="bold"></td>
-                    <td id="pkcy-wind-dir-img"></td>
+                    <td id="station2-name" class="left"></td>
+                    <td id="station2-time"></td>
+                    <td id="station2-wind-speed" class="bold-lrg"></td>
+                    <td id="station2-wind-gust" class="bold"></td>
+                    <td id="station2-wind-dir-card" class="bold"></td>
+                    <td id="station2-wind-dir-img"></td>
                 </tr>
                 <tr>
-                    <td class="left"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=C8948&table=1&banner=off" target="_blank">Legacy</a></td>
-                    <td id="cvil-time"></td>
-                    <td id="cvil-wind-speed" class="bold-lrg"></td>
-                    <td id="cvil-wind-gust" class="bold"></td>
-                    <td id="cvil-wind-dir-card" class="bold"></td>
-                    <td id="cvil-wind-dir-img"></td>
+                    <td id="station3-name" class="left"></td>
+                    <td id="station3-time"></td>
+                    <td id="station3-wind-speed" class="bold-lrg"></td>
+                    <td id="station3-wind-gust" class="bold"></td>
+                    <td id="station3-wind-dir-card" class="bold"></td>
+                    <td id="station3-wind-dir-img"></td>
                 </tr>
                 <tr>
-                    <td class="left"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OGP&table=1&banner=off" target="_blank">Ogden Pk</a></td>
-                    <td id="ogpk-time"></td>
-                    <td id="ogpk-wind-speed" class="bold-lrg"></td>
-                    <td id="ogpk-wind-gust" class="bold"></td>
-                    <td id="ogpk-wind-dir-card" class="bold"></td>
-                    <td id="ogpk-wind-dir-img"></td>
+                    <td id="station4-name" class="left"></td>
+                    <td id="station4-time"></td>
+                    <td id="station4-wind-speed" class="bold-lrg"></td>
+                    <td id="station4-wind-gust" class="bold"></td>
+                    <td id="station4-wind-dir-card" class="bold"></td>
+                    <td id="station4-wind-dir-img"></td>
                 </tr>
             </table>
         </div>
@@ -125,6 +125,22 @@
             - Last 18 hrs -
 
     <h1 class="section">Forecast</h1>
+    
+    <h1>Surface Wind & Sky</h1>
+        <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
+            <img src="https://graphical.weather.gov/images/slc/WindSpd1_slc.png" width="49%" alt="rotating image" id="rotatorWind"></a>
+                <script type= "text/javascript">
+                    forecastedImgLoop('rotatorWind', "WindSpd");
+                </script>
+        <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
+            <img src="https://graphical.weather.gov/images/slc/Sky1_slc.png" width="49%" alt="rotating image" id="rotatorSky"></a>
+                <script type= "text/javascript">
+                    forecastedImgLoop('rotatorSky', "Sky");
+                </script>
+    
+    <h1>SLC Hourly Graphical</h1>
+        <a href="https://forecast.weather.gov/MapClick.php?w0=t&w3=sfcwind&w3u=1&w4=sky&w5=pop&w7=rain&w9=snow&w13u=0&w16u=1&w17u=1&AheadHour=0&Submit=Submit&FcstType=graphical&textField1=40.7603&textField2=-111.8882&site=all&unit=0&dd=&bw=" target="_blank">
+            <img src="https://forecast.weather.gov/meteograms/Plotter.php?lat=40.7603&lon=-111.8882&wfo=SLC&zcode=UTZ003&gset=30&gdiff=10&unit=0&tinfo=MY7&ahour=0&pcmd=10001110101000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6" width="100%"></a>
     
     
     
