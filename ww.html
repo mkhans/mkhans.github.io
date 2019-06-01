@@ -9,8 +9,8 @@
 
 <body>
 
-    <img src="images/logo.png" width="30%">
-    <img src="https://mkhans.github.io/images/pg.gif" width="20%" align="right">
+    <img src="images/logo.png" width="30%" align="left">
+    <img src="https://mkhans.github.io/images/pg.gif" width="20%" align="right"><br><br><br><br><br>
     
     <h1 class="section">Current Conditions</h1>
     
@@ -113,7 +113,7 @@
         <img id='skewT', width="100%">
             <script type= "text/javascript">
                 function getSkewTURL(){
-                    return "https://climate.cod.edu/data/raob/KSLC/skewt/KSLC.skewt." + yyyy + twoDigMonthNum + dayNum + ".12.gif";
+                    return "https://climate.cod.edu/data/raob/KSLC/skewt/KSLC.skewt." + yyyy + twoDigitMonthNum + dayNum + ".12.gif";
                 }
                 document.getElementById('skewT').src = getSkewTURL();
             </script>
@@ -142,13 +142,60 @@
         <a href="https://forecast.weather.gov/MapClick.php?w0=t&w3=sfcwind&w3u=1&w4=sky&w5=pop&w7=rain&w9=snow&w13u=0&w16u=1&w17u=1&AheadHour=0&Submit=Submit&FcstType=graphical&textField1=40.7603&textField2=-111.8882&site=all&unit=0&dd=&bw=" target="_blank">
             <img src="https://forecast.weather.gov/meteograms/Plotter.php?lat=40.7603&lon=-111.8882&wfo=SLC&zcode=UTZ003&gset=30&gdiff=10&unit=0&tinfo=MY7&ahour=0&pcmd=10001110101000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6" width="100%"></a>
     
+    <h1>Soaring Forecast</h1>
+        <table>
+            <tr>
+                <td class="left">Soaring Forecast Report Date</td>
+                <td class="left bold-lrg" id="report-date"></td>
+            </tr>
+            <tr>
+                <td class="left">Height of the -3 Index (ft)</td>
+                <td class="left bold-lrg" id="neg3-index"></td>
+            </tr>
+            <tr>
+                <td class="left">Top of Lift (ft)</td>
+                <td class="left bold-lrg" id="top-of-lift"></td>
+            </tr>
+            <tr>
+                <td class="left">Max Rate of Lift (ft/min)</td>
+                <td class="left bold-lrg" id="max-rol"></td>
+            </tr>
+            <tr>
+                <td class="left">Overdevelopment Time</td>
+                <td class="left bold-lrg" id="od-time"></td>
+            </tr>
+        </table>
     
-    
-    Soaring Forecast Report Date:<div id="report-date"></div><br>
-    Maximum Rate of Lift (ft/min):<div id="max-rol"></div><br>
-    Top of Lift (ft):<div id="top-of-lift"></div><br>
-    Overdevelopment Time:<div id="od-time"></div><br>
-    Height of the -3 Index (ft):<div id="neg3-index"></div><br>
+    <h1>Winds Aloft</h1>
+        Forecast from <span id="winds-aloft-forecast-start"></span> to <span id="winds-aloft-forecast-end"></span>
+        <span id="winds-aloft-forecast-day"></span>
+        <table>
+            <tr>
+                <th>Altitude</th>
+                <th>Speed (mph)</th>
+                <th>Direction</th>
+            </tr>
+            <tr>
+                <td>6000' (1829m)</td>
+                <td>TBD</td>
+                <td>TBD</td>
+            </tr>
+            <tr>
+                <td>9000' (2743m)</td>
+                <td>TBD</td>
+                <td>TBD</td>
+            </tr>
+            <tr>
+                <td>12000' (3658m)</td>
+                <td>TBD</td>
+                <td>TBD</td>
+            </tr>
+            <tr>
+                <td>18000' (5486m)</td>
+                <td>TBD</td>
+                <td>TBD</td>
+            </tr>
+        </table>
     
     <script>
         var coll = document.getElementsByClassName("collapsible");

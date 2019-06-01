@@ -1,20 +1,21 @@
+// ----------------
 // Global variables
 // ----------------
-// ----------------
-    
-    // For comparing current month & date to report month & date
-    var today = new Date(); // Get today's date
-    var yyyy = today.getFullYear();
-    var monthName = today.toLocaleString('en-us', {month: 'short'}); // Get month short format "mmm"
-    var monthNum = today.getMonth() + 1;
-    var twoDigMonthNum;
-        if (monthNum < 10) {
-            twoDigMonthNum = "0" + monthNum;
-        }
-    var dayNum = String(today.getDate()); // Get date #
 
-// Scrape & search NOAA Forecast data via JQuery, bypassing CORS with whateverorigin
+    var today = new Date(); // Get today's date
+    var yyyy = today.getFullYear(); // Get current year 'yyyy' format, used in HTML file
+    //var monthName = today.toLocaleString('en-us', {month: 'short'}); // Get current month 'mmm' format
+    var monthNum = today.getMonth() + 1; // Get current month as a number (Jan = 1, etc.), used in HTML file
+    var twoDigitMonthNum; // Force current month number to 2 digits for URL use (Jan = 01, etc.), used in HTML file
+        if (monthNum < 10) {
+            twoDigitMonthNum = "0" + monthNum;
+        }
+    var dayNum = String(today.getDate()); // Get date #, used in HTML file 2 digits? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        console.log("today's date number (2 digits?): " + dayNum);
+    var hour = today.getHours(); // Get current hour
+
 // ---------------------------------------------------------------------------------
+// Scrape & search NOAA Forecast data via JQuery, bypassing CORS with whateverorigin
 // ---------------------------------------------------------------------------------
 
 var noaaForecastURL = "https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XNmCho5KhPY";
@@ -40,6 +41,76 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
 
 });
 
+// ----------------------------------------------------------------------------------------
+// Scrape & search Winds Aloft Forecast data via JQuery, bypassing CORS with whateverorigin
+// ----------------------------------------------------------------------------------------
+
+// This block determines which of 3 forecasts to get (6, 12, or 24 hr)
+// Get 6 hr if local time is between 2pm and 8pm same day
+// Get 24 hr if local time is 9pm or more same day, or before 7am next day
+// Get 12 hr as default if neither 6 or 24 hr are true
+    var fcastRange = "12";
+    if (hour >= 14 && hour <= 19) {
+        fcastRange = "06";
+    } else if (hour > 19 || hour <=6) {
+        fcastRange = "24";
+    }
+    console.log("forecast range: " + fcastRange);
+
+// Scrape data as "windAloftData", stored in "windAloftData.contents"
+    var windAloftForecastURL = "https://www.aviationweather.gov/windtemp/data?level=low&fcst=" + fcastRange + "&region=slc&layout=on&date=";
+    $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(windAloftForecastURL) + '&callback=?', function(windAloftData) {
+
+// Extract forecast start & end time (zulu), convert to mountain (-6 for summer)
+    var fcastStartTime = windAloftData.contents.match(/\d{2}(?=\d{2}-\d{4}Z)/);
+    fcastStartTime = parseInt(fcastStartTime) - 6;
+    if (fcastStartTime == 12) {
+        fcastStartTime = "Noon";
+    }
+    document.getElementById('winds-aloft-forecast-start').innerHTML = fcastStartTime;
+
+    var fcastEndTime = windAloftData.contents.match(/\d{2}(?=\d{2}Z.\sTEMPS)/);
+    fcastEndTime = parseInt(fcastEndTime) - 6;
+    if (fcastEndTime == 0) {
+        fcastEndTime = "Midnight";
+    }
+    document.getElementById('winds-aloft-forecast-end').innerHTML = fcastEndTime;
+
+    var fcastDay;
+    if (fcastRange == "24" && hour > 19) {
+        fcastDay = " (tomorrow)";
+    } else {
+        fcastDay = "";
+    }
+    document.getElementById('winds-aloft-forecast-day').innerHTML = fcastDay;
+
+// Extract full line of data for SLC, distribute into groups for 6, 9, 12, and 18
+    var slcLine = String(windAloftData.contents.match(/(SLC.*\n)(?=CZI)/));
+    var windAloft = {
+        sixDir: "", sixSpd: "", sixTmp: "",
+        nineDir: "", nineSpd: "", nineTmp: "",
+        twlvDir: "", twlvSpd: "", twlvTmp: "",
+        ehtnDir: "", ehtnSpd: "", ehtnTmp: ""
+    };
+    windAloft.sixDir = slcLine.substr(9,2);
+    windAloft.sixSpd = slcLine.substr(11,2);
+    windAloft.sixTmp = slcLine.substr(14,2);
+    windAloft.nineDir = slcLine.substr(17,2);
+    
+    
+    console.log(slcLine);
+    console.log(windAloft.sixDir);
+    console.log(windAloft.sixSpd);
+    console.log(windAloft.sixTmp);
+    console.log(windAloft.nineDir);
+    
+    
+});
+
+
+
+
+
 // Get timeseries data for key stations in JSON format via API, parse, and modify for output
 // -----------------------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------------
@@ -51,7 +122,7 @@ xhrTimeSeries.send();
 xhrTimeSeries.onload = function() {
     if (xhrTimeSeries.status === 200) { // 200 indicates successful query
         var weatherData = JSON.parse(xhrTimeSeries.responseText);
-        console.log(weatherData); // For troubleshooting
+        //console.log(weatherData); // For troubleshooting
         
         // Station Order: 0=KSLC, 1=Ogden Peak, 2=Park City Jupiter, 3=Olympus Cove, 4=Centerville
         
@@ -251,7 +322,7 @@ function forecastedImgLoop(loopId, imgType) {
   var startTime = 1;
   var images = [];
   
-  if (today.getHours() > 19 || today.getHours() < 8) { //Switch to next day images if after 7pm, switch back after 7am
+  if (hour > 19 || hour < 8) { //Switch to next day images if after 7pm, switch back after 7am
       startTime = startTime + 4;
   }
     
