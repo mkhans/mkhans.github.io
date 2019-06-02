@@ -1,119 +1,58 @@
-// ----------------
-// Global variables
-// ----------------
+// -------------------------------
+// -------------------------------
+// G L O B A L   V A R I A B L E S
+// -------------------------------
+// -------------------------------
 
-    var today = new Date(); // Get today's date
-    var yyyy = today.getFullYear(); // Get current year 'yyyy' format, used in HTML file
+    var today = new Date();
+    var yyyy = today.getFullYear();
     //var monthName = today.toLocaleString('en-us', {month: 'short'}); // Get current month 'mmm' format
     var monthNum = today.getMonth() + 1; // Get current month as a number (Jan = 1, etc.), used in HTML file
     var twoDigitMonthNum; // Force current month number to 2 digits for URL use (Jan = 01, etc.), used in HTML file
         if (monthNum < 10) {
             twoDigitMonthNum = "0" + monthNum;
         }
-    var dayNum = String(today.getDate()); // Get date #, used in HTML file 2 digits? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        console.log("today's date number (2 digits?): " + dayNum);
+    var dayNum = String(today.getDate()); // Get current date #, force to 2 digits, used in HTML file
+        if (dayNum < 10) {
+            dayNum = "0" + dayNum;
+        }
     var hour = today.getHours(); // Get current hour
 
-// ---------------------------------------------------------------------------------
-// Scrape & search NOAA Forecast data via JQuery, bypassing CORS with whateverorigin
-// ---------------------------------------------------------------------------------
+// -------------------------------------------
+// -------------------------------------------
+// N O A A   S T A N D A R D   F O R E C A S T
+// -------------------------------------------
+// -------------------------------------------
 
 var noaaForecastURL = "https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XNmCho5KhPY";
 $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(noaaForecastURL) + '&callback=?', function(noaafdata) {
     
     // Find URL for current weather image, add html for display
     var noaaCurrentImg = String('<a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank"><img src="https://forecast.weather.gov/newimages/' + noaafdata.contents.match(/large?\S*png/) + '" height=85px></a>');
-    document.getElementById('noaa-current-img').innerHTML = noaaCurrentImg;
     
     // Find string for current conditions/sky cover
     var noaaCurrentSky = String(noaafdata.contents.match(/nt">.*(?=<\Sp>)/));
     noaaCurrentSky = noaaCurrentSky.substr(4);
-    document.getElementById('noaa-current-sky').innerHTML = noaaCurrentSky;
     
     // Find string for current temp
     var noaaCurrentTemp = String(noaafdata.contents.match(/\d{1,3}(?=&deg;F<)/));
     var noaaHighTemp = String(noaafdata.contents.match(/\d{1,3}(?=\s&deg)/));
-    document.getElementById('noaa-current-temp').innerHTML = noaaCurrentTemp + "&deg F<span style='color:white; font-size:50%;'> &nbsp;(" + noaaHighTemp + ")</span>";
     
     // Find string for current pressure
     var noaaCurrentPres = String(noaafdata.contents.match(/\d{1,2}.\d{1,2}(?=\sin)/));
+    
+    document.getElementById('noaa-current-img').innerHTML = noaaCurrentImg;
+    document.getElementById('noaa-current-sky').innerHTML = noaaCurrentSky;
+    document.getElementById('noaa-current-temp').innerHTML = noaaCurrentTemp + "&deg F<span style='color:white; font-size:50%;'> &nbsp;(" + noaaHighTemp + ")</span>";
     document.getElementById('noaa-current-pres').innerHTML = noaaCurrentPres + " in";
 
 });
 
-// ----------------------------------------------------------------------------------------
-// Scrape & search Winds Aloft Forecast data via JQuery, bypassing CORS with whateverorigin
-// ----------------------------------------------------------------------------------------
-
-// This block determines which of 3 forecasts to get (6, 12, or 24 hr)
-// Get 6 hr if local time is between 2pm and 8pm same day
-// Get 24 hr if local time is 9pm or more same day, or before 7am next day
-// Get 12 hr as default if neither 6 or 24 hr are true
-    var fcastRange = "12";
-    if (hour >= 14 && hour <= 19) {
-        fcastRange = "06";
-    } else if (hour > 19 || hour <=6) {
-        fcastRange = "24";
-    }
-    console.log("forecast range: " + fcastRange);
-
-// Scrape data as "windAloftData", stored in "windAloftData.contents"
-    var windAloftForecastURL = "https://www.aviationweather.gov/windtemp/data?level=low&fcst=" + fcastRange + "&region=slc&layout=on&date=";
-    $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(windAloftForecastURL) + '&callback=?', function(windAloftData) {
-
-// Extract forecast start & end time (zulu), convert to mountain (-6 for summer)
-    var fcastStartTime = windAloftData.contents.match(/\d{2}(?=\d{2}-\d{4}Z)/);
-    fcastStartTime = parseInt(fcastStartTime) - 6;
-    if (fcastStartTime == 12) {
-        fcastStartTime = "Noon";
-    }
-    document.getElementById('winds-aloft-forecast-start').innerHTML = fcastStartTime;
-
-    var fcastEndTime = windAloftData.contents.match(/\d{2}(?=\d{2}Z.\sTEMPS)/);
-    fcastEndTime = parseInt(fcastEndTime) - 6;
-    if (fcastEndTime == 0) {
-        fcastEndTime = "Midnight";
-    }
-    document.getElementById('winds-aloft-forecast-end').innerHTML = fcastEndTime;
-
-    var fcastDay;
-    if (fcastRange == "24" && hour > 19) {
-        fcastDay = " (tomorrow)";
-    } else {
-        fcastDay = "";
-    }
-    document.getElementById('winds-aloft-forecast-day').innerHTML = fcastDay;
-
-// Extract full line of data for SLC, distribute into groups for 6, 9, 12, and 18
-    var slcLine = String(windAloftData.contents.match(/(SLC.*\n)(?=CZI)/));
-    var windAloft = {
-        sixDir: "", sixSpd: "", sixTmp: "",
-        nineDir: "", nineSpd: "", nineTmp: "",
-        twlvDir: "", twlvSpd: "", twlvTmp: "",
-        ehtnDir: "", ehtnSpd: "", ehtnTmp: ""
-    };
-    windAloft.sixDir = slcLine.substr(9,2);
-    windAloft.sixSpd = slcLine.substr(11,2);
-    windAloft.sixTmp = slcLine.substr(14,2);
-    windAloft.nineDir = slcLine.substr(17,2);
-    
-    
-    console.log(slcLine);
-    console.log(windAloft.sixDir);
-    console.log(windAloft.sixSpd);
-    console.log(windAloft.sixTmp);
-    console.log(windAloft.nineDir);
-    
-    
-});
-
-
-
-
-
-// Get timeseries data for key stations in JSON format via API, parse, and modify for output
-// -----------------------------------------------------------------------------------------
-// -----------------------------------------------------------------------------------------
+// -----------------------------------------------
+// -----------------------------------------------
+// W I N D   S T A T I O N   T I M E   S E R I E S
+// -----------------------------------------------
+// -----------------------------------------------
 
 var xhrTimeSeries = new XMLHttpRequest(); // xhr to hold the timeseries JSON data for KSLC
 xhrTimeSeries.open('GET', 'https://api.mesowest.net/v2/station/timeseries?&stid=KSLC&stid=OC1WX&stid=C8948&stid=OGP&stid=PKC&recent=60&obtimezone=local&timeformat=%b%20%d%20-%20%H:%M&vars=wind_speed,wind_gust,wind_direction,wind_cardinal_direction&units=english,speed|mph&token=6243aadc536049fc9329c17ff2f88db3', true);
@@ -263,19 +202,59 @@ xhrTimeSeries.onload = function() {
     }
 }
 
-// Scrape online Soaring Forecast text data via JQuery (in HTML <head>), bypassing CORS with whateverorigin.org
-// ------------------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------
+// ---------------------------------------------------
+// W I N D   &   S K Y   I M A G E   A N I M A T I O N
+// ---------------------------------------------------
+// ---------------------------------------------------
+
+function forecastedImgLoop(loopId, imgType) {
+  var rotator = document.getElementById(loopId);
+  var delay = 1800;
+  var startTime = 1;
+  var images = [];
+  
+  if (hour > 19 || hour < 8) { //Switch to next day images if after 7pm, switch back after 7am
+      startTime = startTime + 4;
+  }
+    
+  for (i = 0; i < 6; i++) { //Load images array
+      images[i] = `https://graphical.weather.gov/images/slc/${imgType}${i + startTime}_slc.png`;
+  }
+  
+  if (startTime === 5) { //Duplicate afternoon img for visual pause
+  	images.splice (3, 0, "https://graphical.weather.gov/images/slc/"+imgType+"7_slc.png"); //Next day
+  } else {
+  	images.splice (3, 0, "https://graphical.weather.gov/images/slc/"+imgType+"3_slc.png"); //Current day
+  }
+
+  var loopCount = 0;
+  var changeImage = function() {
+      rotator.src = images[loopCount++];
+      if (loopCount == 6) {
+          loopCount = 0;
+      }
+};
+
+setInterval(changeImage, delay); //Rotate images
+};
+
+forecastedImgLoop;
+
+// -------------------------------
+// -------------------------------
+// S O A R I N G   F O R E C A S T
+// -------------------------------
+// -------------------------------
 
 var soaringForecastURL = "https://www.weather.gov/source/slc/aviation/files/SLCSRGSLC0.txt";
 $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(soaringForecastURL) + '&callback=?', function(sfdata) {
-    //console.log(sfdata); // For troubleshooting
     // Split page text content into individual lines
     var sfLines = sfdata.contents.split("\n");
 
     // Extract weekday, month, and 1-2 digit day for report date from line 7
     var reportWkDay = sfLines[7].substr(21, 3);
-    var reportMonth = String(sfLines[7].match(/Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec/));
+    var reportMonth = String(sfLines[7].match(/(?<=[a-zA-Z],\s).+(?=\s\d{1,2},)/));
     var reportDay = String(sfLines[7].match(/\d{1,2}/));
     var reportDate = reportWkDay + ", " + reportMonth + " " + reportDay;
     document.getElementById('report-date').innerHTML = reportDate;
@@ -312,39 +291,100 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
 
 });
 
-// Animate forecasted images for NOAA wind and sky
-// -----------------------------------------------
-// -----------------------------------------------
+// ---------------------
+// ---------------------
+// W I N D S   A L O F T
+// ---------------------
+// ---------------------
 
-function forecastedImgLoop(loopId, imgType) {
-  var rotator = document.getElementById(loopId);
-  var delay = 1800;
-  var startTime = 1;
-  var images = [];
-  
-  if (hour > 19 || hour < 8) { //Switch to next day images if after 7pm, switch back after 7am
-      startTime = startTime + 4;
-  }
-    
-  for (i = 0; i < 6; i++) { //Load images array
-      images[i] = `https://graphical.weather.gov/images/slc/${imgType}${i + startTime}_slc.png`;
-  }
-  
-  if (startTime === 5) { //Duplicate afternoon img for visual pause
-  	images.splice (3, 0, "https://graphical.weather.gov/images/slc/"+imgType+"7_slc.png"); //Next day
-  } else {
-  	images.splice (3, 0, "https://graphical.weather.gov/images/slc/"+imgType+"3_slc.png"); //Current day
-  }
+// This block determines which of 3 forecasts to get (6, 12, or 24 hr)
+    var fcastRange = "12";
+    if (hour >= 14 && hour <= 19) {
+        fcastRange = "06";
+    } else if (hour > 19 || hour <=3) {
+        fcastRange = "24";
+    }
 
-  var loopCount = 0;
-  var changeImage = function() {
-      rotator.src = images[loopCount++];
-      if (loopCount == 6) {
-          loopCount = 0;
-      }
-};
+// Scrape data as "windAloftData", stored in "windAloftData.contents"
+    var windAloftForecastURL = "https://www.aviationweather.gov/windtemp/data?level=low&fcst=" + fcastRange + "&region=slc&layout=on&date=";
+    $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(windAloftForecastURL) + '&callback=?', function(windAloftData) {
 
-setInterval(changeImage, delay); //Rotate images
-};
+// Extract forecast start & end time (zulu), convert to mountain (-6 for summer)
+    var fcastStartTime = windAloftData.contents.match(/\d{2}(?=\d{2}-\d{4}Z)/);
+    var fcastStartTimeAMPM = " am";
+    var fcastEndTimeAMPM = " am";
+    fcastStartTime = parseInt(fcastStartTime) - 6;
+    if (fcastStartTime == 12) {
+        fcastStartTime = "Noon";
+    }
+    if (fcastStartTime > 12) {
+        fcastStartTime = fcastStartTime - 12;
+        fcastStartTimeAMPM = " pm";
+    }
+    fcastStartTime = fcastStartTime + fcastStartTimeAMPM;
 
-forecastedImgLoop;
+    var fcastEndTime = windAloftData.contents.match(/\d{2}(?=\d{2}Z.\sTEMPS)/);
+    fcastEndTime = parseInt(fcastEndTime) - 6;
+    if (fcastEndTime == 0) {
+        fcastEndTime = "Midnight";
+    }
+    if (fcastEndTime < 0) {
+        fcastEndTime = fcastEndTime + 12;
+        fcastEndTimeAMPM = " pm";
+    }
+    fcastEndTime = fcastEndTime + fcastEndTimeAMPM;
+
+    var fcastDay;
+    if (fcastRange == "24" && hour > 19) {
+        fcastDay = " (tomorrow)";
+    } else {
+        fcastDay = "";
+    }
+
+    document.getElementById('winds-aloft-forecast-start').innerHTML = fcastStartTime;
+    document.getElementById('winds-aloft-forecast-end').innerHTML = fcastEndTime;
+    document.getElementById('winds-aloft-forecast-day').innerHTML = fcastDay;
+
+// Extract data group for SLC for direction, speed, and temp for 6k, 9k, 12k, and 18k
+    var slcLine = String(windAloftData.contents.match(/(?<=SLC\s{6}).+(?=\s\d{4}-)/));
+    var windAloftDirs = [], windAloftSpds = [], windAloftTmps = [];
+    for (i=0; i<4; i++) {
+        windAloftDirs[i] = slcLine.substr(i*8,2);
+        if (windAloftDirs[i] == 99) {
+            windAloftDirs[i] = "calm";
+        } else {
+            windAloftDirs[i] = windAloftDirs[i] * 10;
+        }
+        if (windAloftDirs[i] > 180) {
+            windAloftDirs[i] = "a" + (windAloftDirs[i] - 180);
+        }
+        windAloftDirs[i] = String('<img src="https://www.usairnet.com/weather/winds_aloft/' + windAloftDirs[i] + '.gif" height=100px>');
+        
+        windAloftSpds[i] = Math.round(parseFloat(slcLine.substr(i*8+2,2) * 1.15078));
+        if (windAloftSpds[i] == 0) {
+            windAloftSpds[i] = "--";
+        }
+        
+        windAloftTmps[i] = slcLine.substr(i*8+5,2);
+        if (slcLine.substr(i*8+4,1) == "-") {
+            windAloftTmps[i] = windAloftTmps[i] * -1;
+        }
+        windAloftTmps[i] = Math.round(windAloftTmps[i] * (9/5) + 32);
+    }
+    windAloftTmps[0] = "--"; // No temp reading for 6k
+
+    document.getElementById('wind-aloft-6k-spd').innerHTML = windAloftSpds[0];
+    document.getElementById('wind-aloft-9k-spd').innerHTML = windAloftSpds[1];
+    document.getElementById('wind-aloft-12k-spd').innerHTML = windAloftSpds[2];
+    document.getElementById('wind-aloft-18k-spd').innerHTML = windAloftSpds[3];
+
+    document.getElementById('wind-aloft-6k-dir').innerHTML = windAloftDirs[0];
+    document.getElementById('wind-aloft-9k-dir').innerHTML = windAloftDirs[1];
+    document.getElementById('wind-aloft-12k-dir').innerHTML = windAloftDirs[2];
+    document.getElementById('wind-aloft-18k-dir').innerHTML = windAloftDirs[3];
+
+    document.getElementById('wind-aloft-6k-tmp').innerHTML = windAloftTmps[0];
+    document.getElementById('wind-aloft-9k-tmp').innerHTML = windAloftTmps[1];
+    document.getElementById('wind-aloft-12k-tmp').innerHTML = windAloftTmps[2];
+    document.getElementById('wind-aloft-18k-tmp').innerHTML = windAloftTmps[3];
+});
