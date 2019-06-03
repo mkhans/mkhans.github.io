@@ -6,17 +6,13 @@
 
     var today = new Date();
     var yyyy = today.getFullYear();
-    //var monthName = today.toLocaleString('en-us', {month: 'short'}); // Get current month 'mmm' format
-    var monthNum = today.getMonth() + 1; // Get current month as a number (Jan = 1, etc.), used in HTML file
-    var twoDigitMonthNum; // Force current month number to 2 digits for URL use (Jan = 01, etc.), used in HTML file
-        if (monthNum < 10) {
-            twoDigitMonthNum = "0" + monthNum;
-        }
-    var dayNum = String(today.getDate()); // Get current date #, force to 2 digits, used in HTML file
-        if (dayNum < 10) {
-            dayNum = "0" + dayNum;
-        }
-    var hour = today.getHours(); // Get current hour
+    var monthName = today.toLocaleString('en-us', {month: 'short'});
+    var monthNum = today.getMonth() + 1;
+    var twoDigitMonth = (monthNum < 10) ? "0" + monthNum : monthNum;
+    var dayName = today.toLocaleDateString('en-us', {weekday: 'short'});
+    var dayNum = today.getDate();
+    var twoDigitDay = (dayNum < 10) ? "0" + dayNum : dayNum;
+    var hour = today.getHours();
 
 // -------------------------------------------
 // -------------------------------------------
@@ -43,7 +39,7 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
     
     document.getElementById('noaa-current-img').innerHTML = noaaCurrentImg;
     document.getElementById('noaa-current-sky').innerHTML = noaaCurrentSky;
-    document.getElementById('noaa-current-temp').innerHTML = noaaCurrentTemp + "&deg F<span style='color:white; font-size:50%;'> &nbsp;(" + noaaHighTemp + ")</span>";
+    document.getElementById('noaa-current-temp').innerHTML = noaaCurrentTemp + "&deg F<span style='font-size:50%;'> &nbsp;&nbsp;(" + noaaHighTemp + ")</span>";
     document.getElementById('noaa-current-pres').innerHTML = noaaCurrentPres + " in";
 
 });
@@ -66,17 +62,7 @@ xhrTimeSeries.onload = function() {
         // Station Order: 0=KSLC, 1=Ogden Peak, 2=Park City Jupiter, 3=Olympus Cove, 4=Centerville
         
         var stationsCount = weatherData.STATION.length;
-        var stationObservationsCount = [];
-        var stationName = [];
-        var stationHour = [];
-        var stationAMPM = [];
-        var stationMins = [];
-        var latestTimes = [];
-        var windSpeeds = [];
-        var windGusts = [];
-        var windDirCards = [];
-        var windDirImgs = [];
-        var windDirURLs = [];
+        var stationObservationsCount = [], stationName = [], stationHour = [], stationAMPM = [], stationMins = [], latestTimes = [], windSpeeds = [], windGusts = [], windDirCards = [], windDirImgs = [], windDirURLs = [];
         
         // This loop extracts most recent data for each station reading
         for (i=0; i<stationsCount; i++) {
@@ -85,6 +71,10 @@ xhrTimeSeries.onload = function() {
         // This loop extracts station name for each station
         for (i=0; i<stationsCount; i++) {
             stationName[i] = weatherData.STATION[i].STID;
+            stationName[i] = (stationName[i] == "OGP") ? "Ogden Pk" : stationName[i];
+            stationName[i] = (stationName[i] == "PKC") ? "Jupiter" : stationName[i];
+            stationName[i] = (stationName[i] == "OC1WX") ? "Olympus" : stationName[i];
+            stationName[i] = (stationName[i] == "C8948") ? "Legacy" : stationName[i];
         }
         document.getElementById('station0-name').innerHTML = stationName[0];
         document.getElementById('station1-name').innerHTML = stationName[1];
@@ -98,7 +88,7 @@ xhrTimeSeries.onload = function() {
             if (stationHour[i] > 11) {
                 stationAMPM[i] = " pm";
                 if (stationHour[i] > 12) {
-                    stationHour[i] = stationHour[i] - 12;
+                    stationHour[i] -= 12;
                 }
             }
             if (stationHour[i] == 0) {
@@ -180,7 +170,7 @@ xhrTimeSeries.onload = function() {
                     if (windDirImgs[i] > 180) {
                         windDirImgs[i] = windDirImgs[i] - 180;
                     } else {
-                        windDirImgs[i] = windDirImgs[i] + 180;
+                        windDirImgs[i] += 180;
                     }
                     windDirURLs[i] = "<img src='https://www.usairnet.com/weather/winds_aloft/a" + windDirImgs[i] + ".gif'>";
                 } else {
@@ -215,7 +205,7 @@ function forecastedImgLoop(loopId, imgType) {
   var images = [];
   
   if (hour > 19 || hour < 8) { //Switch to next day images if after 7pm, switch back after 7am
-      startTime = startTime + 4;
+      startTime += 4;
   }
     
   for (i = 0; i < 6; i++) { //Load images array
@@ -248,47 +238,42 @@ forecastedImgLoop;
 // -------------------------------
 
 var soaringForecastURL = "https://www.weather.gov/source/slc/aviation/files/SLCSRGSLC0.txt";
-$.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(soaringForecastURL) + '&callback=?', function(sfdata) {
-    // Split page text content into individual lines
-    var sfLines = sfdata.contents.split("\n");
+$.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(soaringForecastURL) + '&callback=?', function(soarForecastData) {
+    
+// Report date
+    var soarForecastReportWkDay = String(soarForecastData.contents.match(/(?<=r|R\s).+(?=DAY,|day,)/));
+    soarForecastReportWkDay = soarForecastReportWkDay.substr(0,1) + soarForecastReportWkDay.substr(1).toLowerCase();
+    
+    var soarForecastReportMonth = String(soarForecastData.contents.match(/(?<=DAY,\s|day,\s).+(?=\s\d{1,2},)/));
+    soarForecastReportMonth = soarForecastReportMonth.substr(0,1) + soarForecastReportMonth.substr(1).toLocaleLowerCase();
+    
+    var soarForecastReportDate = String(soarForecastData.contents.match(/\d{1,2}(?=,\s2019)/));
+    
+    var soarForecastReportFullDate = soarForecastReportWkDay + ", " + soarForecastReportMonth + " " + soarForecastReportDate;
+    
+// Max rate of lift
+    var maxRateOfLift = parseInt(soarForecastData.contents.match(/\d{1,4}(?=\sFT\SMIN|\sft\Smin)/)).toLocaleString();
+    
+// Top of lift
+    var topOfLift = parseInt(soarForecastData.contents.match(/(?<=ALS.+\s|als.+\s).\d{1,5}(?=\sFT\sMSL|\sft\smsl)/)).toLocaleString();
+    
+// Height of the -3 index
+    var neg3Index = parseInt(soarForecastData.contents.match(/(?<=DEX.+\s|dex.+\s).\d{1,5}(?=\sFT\sMSL|\sft\smsl)/)).toLocaleString();
 
-    // Extract weekday, month, and 1-2 digit day for report date from line 7
-    var reportWkDay = sfLines[7].substr(21, 3);
-    var reportMonth = String(sfLines[7].match(/(?<=[a-zA-Z],\s).+(?=\s\d{1,2},)/));
-    var reportDay = String(sfLines[7].match(/\d{1,2}/));
-    var reportDate = reportWkDay + ", " + reportMonth + " " + reportDay;
-    document.getElementById('report-date').innerHTML = reportDate;
-
-    // Extract Max Rate of Lift (maxRol) from line 11 for up to 4 digits, format for comma (toLocaleString)
-    var maxRateOfLift = parseInt(sfLines[11].match(/\d{1,4}/)).toLocaleString();
-    document.getElementById('max-rol').innerHTML = maxRateOfLift;
-
-    // Extract Top of Lift (liftTop) from line 12 for up to 5 digits, format for comma (toLocaleString)
-    var topOfLift = parseInt(sfLines[12].match(/\d{4,5}/)).toLocaleString();
-    document.getElementById('top-of-lift').innerHTML = topOfLift;
-
-    // Extract OD (od) "None" or converted time ('1430' to '2:30 pm') from line 16
-    var ampm;
-    var od = sfLines[16].substr(48, 4);
-    if (od != "None") {
-        var odFirst2 = parseInt(od.substr(0, 2));
-        if (odFirst2 > 11) {
-            ampm = " pm";
-        } else {
-            ampm = " am";
-        }
-        if (odFirst2 > 12) {
-            odFirst2 = odFirst2 - 12;
-        }
-        od = String(odFirst2) + ":" + od.substr(2, 4) + ampm;
+// Overdevelopment time
+    var od = String(soarForecastData.contents.match(/(?<=ENT.+\s|ent.+\s)\d{4}/));
+    if (od != "None" || od != "NONE") {
+        var odFirst2 = parseInt(od.substr(0,2));
+        var odAMPM = (odFirst2 > 11) ? " pm" : " am";
+        odFirst2 = (odFirst2 > 12) ? odFirst2 -= 12 : odFirst2;
+        od = String(odFirst2) + ":" + od.substr(2,4) + odAMPM;
     }
-    document.getElementById('od-time').innerHTML = od;
 
-    // Extract height of the -3 index (neg3) from line 19 for up to 5 digits, format for comma (toLocaleString)
-    var neg3Array = sfLines[19].match(/\d{1,5}/g);
-    var neg3Index = parseInt(neg3Array[1]).toLocaleString();
+    document.getElementById('soar-forecast-report-date').innerHTML = soarForecastReportFullDate;
+    document.getElementById('max-rol').innerHTML = maxRateOfLift + "<span style='font-size:50%;'> &nbsp;&nbsp;(" + Math.round((maxRateOfLift / 196.85) * 10) / 10 + " m/s)</span>";
+    document.getElementById('top-of-lift').innerHTML = topOfLift;
     document.getElementById('neg3-index').innerHTML = neg3Index;
-
+    document.getElementById('od-time').innerHTML = od;
 });
 
 // ---------------------
@@ -329,7 +314,7 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
         fcastEndTime = "Midnight";
     }
     if (fcastEndTime < 0) {
-        fcastEndTime = fcastEndTime + 12;
+        fcastEndTime += 12;
         fcastEndTimeAMPM = " pm";
     }
     fcastEndTime = fcastEndTime + fcastEndTimeAMPM;

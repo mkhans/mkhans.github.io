@@ -12,7 +12,13 @@
     <img src="images/logo.png" width="30%" align="left">
     <img src="https://mkhans.github.io/images/pg.gif" width="20%" align="right"><br><br><br><br><br>
     
-    <h1 class="section">Current Conditions<br>(add date?)</h1>
+    <h1 class="section" id="today-full-date"></h1>
+
+        <script type= "text/javascript">
+            function todayFullDate() {
+                return "Current Conditions<br>" + dayName + ", " + monthName + " " + dayNum;
+            } document.getElementById('today-full-date').innerHTML = todayFullDate();
+        </script>
     
         <table height="250px">
             <tr>
@@ -103,7 +109,7 @@
         <img id='slc-recent' width="100%">
             <script type= "text/javascript">
                 function slcRecentURL() {
-                    return "https://www.wunderground.com/cgi-bin/histGraphAll?day=" + dayNum + "&year=" + yyyy + "&month=" + monthNum + "&ID=KSLC&type=3&width=614";
+                    return "https://www.wunderground.com/cgi-bin/histGraphAll?day=" + twoDigitDay + "&year=" + yyyy + "&month=" + monthNum + "&ID=KSLC&type=3&width=614";
                 }
                 document.getElementById('slc-recent').src = slcRecentURL();
             </script>
@@ -113,11 +119,11 @@
         <img id='skewT', width="100%">
             <script type= "text/javascript">
                 function getSkewTURL(){
-                    return "https://climate.cod.edu/data/raob/KSLC/skewt/KSLC.skewt." + yyyy + twoDigitMonthNum + dayNum + ".12.gif";
+                    return "https://climate.cod.edu/data/raob/KSLC/skewt/KSLC.skewt." + yyyy + twoDigitMonth + twoDigitDay + ".12.gif";
                 }
                 document.getElementById('skewT').src = getSkewTURL();
             </script>
-        - Morning Sounding -
+        - Today's Morning Sounding -
 
     <h1>Jetstream</h1>
         <a href="https://www.wunderground.com/maps/wind/jet-stream" target="_blank">
@@ -142,8 +148,8 @@
         <a href="https://forecast.weather.gov/MapClick.php?w0=t&w3=sfcwind&w3u=1&w4=sky&w5=pop&w7=rain&w9=snow&w13u=0&w16u=1&w17u=1&AheadHour=0&Submit=Submit&FcstType=graphical&textField1=40.7603&textField2=-111.8882&site=all&unit=0&dd=&bw=" target="_blank">
             <img src="https://forecast.weather.gov/meteograms/Plotter.php?lat=40.7603&lon=-111.8882&wfo=SLC&zcode=UTZ003&gset=30&gdiff=10&unit=0&tinfo=MY7&ahour=0&pcmd=10001110101000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6" width="100%"></a>
     
-    <h1>Soaring Data</h1>
-        <a href="https://www.weather.gov/slc/Soar" target="_blank">Forecast </a>for <span id="report-date"></span>
+    <h1>Basic Soaring Data</h1>
+        <a href="https://www.weather.gov/slc/Soar" target="_blank">Forecast </a>for <span id="soar-forecast-report-date"></span>
             <table>
                 <tr>
                     <td class="left">Height of the -3 Index (ft)</td>
@@ -154,7 +160,7 @@
                     <td class="left bold-lrg" id="top-of-lift"></td>
                 </tr>
                 <tr>
-                    <td class="left">Max Rate of Lift (ft/min) add m/s?</td>
+                    <td class="left">Max Rate of Lift (ft/min)</td>
                     <td class="left bold-lrg" id="max-rol"></td>
                 </tr>
                 <tr>
