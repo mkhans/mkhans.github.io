@@ -9,8 +9,8 @@
 
 <body>
 
-    <img src="images/logo.png" width="30%" align="left">
-    <img src="https://mkhans.github.io/images/pg.gif" width="20%" align="right"><br><br><br><br><br>
+    <img src="images/logo.png" width="50%" align="left">
+    <img src="https://mkhans.github.io/images/pg.gif" width="20%" align="right"><br><br><br><br><br><br><br><br>
     
     <h1 class="section" id="today-full-date"></h1>
 
@@ -26,7 +26,9 @@
                     <a href="http://hazecam.x10host.com/slc/SLC.JPG" target="_blank">
                         <img src="http://hazecam.x10host.com/slc/SLC.JPG" height=240px></a><br>
                         East Bench Looking West</td>
-                <td id="noaa-current-img"></td>
+                <td>
+                    <a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank">
+                        <img id="noaa-current-img" class="indent" height=85px></a></td>
                 <td id="noaa-current-sky" class="indent"></td>
             </tr>
             <tr>
@@ -132,6 +134,21 @@
 
     <h1 class="section">Forecast</h1>
     
+    <h1>Short Term</h1>
+        <table>
+            <tr>
+                <td><img id="noaa-short-img" height=240px></td>
+                <td id='noaa-short-text' class="indent" rowspan="2"></td>
+            </tr>
+            <tr>
+                <td class ="left" id='noaa-short-time'></td>
+            </tr>
+            <tr>
+                <td class="left">Sunset Time</td>
+                <td class="bold-lrg" id="sunset-time"></td>
+            </tr>
+        </table>
+
     <h1>Surface Wind & Sky</h1>
         <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
             <img src="https://graphical.weather.gov/images/slc/WindSpd1_slc.png" width="49%" alt="rotating image" id="rotatorWind"></a>
@@ -182,7 +199,7 @@
                 <tr>
                     <td class="left bold-lrg">6k'</td>
                     <td rowspan="2" class="bold-lrg" id="wind-aloft-6k-spd"></td>
-                    <td rowspan="2" id="wind-aloft-6k-dir"></td>
+                    <td rowspan="2"><img id="wind-aloft-6k-dir"></td>
                     <td rowspan="2" class="bold" id="wind-aloft-6k-tmp"></td>
                 </tr>
                 <tr>
@@ -191,7 +208,7 @@
                 <tr>
                     <td class="left bold-lrg">9k'</td>
                     <td rowspan="2" class="bold-lrg" id="wind-aloft-9k-spd"></td>
-                    <td rowspan="2" id="wind-aloft-9k-dir"></td>
+                    <td rowspan="2"><img id="wind-aloft-9k-dir"></td>
                     <td rowspan="2" class="bold" id="wind-aloft-9k-tmp"></td>
                 </tr>
                 <tr>
@@ -200,7 +217,7 @@
                 <tr>
                     <td class="left bold-lrg">12k'</td>
                     <td rowspan="2" class="bold-lrg" id="wind-aloft-12k-spd"></td>
-                    <td rowspan="2" id="wind-aloft-12k-dir"></td>
+                    <td rowspan="2"><img id="wind-aloft-12k-dir"></td>
                     <td rowspan="2" class="bold" id="wind-aloft-12k-tmp"></td>
                 </tr>
                 <tr>
@@ -209,13 +226,32 @@
                 <tr>
                     <td class="left bold-lrg">18k'</td>
                     <td rowspan="2" class="bold-lrg" id="wind-aloft-18k-spd"></td>
-                    <td rowspan="2" id="wind-aloft-18k-dir"></td>
+                    <td rowspan="2"><img id="wind-aloft-18k-dir"></td>
                     <td rowspan="2" class="bold" id="wind-aloft-18k-tmp"></td>
                 </tr>
                 <tr>
                     <td class="right">(5486 m)</td>
                 </tr>
             </table>
+    
+    <h1>72 Hour</h1>
+        <table>
+            <tr>
+                <td><img id="forecast-day1"></td>
+                <td>Day</td>
+                <td>Text</td>
+            </tr>
+            <tr>
+                <td><img id="forecast-day2"></td>
+                <td>Day</td>
+                <td>Text</td>
+            </tr>
+            <tr>
+                <td><img id="forecast-day3"></td>
+                <td>Day</td>
+                <td>Text</td>
+            </tr>    
+        </table>
     
     <script>
         var coll = document.getElementsByClassName("collapsible");

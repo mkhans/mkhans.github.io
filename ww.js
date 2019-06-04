@@ -13,35 +13,49 @@
     var dayNum = today.getDate();
     var twoDigitDay = (dayNum < 10) ? "0" + dayNum : dayNum;
     var hour = today.getHours();
+    var noaaImgURLBase = "https://forecast.weather.gov/";
 
 // -------------------------------------------
 // -------------------------------------------
-// N O A A   S T A N D A R D   F O R E C A S T
+// N O A A   S T A N D A R D   F O R E C A S T           !!!!!!!!!!!!!!!!!!!!Fix other .src Elements like noaaShortImg
 // -------------------------------------------
 // -------------------------------------------
 
 var noaaForecastURL = "https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XNmCho5KhPY";
-$.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(noaaForecastURL) + '&callback=?', function(noaafdata) {
+$.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(noaaForecastURL) + '&callback=?', function(noaaForecastData) {
     
-    // Find URL for current weather image, add html for display
-    var noaaCurrentImg = String('<a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank"><img src="https://forecast.weather.gov/newimages/' + noaafdata.contents.match(/large?\S*png/) + '" height=85px></a>');
+// CURRENT WEATHER IMAGE
+    var noaaCurrentImg = noaaImgURLBase + noaaForecastData.contents.match(/(?<=src=").+large.+(?="\salt)/);
     
-    // Find string for current conditions/sky cover
-    var noaaCurrentSky = String(noaafdata.contents.match(/nt">.*(?=<\Sp>)/));
+// SKY COVER
+    var noaaCurrentSky = String(noaaForecastData.contents.match(/nt">.*(?=<\Sp>)/));
     noaaCurrentSky = noaaCurrentSky.substr(4);
     
-    // Find string for current temp
-    var noaaCurrentTemp = String(noaafdata.contents.match(/\d{1,3}(?=&deg;F<)/));
-    var noaaHighTemp = String(noaafdata.contents.match(/\d{1,3}(?=\s&deg)/));
+// TEMP (CURRENT & HIGH)
+    var noaaCurrentTemp = String(noaaForecastData.contents.match(/\d{1,3}(?=&deg;F<)/));
+    var noaaHighTemp = String(noaaForecastData.contents.match(/\d{1,3}(?=\s&deg)/));
     
-    // Find string for current pressure
-    var noaaCurrentPres = String(noaafdata.contents.match(/\d{1,2}.\d{1,2}(?=\sin)/));
+// PRESSURE
+    var noaaCurrentPres = String(noaaForecastData.contents.match(/\d{1,2}.\d{1,2}(?=\sin)/));
+
+// SHORT TERM FORECAST
+    var noaaShortImg = noaaImgURLBase + noaaForecastData.contents.match(/(?<=p><img\ssrc=").+(?="\salt)/);
+    console.log(noaaShortImg);
+    var noaaShortTime = String(noaaForecastData.contents.match(/(?<=name">).+(?=<\Sp>)/));
+    noaaShortTime = (noaaShortTime == "This<br>Afternoon") ? "This Afternoon":noaaShortTime;
+    var noaaShortText = String(noaaForecastData.contents.match(/(?<=:\s).+(?=\s"\stitle)/));
     
-    document.getElementById('noaa-current-img').innerHTML = noaaCurrentImg;
+// 72 HOUR FORECAST
+    var noaa72Day1Img; -----------------------------------------HERE
+
+// GET ELEMENT BY ID
+    document.getElementById('noaa-current-img').src = noaaCurrentImg;
     document.getElementById('noaa-current-sky').innerHTML = noaaCurrentSky;
     document.getElementById('noaa-current-temp').innerHTML = noaaCurrentTemp + "&deg F<span style='font-size:50%;'> &nbsp;&nbsp;(" + noaaHighTemp + ")</span>";
     document.getElementById('noaa-current-pres').innerHTML = noaaCurrentPres + " in";
-
+    document.getElementById('noaa-short-img').src = noaaShortImg;
+    document.getElementById('noaa-short-time').innerHTML = noaaShortTime;
+    document.getElementById('noaa-short-text').innerHTML = noaaShortText;
 });
 
 // -----------------------------------------------
@@ -240,40 +254,47 @@ forecastedImgLoop;
 var soaringForecastURL = "https://www.weather.gov/source/slc/aviation/files/SLCSRGSLC0.txt";
 $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(soaringForecastURL) + '&callback=?', function(soarForecastData) {
     
-// Report date
-    var soarForecastReportWkDay = String(soarForecastData.contents.match(/(?<=r|R\s).+(?=DAY,|day,)/));
+// REPORT DATE
+    var soarForecastReportWkDay = String(soarForecastData.contents.match(/(?<=r\s|R\s).+(?=DAY,|day,)/));
     soarForecastReportWkDay = soarForecastReportWkDay.substr(0,1) + soarForecastReportWkDay.substr(1).toLowerCase();
-    
     var soarForecastReportMonth = String(soarForecastData.contents.match(/(?<=DAY,\s|day,\s).+(?=\s\d{1,2},)/));
     soarForecastReportMonth = soarForecastReportMonth.substr(0,1) + soarForecastReportMonth.substr(1).toLocaleLowerCase();
-    
     var soarForecastReportDate = String(soarForecastData.contents.match(/\d{1,2}(?=,\s2019)/));
-    
     var soarForecastReportFullDate = soarForecastReportWkDay + ", " + soarForecastReportMonth + " " + soarForecastReportDate;
     
-// Max rate of lift
+// MAX RATE OF LIFT
     var maxRateOfLift = parseInt(soarForecastData.contents.match(/\d{1,4}(?=\sFT\SMIN|\sft\Smin)/)).toLocaleString();
     
-// Top of lift
-    var topOfLift = parseInt(soarForecastData.contents.match(/(?<=ALS.+\s|als.+\s).\d{1,5}(?=\sFT\sMSL|\sft\smsl)/)).toLocaleString();
+// TOP OF LIFT
+    var topOfLift = parseInt(soarForecastData.contents.match(/(?<=ALS.+\s|als.+\s).\d{1,5}(?=\sFT\sMSL|\sft\sMSL)/)).toLocaleString();
     
-// Height of the -3 index
-    var neg3Index = parseInt(soarForecastData.contents.match(/(?<=DEX.+\s|dex.+\s).\d{1,5}(?=\sFT\sMSL|\sft\smsl)/)).toLocaleString();
+// HEIGHT OF THE -3 INDEX
+    var neg3Index = parseInt(soarForecastData.contents.match(/(?<=DEX.+\s|dex.+\s).\d{1,5}(?=\sFT\sMSL|\sft\sMSL)/)).toLocaleString();
 
-// Overdevelopment time
-    var od = String(soarForecastData.contents.match(/(?<=ENT.+\s|ent.+\s)\d{4}/));
-    if (od != "None" || od != "NONE") {
+// OVERDEVELOPMENT TIME
+    var od = String(soarForecastData.contents.match(/(?<=ENT.+\s|ent.+\s).{4}\n/));
+    if (parseInt(od)) {
         var odFirst2 = parseInt(od.substr(0,2));
         var odAMPM = (odFirst2 > 11) ? " pm" : " am";
         odFirst2 = (odFirst2 > 12) ? odFirst2 -= 12 : odFirst2;
         od = String(odFirst2) + ":" + od.substr(2,4) + odAMPM;
     }
 
+// SUNSET TIME
+    var sunsetTimeHr = parseInt(soarForecastData.contents.match(/\d{2}(?=:\d{2}:\d{2}\sMDT\n)/));
+    sunsetTimeHr = (sunsetTimeHr > 12) ? sunsetTimeHr -= 12:sunsetTimeHr;
+    var sunsetTimeMn = parseInt(soarForecastData.contents.match(/\d{2}(?=:\d{2}\sMDT\n)/));
+    var sunsetTimeSs = parseInt(soarForecastData.contents.match(/\d{2}(?=:\d{2}\sMDT\n)/));
+    sunsetTimeSs = (sunsetTimeSs > 30) ? 1:0;
+    var sunsetTime = sunsetTimeHr + ":" + (sunsetTimeMn + sunsetTimeSs) + " pm";
+
+// GET ELEMENT BY ID
     document.getElementById('soar-forecast-report-date').innerHTML = soarForecastReportFullDate;
     document.getElementById('max-rol').innerHTML = maxRateOfLift + "<span style='font-size:50%;'> &nbsp;&nbsp;(" + Math.round((maxRateOfLift / 196.85) * 10) / 10 + " m/s)</span>";
     document.getElementById('top-of-lift').innerHTML = topOfLift;
     document.getElementById('neg3-index').innerHTML = neg3Index;
     document.getElementById('od-time').innerHTML = od;
+    document.getElementById('sunset-time').innerHTML = sunsetTime;
 });
 
 // ---------------------
@@ -301,6 +322,7 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
     fcastStartTime = parseInt(fcastStartTime) - 6;
     if (fcastStartTime == 12) {
         fcastStartTime = "Noon";
+        fcastStartTimeAMPM = "";
     }
     if (fcastStartTime > 12) {
         fcastStartTime = fcastStartTime - 12;
@@ -312,6 +334,7 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
     fcastEndTime = parseInt(fcastEndTime) - 6;
     if (fcastEndTime == 0) {
         fcastEndTime = "Midnight";
+        fcastEndTimeAMPM = "";
     }
     if (fcastEndTime < 0) {
         fcastEndTime += 12;
@@ -343,7 +366,7 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
         if (windAloftDirs[i] > 180) {
             windAloftDirs[i] = "a" + (windAloftDirs[i] - 180);
         }
-        windAloftDirs[i] = String('<img src="https://www.usairnet.com/weather/winds_aloft/' + windAloftDirs[i] + '.gif" height=100px>');
+        windAloftDirs[i] = 'https://www.usairnet.com/weather/winds_aloft/' + windAloftDirs[i] + '.gif';
         
         windAloftSpds[i] = Math.round(parseFloat(slcLine.substr(i*8+2,2) * 1.15078));
         if (windAloftSpds[i] == 0) {
@@ -363,10 +386,10 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
     document.getElementById('wind-aloft-12k-spd').innerHTML = windAloftSpds[2];
     document.getElementById('wind-aloft-18k-spd').innerHTML = windAloftSpds[3];
 
-    document.getElementById('wind-aloft-6k-dir').innerHTML = windAloftDirs[0];
-    document.getElementById('wind-aloft-9k-dir').innerHTML = windAloftDirs[1];
-    document.getElementById('wind-aloft-12k-dir').innerHTML = windAloftDirs[2];
-    document.getElementById('wind-aloft-18k-dir').innerHTML = windAloftDirs[3];
+    document.getElementById('wind-aloft-6k-dir').src = windAloftDirs[0];
+    document.getElementById('wind-aloft-9k-dir').src = windAloftDirs[1];
+    document.getElementById('wind-aloft-12k-dir').src = windAloftDirs[2];
+    document.getElementById('wind-aloft-18k-dir').src = windAloftDirs[3];
 
     document.getElementById('wind-aloft-6k-tmp').innerHTML = windAloftTmps[0];
     document.getElementById('wind-aloft-9k-tmp').innerHTML = windAloftTmps[1];
