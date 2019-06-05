@@ -46,7 +46,7 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
     var noaaShortText = String(noaaForecastData.contents.match(/(?<=:\s).+(?=\s"\stitle)/));
     
 // 72 HOUR FORECAST
-    var noaa72Day1Img; -----------------------------------------HERE
+    var noaa72Day1Img; //-----------------------------------------HERE
 
 // GET ELEMENT BY ID
     document.getElementById('noaa-current-img').src = noaaCurrentImg;
