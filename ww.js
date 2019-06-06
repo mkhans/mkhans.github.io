@@ -8,10 +8,17 @@
     var yyyy = today.getFullYear();
     var monthName = today.toLocaleString('en-us', {month: 'short'});
     var monthNum = today.getMonth() + 1;
-    var twoDigitMonth = (monthNum < 10) ? "0" + monthNum : monthNum;
+    var month2Digit = (monthNum < 10) ? "0" + monthNum : monthNum;
     var dayName = today.toLocaleDateString('en-us', {weekday: 'short'});
     var dayNum = today.getDate();
-    var twoDigitDay = (dayNum < 10) ? "0" + dayNum : dayNum;
+    var day2Digit = (dayNum < 10) ? "0" + dayNum : dayNum;
+    var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var dayNumPlus1 = today.getDay() + 1;
+    var dayNumPlus2 = today.getDay() + 2;
+    var dayNumPlus3 = today.getDay() + 3;    
+    var dayNamePlus1 = (dayNumPlus1 < 7) ? weekdays[dayNumPlus1] : weekdays[dayNumPlus1 - 7];
+    var dayNamePlus2 = (dayNumPlus2 < 7) ? weekdays[dayNumPlus2] : weekdays[dayNumPlus2 - 7];
+    var dayNamePlus3 = (dayNumPlus3 < 7) ? weekdays[dayNumPlus3] : weekdays[dayNumPlus3 - 7];
     var hour = today.getHours();
     var noaaImgURLBase = "https://forecast.weather.gov/";
 
@@ -31,31 +38,52 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
     var noaaCurrentSky = String(noaaForecastData.contents.match(/nt">.*(?=<\Sp>)/));
     noaaCurrentSky = noaaCurrentSky.substr(4);
     
-// TEMP (CURRENT & HIGH)
+// TEMP (CURRENT & NEXT)
     var noaaCurrentTemp = String(noaaForecastData.contents.match(/\d{1,3}(?=&deg;F<)/));
-    var noaaHighTemp = String(noaaForecastData.contents.match(/\d{1,3}(?=\s&deg)/));
+    var noaaNextTemp = String(noaaForecastData.contents.match(/\d{1,3}(?=\s&deg)/));
     
 // PRESSURE
     var noaaCurrentPres = String(noaaForecastData.contents.match(/\d{1,2}.\d{1,2}(?=\sin)/));
 
 // SHORT TERM FORECAST
     var noaaShortImg = noaaImgURLBase + noaaForecastData.contents.match(/(?<=p><img\ssrc=").+(?="\salt)/);
-    console.log(noaaShortImg);
     var noaaShortTime = String(noaaForecastData.contents.match(/(?<=name">).+(?=<\Sp>)/));
     noaaShortTime = (noaaShortTime == "This<br>Afternoon") ? "This Afternoon":noaaShortTime;
     var noaaShortText = String(noaaForecastData.contents.match(/(?<=:\s).+(?=\s"\stitle)/));
     
 // 72 HOUR FORECAST
-    var noaa72Day1Img; //-----------------------------------------HERE
-
+    var regexDay1Img = new RegExp('(?<=").+(?=".alt="' + dayNamePlus1 + ':)');
+    var regexDay2Img = new RegExp('(?<=").+(?=".alt="' + dayNamePlus2 + ':)');
+    var regexDay3Img = new RegExp('(?<=").+(?=".alt="' + dayNamePlus3 + ':)');
+    var noaa72Day1Img = noaaImgURLBase + String(noaaForecastData.contents.match(regexDay1Img));
+    var noaa72Day2Img = noaaImgURLBase + String(noaaForecastData.contents.match(regexDay2Img));
+    var noaa72Day3Img = noaaImgURLBase + String(noaaForecastData.contents.match(regexDay3Img));
+    var regexDay1Text = new RegExp('(?<=:.).+(?=.".title="' + dayNamePlus1 + ':)');
+    var regexDay2Text = new RegExp('(?<=:.).+(?=.".title="' + dayNamePlus2 + ':)');
+    var regexDay3Text = new RegExp('(?<=:.).+(?=.".title="' + dayNamePlus3 + ':)');
+    var noaa72Day1Text = String(noaaForecastData.contents.match(regexDay1Text));
+    var noaa72Day2Text = String(noaaForecastData.contents.match(regexDay2Text));
+    var noaa72Day3Text = String(noaaForecastData.contents.match(regexDay3Text));
+    
+    
 // GET ELEMENT BY ID
     document.getElementById('noaa-current-img').src = noaaCurrentImg;
     document.getElementById('noaa-current-sky').innerHTML = noaaCurrentSky;
-    document.getElementById('noaa-current-temp').innerHTML = noaaCurrentTemp + "&deg F<span style='font-size:50%;'> &nbsp;&nbsp;(" + noaaHighTemp + ")</span>";
+    document.getElementById('noaa-current-temp').innerHTML = noaaCurrentTemp + "&deg F<span style='font-size:50%;'> &nbsp;&nbsp;(" + noaaNextTemp + ")</span>";
     document.getElementById('noaa-current-pres').innerHTML = noaaCurrentPres + " in";
     document.getElementById('noaa-short-img').src = noaaShortImg;
     document.getElementById('noaa-short-time').innerHTML = noaaShortTime;
     document.getElementById('noaa-short-text').innerHTML = noaaShortText;
+    document.getElementById('forecast-day1-img').src = noaa72Day1Img;
+    document.getElementById('forecast-day2-img').src = noaa72Day2Img;
+    document.getElementById('forecast-day3-img').src = noaa72Day3Img;
+    document.getElementById('forecast-day1-name').innerHTML = dayNamePlus1;
+    document.getElementById('forecast-day2-name').innerHTML = dayNamePlus2;
+    document.getElementById('forecast-day3-name').innerHTML = dayNamePlus3;
+    document.getElementById('forecast-day1-text').innerHTML = noaa72Day1Text;
+    document.getElementById('forecast-day2-text').innerHTML = noaa72Day2Text;
+    document.getElementById('forecast-day3-text').innerHTML = noaa72Day3Text;
+    
 });
 
 // -----------------------------------------------
@@ -272,7 +300,8 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
     var neg3Index = parseInt(soarForecastData.contents.match(/(?<=DEX.+\s|dex.+\s).\d{1,5}(?=\sFT\sMSL|\sft\sMSL)/)).toLocaleString();
 
 // OVERDEVELOPMENT TIME
-    var od = String(soarForecastData.contents.match(/(?<=ENT.+\s|ent.+\s).{4}\n/));
+    var od = String(soarForecastData.contents.match(/(?<=PMENT.+\s|pment.+\s).{4}/));
+    console.log(od);
     if (parseInt(od)) {
         var odFirst2 = parseInt(od.substr(0,2));
         var odAMPM = (odFirst2 > 11) ? " pm" : " am";

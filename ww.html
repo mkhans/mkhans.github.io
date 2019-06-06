@@ -111,7 +111,7 @@
         <img id='slc-recent' width="100%">
             <script type= "text/javascript">
                 function slcRecentURL() {
-                    return "https://www.wunderground.com/cgi-bin/histGraphAll?day=" + twoDigitDay + "&year=" + yyyy + "&month=" + monthNum + "&ID=KSLC&type=3&width=614";
+                    return "https://www.wunderground.com/cgi-bin/histGraphAll?day=" + day2Digit + "&year=" + yyyy + "&month=" + monthNum + "&ID=KSLC&type=3&width=614";
                 }
                 document.getElementById('slc-recent').src = slcRecentURL();
             </script>
@@ -121,7 +121,7 @@
         <img id='skewT', width="100%">
             <script type= "text/javascript">
                 function getSkewTURL(){
-                    return "https://climate.cod.edu/data/raob/KSLC/skewt/KSLC.skewt." + yyyy + twoDigitMonth + twoDigitDay + ".12.gif";
+                    return "https://climate.cod.edu/data/raob/KSLC/skewt/KSLC.skewt." + yyyy + month2Digit + day2Digit + ".12.gif";
                 }
                 document.getElementById('skewT').src = getSkewTURL();
             </script>
@@ -237,19 +237,19 @@
     <h1>72 Hour</h1>
         <table>
             <tr>
-                <td><img id="forecast-day1"></td>
-                <td>Day</td>
-                <td>Text</td>
+                <td><img id="forecast-day1-img"></td>
+                <td id="forecast-day1-name"></td>
+                <td id="forecast-day1-text"></td>
             </tr>
             <tr>
-                <td><img id="forecast-day2"></td>
-                <td>Day</td>
-                <td>Text</td>
+                <td><img id="forecast-day2-img"></td>
+                <td id="forecast-day2-name"></td>
+                <td id="forecast-day2-text"></td>
             </tr>
             <tr>
-                <td><img id="forecast-day3"></td>
-                <td>Day</td>
-                <td>Text</td>
+                <td><img id="forecast-day3-img"></td>
+                <td id="forecast-day3-name"></td>
+                <td id="forecast-day3-text"></td>
             </tr>    
         </table>
     
