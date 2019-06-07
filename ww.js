@@ -21,15 +21,16 @@
     var dayNamePlus3 = (dayNumPlus3 < 7) ? weekdays[dayNumPlus3] : weekdays[dayNumPlus3 - 7];
     var hour = today.getHours();
     var noaaImgURLBase = "https://forecast.weather.gov/";
+    var scrapeURLBase = "https://whatever-origin.herokuapp.com/get?url=";
 
-// -------------------------------------------
-// -------------------------------------------
-// N O A A   S T A N D A R D   F O R E C A S T           !!!!!!!!!!!!!!!!!!!!Fix other .src Elements like noaaShortImg
-// -------------------------------------------
-// -------------------------------------------
+// ---------------------------------------------------------
+// ---------------------------------------------------------
+// N O A A   S T A N D A R D   F O R E C A S T   S C R A P E
+// ---------------------------------------------------------
+// ---------------------------------------------------------
 
 var noaaForecastURL = "https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XNmCho5KhPY";
-$.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(noaaForecastURL) + '&callback=?', function(noaaForecastData) {
+$.getJSON(scrapeURLBase + encodeURIComponent(noaaForecastURL) + '&callback=?', function(noaaForecastData) {
     
 // CURRENT WEATHER IMAGE
     var noaaCurrentImg = noaaImgURLBase + noaaForecastData.contents.match(/(?<=src=").+large.+(?="\salt)/);
@@ -41,6 +42,7 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
 // TEMP (CURRENT & NEXT)
     var noaaCurrentTemp = String(noaaForecastData.contents.match(/\d{1,3}(?=&deg;F<)/));
     var noaaNextTemp = String(noaaForecastData.contents.match(/\d{1,3}(?=\s&deg)/));
+    noaaCurrentTemp = noaaCurrentTemp + "<span style='font-size:50%;'>&nbsp;&nbsp;&nbsp;(" + noaaNextTemp + ")</span>";
     
 // PRESSURE
     var noaaCurrentPres = String(noaaForecastData.contents.match(/\d{1,2}.\d{1,2}(?=\sin)/));
@@ -69,7 +71,7 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
 // GET ELEMENT BY ID
     document.getElementById('noaa-current-img').src = noaaCurrentImg;
     document.getElementById('noaa-current-sky').innerHTML = noaaCurrentSky;
-    document.getElementById('noaa-current-temp').innerHTML = noaaCurrentTemp + "&deg F<span style='font-size:50%;'> &nbsp;&nbsp;(" + noaaNextTemp + ")</span>";
+    document.getElementById('noaa-current-temp').innerHTML = noaaCurrentTemp;
     document.getElementById('noaa-current-pres').innerHTML = noaaCurrentPres + " in";
     document.getElementById('noaa-short-img').src = noaaShortImg;
     document.getElementById('noaa-short-time').innerHTML = noaaShortTime;
@@ -86,11 +88,11 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
     
 });
 
-// -----------------------------------------------
-// -----------------------------------------------
-// W I N D   S T A T I O N   T I M E   S E R I E S
-// -----------------------------------------------
-// -----------------------------------------------
+// -------------------------------------------------------
+// -------------------------------------------------------
+// W I N D   S T A T I O N   T I M E   S E R I E S   A P I
+// -------------------------------------------------------
+// -------------------------------------------------------
 
 var xhrTimeSeries = new XMLHttpRequest(); // xhr to hold the timeseries JSON data for KSLC
 xhrTimeSeries.open('GET', 'https://api.mesowest.net/v2/station/timeseries?&stid=KSLC&stid=OC1WX&stid=C8948&stid=OGP&stid=PKC&recent=60&obtimezone=local&timeformat=%b%20%d%20-%20%H:%M&vars=wind_speed,wind_gust,wind_direction,wind_cardinal_direction&units=english,speed|mph&token=6243aadc536049fc9329c17ff2f88db3', true);
@@ -273,14 +275,14 @@ setInterval(changeImage, delay); //Rotate images
 
 forecastedImgLoop;
 
-// -------------------------------
-// -------------------------------
-// S O A R I N G   F O R E C A S T
-// -------------------------------
-// -------------------------------
+// ---------------------------------------------
+// ---------------------------------------------
+// S O A R I N G   F O R E C A S T   S C R A P E
+// ---------------------------------------------
+// ---------------------------------------------
 
 var soaringForecastURL = "https://www.weather.gov/source/slc/aviation/files/SLCSRGSLC0.txt";
-$.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(soaringForecastURL) + '&callback=?', function(soarForecastData) {
+$.getJSON(scrapeURLBase + encodeURIComponent(soaringForecastURL) + '&callback=?', function(soarForecastData) {
     
 // REPORT DATE
     var soarForecastReportWkDay = String(soarForecastData.contents.match(/(?<=r\s|R\s).+(?=DAY,|day,)/));
@@ -296,10 +298,10 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
     maxRateOfLift = maxRateOfLift.toLocaleString() + "<span style='font-size:50%;'>&nbsp;&nbsp;&nbsp;(" + maxRateOfLiftms + " m/s)</span>";
     
 // TOP OF LIFT
-    var topOfLift = parseInt(soarForecastData.contents.match(/(?<=ALS.+\s|als.+\s).\d{1,5}(?=\sFT\sMSL|\sft\sMSL)/)).toLocaleString();
+    var topOfLift = parseInt(soarForecastData.contents.match(/(?<=ALS.+\s|als.+\s)\d{1,5}/)).toLocaleString();
     
 // HEIGHT OF THE -3 INDEX
-    var neg3Index = parseInt(soarForecastData.contents.match(/(?<=DEX.+\s|dex.+\s).\d{1,5}(?=\sFT\sMSL|\sft\sMSL)/)).toLocaleString();
+    var neg3Index = parseInt(soarForecastData.contents.match(/(?<=DEX.+\s|dex.+\s)\d{1,5}/)).toLocaleString();
 
 // OVERDEVELOPMENT TIME
     var od = String(soarForecastData.contents.match(/(?<=PMENT.+\s|pment.+\s).{4}/));
@@ -318,22 +320,46 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
     sunsetTimeSs = (sunsetTimeSs > 30) ? 1:0;
     var sunsetTime = sunsetTimeHr + ":" + (sunsetTimeMn + sunsetTimeSs) + " pm";
 
-// GET ELEMENT BY ID
+// LIFTED CONDENSATION LEVEL
+    var lcl = parseInt(soarForecastData.contents.match(/(?<=l\.{7})\s\d{4,5}/)).toLocaleString();
+
+// K INDEX ARRAY
+    var kIndex = soarForecastData.contents.match(/(?<=x\.{3}\s)\S\d{1,2}\.\d/g);
+
+// CAPE ARRAY
+    var cape = soarForecastData.contents.match(/(?<=E\.{3}\s+)\S\d{1,3}\.\d/g);
+
+// LI (LIFTED INDEX) ARRAY
+    var li = soarForecastData.contents.match(/(?<=I\.{3}\s+)\S\d{1,3}\.\d/g);
+
     document.getElementById('soar-forecast-report-date').innerHTML = soarForecastReportFullDate;
     document.getElementById('max-rol').innerHTML = maxRateOfLift;
     document.getElementById('top-of-lift').innerHTML = topOfLift;
     document.getElementById('neg3-index').innerHTML = neg3Index;
+    document.getElementById('lcl').innerHTML = lcl;
     document.getElementById('od-time').innerHTML = od;
     document.getElementById('sunset-time').innerHTML = sunsetTime;
+    document.getElementById('kindex-9').innerHTML = kIndex[0];
+    document.getElementById('kindex-12').innerHTML = kIndex[1];
+    document.getElementById('kindex-3').innerHTML = kIndex[2];
+    document.getElementById('kindex-6').innerHTML = kIndex[3];
+    document.getElementById('cape-9').innerHTML = cape[0];
+    document.getElementById('cape-12').innerHTML = cape[1];
+    document.getElementById('cape-3').innerHTML = cape[2];
+    document.getElementById('cape-6').innerHTML = cape[3];
+    document.getElementById('li-9').innerHTML = li[0];
+    document.getElementById('li-12').innerHTML = li[1];
+    document.getElementById('li-3').innerHTML = li[2];
+    document.getElementById('li-6').innerHTML = li[3];
 });
 
-// ---------------------
-// ---------------------
-// W I N D S   A L O F T
-// ---------------------
-// ---------------------
+// -----------------------------------
+// -----------------------------------
+// W I N D S   A L O F T   S C R A P E
+// -----------------------------------
+// -----------------------------------
 
-// This block determines which of 3 forecasts to get (6, 12, or 24 hr)
+// FORECAST TIMEFRAME (6, 12, OR 24 HR)
     var fcastRange = "12";
     if (hour >= 14 && hour <= 19) {
         fcastRange = "06";
@@ -341,27 +367,24 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
         fcastRange = "24";
     }
 
-// Scrape data as "windAloftData", stored in "windAloftData.contents"
-    var windAloftForecastURL = "https://www.aviationweather.gov/windtemp/data?level=low&fcst=" + fcastRange + "&region=slc&layout=on&date=";
-    $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(windAloftForecastURL) + '&callback=?', function(windAloftData) {
+var windAloftForecastURL = "https://www.aviationweather.gov/windtemp/data?level=low&fcst=" + fcastRange + "&region=slc&layout=on&date=";
+$.getJSON(scrapeURLBase + encodeURIComponent(windAloftForecastURL) + '&callback=?', function(windAloftData) {
 
-// Extract forecast start & end time (zulu), convert to mountain (-6 for summer)
-    var fcastStartTime = windAloftData.contents.match(/\d{2}(?=\d{2}-\d{4}Z)/);
-    var fcastStartTimeAMPM = " am";
-    var fcastEndTimeAMPM = " am";
-    fcastStartTime = parseInt(fcastStartTime) - 6;
+// FORECAST START TIME (ZULU)
+    var fcastStartTime = parseInt(windAloftData.contents.match(/\d{2}(?=\d{2}-\d{4}Z)/)) - 6;
+    var fcastStartTimeAMPM = " am", fcastEndTimeAMPM = " am";
     if (fcastStartTime == 12) {
         fcastStartTime = "Noon";
         fcastStartTimeAMPM = "";
     }
     if (fcastStartTime > 12) {
-        fcastStartTime = fcastStartTime - 12;
+        fcastStartTime -= 12;
         fcastStartTimeAMPM = " pm";
     }
     fcastStartTime = fcastStartTime + fcastStartTimeAMPM;
 
-    var fcastEndTime = windAloftData.contents.match(/\d{2}(?=\d{2}Z.\sTEMPS)/);
-    fcastEndTime = parseInt(fcastEndTime) - 6;
+// FORECAST END TIME (ZULU)
+    var fcastEndTime = parseInt(windAloftData.contents.match(/\d{2}(?=\d{2}Z.\sTEMPS)/)) - 6;
     if (fcastEndTime == 0) {
         fcastEndTime = "Midnight";
         fcastEndTimeAMPM = "";
@@ -372,18 +395,11 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
     }
     fcastEndTime = fcastEndTime + fcastEndTimeAMPM;
 
+// FORECAST DAY
     var fcastDay;
-    if (fcastRange == "24" && hour > 19) {
-        fcastDay = " (tomorrow)";
-    } else {
-        fcastDay = "";
-    }
+    fcastDay = (fcastRange == "24" && hour > 19) ? " (tomorrow)" : "";
 
-    document.getElementById('winds-aloft-forecast-start').innerHTML = fcastStartTime;
-    document.getElementById('winds-aloft-forecast-end').innerHTML = fcastEndTime;
-    document.getElementById('winds-aloft-forecast-day').innerHTML = fcastDay;
-
-// Extract data group for SLC for direction, speed, and temp for 6k, 9k, 12k, and 18k
+// DIRECTION, SPEED, & TEMP (6K, 9K, 12K, 18K)
     var slcLine = String(windAloftData.contents.match(/(?<=SLC\s{6}).+(?=\s\d{4}-)/));
     var windAloftDirs = [], windAloftSpds = [], windAloftTmps = [];
     for (i=0; i<4; i++) {
@@ -411,18 +427,103 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
     }
     windAloftTmps[0] = "--"; // No temp reading for 6k
 
+    document.getElementById('winds-aloft-forecast-start').innerHTML = fcastStartTime;
+    document.getElementById('winds-aloft-forecast-end').innerHTML = fcastEndTime;
+    document.getElementById('winds-aloft-forecast-day').innerHTML = fcastDay;
     document.getElementById('wind-aloft-6k-spd').innerHTML = windAloftSpds[0];
     document.getElementById('wind-aloft-9k-spd').innerHTML = windAloftSpds[1];
     document.getElementById('wind-aloft-12k-spd').innerHTML = windAloftSpds[2];
     document.getElementById('wind-aloft-18k-spd').innerHTML = windAloftSpds[3];
-
     document.getElementById('wind-aloft-6k-dir').src = windAloftDirs[0];
     document.getElementById('wind-aloft-9k-dir').src = windAloftDirs[1];
     document.getElementById('wind-aloft-12k-dir').src = windAloftDirs[2];
     document.getElementById('wind-aloft-18k-dir').src = windAloftDirs[3];
-
     document.getElementById('wind-aloft-6k-tmp').innerHTML = windAloftTmps[0];
     document.getElementById('wind-aloft-9k-tmp').innerHTML = windAloftTmps[1];
     document.getElementById('wind-aloft-12k-tmp').innerHTML = windAloftTmps[2];
     document.getElementById('wind-aloft-18k-tmp').innerHTML = windAloftTmps[3];
 });
+
+// ---------------------------------------------
+// ---------------------------------------------
+// S L C C   C A M   I M A G E   R O T A T I O N
+// ---------------------------------------------
+// ---------------------------------------------
+
+/*function wasatchCamImgLoop() {
+    
+    function getPicURLArray() {
+        var images = [], var timestamp = [];
+        var mn = today.getMinutes();
+        var hr = today.getHours() - 1; // First pic back an hour for loop
+        
+        //Force minutes to 11, 26, 41, or 56 (Img capture times)
+        if (mn > 56) {
+                mn = 41;
+        }
+        if (mn > 41 && mn < 56) {
+                mn = 26;
+        }
+        if (mn > 26 && mn < 41) {
+                mn = 11;
+        }
+        if (mn > 11 && mn < 26) {
+                hr--;
+                mn = 56;
+        }
+        if (mn < 11) {
+                hr--;
+                mn = 41;
+        }
+            
+        //Load images array        
+        hr = hr >= 10 ? hr : '0' + hr; //Force double-digit hours
+        for (i = 0; i < 5; i++) {
+            images[i] = "https://cameras-cam.cdn.weatherbug.net/SALTC/" + yyyy + '/' + mm + '/' + dd + '/' + mm + dd + yyyy + hr + mn + "_l.jpg";
+            if (hr > 11) {                                                     //Convert to PM hours
+                timestamp[i] = (hr - 12) + ":" + mn + " pm, " + month + " " + dd;
+                if (hr == 12) {                                                 //Don't change 12 for PM hours start
+                  timestamp[i] = hr + ":" + mn + " pm, " + month + " " + dd;
+                }
+            } else {
+                timestamp[i] = (hr - 0) + ":" + mn + " am, " + month + " " + dd;   //Add AM to AM hours
+                if (hr == 0) {
+                  timestamp[i] = "12:" + mn + " am, " + month + " " + dd;          //Don't change 12 for AM hours start
+                }
+            }
+            
+            mn = mn + 15;                           //Increment minutes for next image
+            if (mn == 71) {                         //If minutes > 60
+                hr++;                               //Increment hour
+                  if (hr == 24) {                   //If hours > 23
+                    hr = 0;                         //Reset hours
+                    dd++;                           //Incrment day
+                    dd = dd >= 10 ? dd : '0' + dd;  //Re-force double-digit day
+                  }
+                hr = hr >= 10 ? hr : '0' + hr;      //Re-force double-digit hours
+                mn = 11;                            //Start new minutes cycle
+            }
+        }
+          
+        images.push(images[4]);         //Append duplicate image at end of array for visual pause
+        timestamp.push(timestamp[4]);   //Append duplicate timestamp at end or arrary for visual pause
+        return [images, timestamp];
+    }
+
+  var rotator = document.getElementById('WasatchCam');
+  var delay = 800;
+  var [images, timestamp] = getPicURLArray();
+  var loopCount = 0;
+        
+  var changeImage = function() {
+      var length = images.length;
+      rotator.src = images[loopCount];
+      document.getElementById('picTimestamp').innerHTML = timestamp[loopCount];
+      loopCount++;
+      if (loopCount == length) {
+        loopCount = 0;
+      }
+  };
+setInterval(changeImage, delay); //Rotate images
+};
+wasatchCamImgLoop;*/

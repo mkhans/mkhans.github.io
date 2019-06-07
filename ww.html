@@ -167,7 +167,7 @@
             <img src="https://forecast.weather.gov/meteograms/Plotter.php?lat=40.7603&lon=-111.8882&wfo=SLC&zcode=UTZ003&gset=30&gdiff=10&unit=0&tinfo=MY7&ahour=0&pcmd=10001110101000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6" width="100%"></a>
     
     <h1>Basic Soaring Data</h1>
-        <a href="https://www.weather.gov/slc/Soar" target="_blank">Forecast </a>for <span id="soar-forecast-report-date"></span>
+        <a href="https://www.weather.gov/slc/Soar" target="_blank">Soaring Forecast </a>for <span id="soar-forecast-report-date"></span>
             <table>
                 <tr>
                     <td class="left">Height of the -3 Index (ft)</td>
@@ -182,13 +182,17 @@
                     <td class="left bold-lrg" id="max-rol"></td>
                 </tr>
                 <tr>
+                    <td class="left">Cloudbase (LCL)</td>
+                    <td class="left bold-lrg" id="lcl"></td>
+                </tr>
+                <tr>
                     <td class="left">Overdevelopment Time</td>
                     <td class="left bold-lrg" id="od-time"></td>
                 </tr>
             </table>
     
-    <h1>Winds Aloft</h1>
-        <a href="https://www.aviationweather.gov/windtemp/data?level=low&fcst=06&region=slc&layout=on&date=" target="_blank">Forecast </a>from <span id="winds-aloft-forecast-start"></span> to <span id="winds-aloft-forecast-end"></span>
+    <h1>Wind Aloft</h1>
+        <a href="https://www.aviationweather.gov/windtemp/data?level=low&fcst=06&region=slc&layout=on&date=" target="_blank">Wind Aloft Forecast </a>from <span id="winds-aloft-forecast-start"></span> to <span id="winds-aloft-forecast-end"></span>
         <span id="winds-aloft-forecast-day"></span>
             <table>
                 <tr>
@@ -234,6 +238,38 @@
                     <td class="right">(5486 m)</td>
                 </tr>
             </table>
+    
+    <h1>Atmospheric Details</h1>
+        <table>
+            <tr>
+                <th class="left">&nbsp;</th>
+                <th class="left">9am</th>
+                <th class="left">Noon</th>
+                <th class="left">3pm</th>
+                <th class="left">6pm</th>
+            </tr>
+            <tr>
+                <td class="left">K Index</td>
+                <td class="left" id="kindex-9"></td>
+                <td class="left" id="kindex-12"></td>
+                <td class="left" id="kindex-3"></td>
+                <td class="left" id="kindex-6"></td>
+            </tr>
+            <tr>
+                <td class="left">CAPE</td>
+                <td class="left" id="cape-9"></td>
+                <td class="left" id="cape-12"></td>
+                <td class="left" id="cape-3"></td>
+                <td class="left" id="cape-6"></td>
+            </tr>
+            <tr>
+                <td class="left">LI</td>
+                <td class="left" id="li-9"></td>
+                <td class="left" id="li-12"></td>
+                <td class="left" id="li-3"></td>
+                <td class="left" id="li-6"></td>
+            </tr>
+        </table>
     
     <h1>72 Hour</h1>
         <table>
