@@ -48,8 +48,8 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
 // SHORT TERM FORECAST
     var noaaShortImg = noaaImgURLBase + noaaForecastData.contents.match(/(?<=p><img\ssrc=").+(?="\salt)/);
     var noaaShortTime = String(noaaForecastData.contents.match(/(?<=name">).+(?=<\Sp>)/));
-    noaaShortTime = (noaaShortTime == "This<br>Afternoon") ? "This Afternoon":noaaShortTime;
-    var noaaShortText = String(noaaForecastData.contents.match(/(?<=:\s).+(?=\s"\stitle)/));
+    noaaShortTime = (noaaShortTime == "This<br>Afternoon") ? "This Afternoon" : noaaShortTime;
+    var noaaShortText = String(noaaForecastData.contents.match(/(?<=:\s).+(?="\stitle)/));
     
 // 72 HOUR FORECAST
     var regexDay1Img = new RegExp('(?<=").+(?=".alt="' + dayNamePlus1 + ':)');
@@ -291,7 +291,9 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
     var soarForecastReportFullDate = soarForecastReportWkDay + ", " + soarForecastReportMonth + " " + soarForecastReportDate;
     
 // MAX RATE OF LIFT
-    var maxRateOfLift = parseInt(soarForecastData.contents.match(/\d{1,4}(?=\sFT\SMIN|\sft\Smin)/)).toLocaleString();
+    var maxRateOfLift = parseInt(soarForecastData.contents.match(/\d{1,4}(?=\sFT\SMIN|\sft\Smin)/));
+    var maxRateOfLiftms = Math.round((maxRateOfLift / 196.85) * 10) / 10;
+    maxRateOfLift = maxRateOfLift.toLocaleString() + "<span style='font-size:50%;'>&nbsp;&nbsp;&nbsp;(" + maxRateOfLiftms + " m/s)</span>";
     
 // TOP OF LIFT
     var topOfLift = parseInt(soarForecastData.contents.match(/(?<=ALS.+\s|als.+\s).\d{1,5}(?=\sFT\sMSL|\sft\sMSL)/)).toLocaleString();
@@ -301,7 +303,6 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
 
 // OVERDEVELOPMENT TIME
     var od = String(soarForecastData.contents.match(/(?<=PMENT.+\s|pment.+\s).{4}/));
-    console.log(od);
     if (parseInt(od)) {
         var odFirst2 = parseInt(od.substr(0,2));
         var odAMPM = (odFirst2 > 11) ? " pm" : " am";
@@ -319,7 +320,7 @@ $.getJSON('https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(
 
 // GET ELEMENT BY ID
     document.getElementById('soar-forecast-report-date').innerHTML = soarForecastReportFullDate;
-    document.getElementById('max-rol').innerHTML = maxRateOfLift + "<span style='font-size:50%;'> &nbsp;&nbsp;(" + Math.round((maxRateOfLift / 196.85) * 10) / 10 + " m/s)</span>";
+    document.getElementById('max-rol').innerHTML = maxRateOfLift;
     document.getElementById('top-of-lift').innerHTML = topOfLift;
     document.getElementById('neg3-index').innerHTML = neg3Index;
     document.getElementById('od-time').innerHTML = od;
