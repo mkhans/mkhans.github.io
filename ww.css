@@ -4,7 +4,7 @@ body {
     text-align: center;
     margin-left: 5%;
     margin-right: 5%;
-    font-size: 30px;
+    font-size: 20px;
     color: white;
 }
 a:link {
@@ -27,10 +27,6 @@ a:active {
     background-color: transparent;
     text-decoration: underline;
 }
-h1 {
-    text-align: center;
-    font-size: 175%;
-}
 table {
     width: 100%;
     border: 5px solid white;
@@ -42,10 +38,15 @@ th, td {
     vertical-align: middle;
     text-align: center;
 }
+.noborder {
+    border: none;
+    padding-top: 40px;
+}
+.vert-top {
+    vertical-align: top;
+}
 .section {
-    text-align: center;
     background-color: #777;
-    font-size: 250%;
     border: 5px solid white;
     margin-bottom: 40px;
 }
@@ -53,18 +54,17 @@ th, td {
     padding-left: 25px;
     text-align: left;
 }
-.indent-lrg {
-    padding-left: 25px;
-    font-size: 200%;
-    font-weight: bold;
-    text-align: left;
-}
 .bold {
     font-weight: bold;
 }
-.bold-lrg {
-    font-weight: bold;
-    font-size: 200%;
+.medium {
+    font-size: 150%;
+}
+.large {
+    font-size: 230%;
+}
+.xlarge {
+    font-size: 400%;
 }
 .left {
     text-align: left;
