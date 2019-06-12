@@ -17,11 +17,11 @@
     var windImgURLBase = "https://www.usairnet.com/weather/winds_aloft/";
     var scrapeURLBase = "https://whatever-origin.herokuapp.com/get?url=";
 
-//------------------------------
-//------------------------------
-// B A S I C   F U N C T I O N S
-//------------------------------
-//------------------------------
+//----------------------------------------
+//----------------------------------------
+// Q U I C K   H T M L   F U N C T I O N S
+//----------------------------------------
+//----------------------------------------
 
 $(document).ready (function todayFullDate() {
     document.getElementById('today-full-date').innerHTML = dayName + ", " + monthName + " " + dayNum;
