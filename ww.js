@@ -103,7 +103,7 @@ xhrTimeSeries.onload = function() {
     var weatherData = JSON.parse(xhrTimeSeries.responseText);
     var stationsCount = weatherData.STATION.length;
     var stationObservationsCount = [], stationName = [], stationHour = [], stationAMPM = [], stationMins = [], latestTimes = [], windSpeeds = [], windGusts = [], windDirCards = [], windDirImgs = [];
-
+console.log(weatherData);
 // MOST RECENT READING FOR EACH STATION
     for (i=0; i<stationsCount; i++) {
         try {
@@ -321,7 +321,7 @@ $.getJSON(scrapeURLBase + encodeURIComponent(soaringForecastURL) + '&callback=?'
     var kIndex = soarForecastData.contents.match(/(?<=x\.{3}\s+).\d{1,3}\.\d/g);
 
 // CAPE ARRAY
-    var cape = soarForecastData.contents.match(/(?<=PE\.{3}\s+).\d{1,3}\.\d/g);
+    var cape = soarForecastData.contents.match(/(?<=PE\.{3}\s+).\d{1,4}\.\d/g);
 
 // LI (LIFTED INDEX) ARRAY
     var li = soarForecastData.contents.match(/(?<=LI\.{3}\s+).\d{1,3}\.\d/g);
