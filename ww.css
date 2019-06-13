@@ -45,10 +45,8 @@ th, td {
 .vert-top {
     vertical-align: top;
 }
-.section {
-    background-color: #777;
-    border: 5px solid white;
-    margin-bottom: 40px;
+.verticalpad {
+    margin-top: 40px;
 }
 .indent {
     padding-left: 25px;
@@ -73,17 +71,18 @@ th, td {
     text-align: right;
 }
 .collapsible {
-    background-color: transparent;
+    background-color: #777;
     color: white;
     cursor: pointer;
-    padding: 10px;
-    padding-top: 15px;
+    padding-top: 10px;
+    padding-left: 20px;
     width: 100%;
     border: 5px solid white;
     border-radius: 25px;
-    font-size: 230%;
+    font-size: 400%;
     font-weight: bold;
     text-align: left;
+    margin-top: 40px;
 }
 .collapsible:after {
     content: url(images/plus.png);
@@ -92,7 +91,7 @@ th, td {
 .active:after {
     content: url(images/minus.png);
 }
-.current-wind {
+.collapse-contents {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;

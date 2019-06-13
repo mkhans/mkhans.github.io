@@ -27,6 +27,14 @@ $(document).ready (function todayFullDate() {
     document.getElementById('today-full-date').innerHTML = dayName + ", " + monthName + " " + dayNum;
 });
 
+$(document).ready (function slcRecentURL() {
+    document.getElementById('slc-recent').src = "https://www.wunderground.com/cgi-bin/histGraphAll?day=" + day2Digit + "&year=" + yyyy + "&month=" + monthNum + "&ID=KSLC&type=3&width=614";
+});
+
+$(document).ready (function getSkewTURL(){
+    document.getElementById('skewT').src = "https://climate.cod.edu/data/raob/KSLC/skewt/KSLC.skewt." + yyyy + month2Digit + day2Digit + ".12.gif";
+});
+
 // ---------------------------------------------------------
 // ---------------------------------------------------------
 // N O A A   S T A N D A R D   F O R E C A S T   S C R A P E
@@ -52,8 +60,8 @@ $.getJSON(scrapeURLBase + encodeURIComponent(noaaForecastURL) + '&callback=?', f
 
 // SHORT TERM FORECAST
     var noaaShortImg = noaaImgURLBase + noaaForecastData.contents.match(/(?<=p><img\ssrc=").+(?="\salt)/);
-    var noaaShortTime = String(noaaForecastData.contents.match(/(?<=name">).+(?=<\Sp>)/));
-    noaaShortTime = (noaaShortTime == "This<br>Afternoon") ? "This Afternoon" : noaaShortTime;
+    var noaaShortTime = noaaForecastData.contents.match(/(?<=name">).+(?=<\Sp>)/g);
+    noaaShortTime[1] = (noaaShortTime[1] == "This<br>Afternoon") ? "This Afternoon" : noaaShortTime[1];
     var noaaShortText = String(noaaForecastData.contents.match(/(?<=:\s).+(?="\stitle)/));
     
 // 72 HOUR FORECAST
@@ -76,7 +84,7 @@ $.getJSON(scrapeURLBase + encodeURIComponent(noaaForecastURL) + '&callback=?', f
     document.getElementById('noaa-current-temp').innerHTML = noaaCurrentTemp;
     document.getElementById('noaa-current-pres').innerHTML = noaaCurrentPres;
     document.getElementById('noaa-short-img').src = noaaShortImg;
-    document.getElementById('noaa-short-time').innerHTML = noaaShortTime;
+    document.getElementById('noaa-short-time').innerHTML = noaaShortTime[1];
     document.getElementById('noaa-short-text').innerHTML = noaaShortText;
     document.getElementById('forecast-day1-img').src = forecastImgs[0];
     document.getElementById('forecast-day2-img').src = forecastImgs[1];
@@ -103,7 +111,7 @@ xhrTimeSeries.onload = function() {
     var weatherData = JSON.parse(xhrTimeSeries.responseText);
     var stationsCount = weatherData.STATION.length;
     var stationObservationsCount = [], stationName = [], stationHour = [], stationAMPM = [], stationMins = [], latestTimes = [], windSpeeds = [], windGusts = [], windDirCards = [], windDirImgs = [];
-console.log(weatherData);
+
 // MOST RECENT READING FOR EACH STATION
     for (i=0; i<stationsCount; i++) {
         try {
@@ -307,12 +315,17 @@ $.getJSON(scrapeURLBase + encodeURIComponent(soaringForecastURL) + '&callback=?'
     }
 
 // SUNSET TIME
-    var sunsetTimeHr = parseInt(soarForecastData.contents.match(/\d{2}(?=:\d{2}:\d{2}\sMDT\n)/));
-    sunsetTimeHr = (sunsetTimeHr > 12) ? sunsetTimeHr -= 12:sunsetTimeHr;
-    var sunsetTimeMn = parseInt(soarForecastData.contents.match(/\d{2}(?=:\d{2}\sMDT\n)/));
     var sunsetTimeSs = parseInt(soarForecastData.contents.match(/\d{2}(?=:\d{2}\sMDT\n)/));
-    sunsetTimeSs = (sunsetTimeSs > 30) ? 1:0;
-    var sunsetTime = sunsetTimeHr + ":" + (sunsetTimeMn + sunsetTimeSs) + " pm";
+    var sunsetTimeMn = parseInt(soarForecastData.contents.match(/\d{2}(?=:\d{2}\sMDT\n)/));
+    var sunsetTimeHr = parseInt(soarForecastData.contents.match(/\d{2}(?=:\d{2}:\d{2}\sMDT\n)/)) - 12;
+    if (sunsetTimeSs > 30) {
+        sunsetTimeMn += 1;
+        if (sunsetTimeMn == 60) {
+            sunsetTimeMn = "00";
+            sunsetTimeHr += 1;
+        }
+    }
+    var sunsetTime = sunsetTimeHr + ":" + sunsetTimeMn + " pm";
 
 // LIFTED CONDENSATION LEVEL
     var lcl = parseInt(soarForecastData.contents.match(/(?<=l\.{7})\s\d{4,5}/)).toLocaleString();
