@@ -60,8 +60,8 @@ $.getJSON(scrapeURLBase + encodeURIComponent(noaaForecastURL) + '&callback=?', f
 
 // SHORT TERM FORECAST
     var noaaShortImg = noaaImgURLBase + noaaForecastData.contents.match(/(?<=p><img\ssrc=").+(?="\salt)/);
-    var noaaShortTime = noaaForecastData.contents.match(/(?<=name">).+(?=<\Sp>)/g);
-    noaaShortTime[1] = (noaaShortTime[1] == "This<br>Afternoon") ? "This Afternoon" : noaaShortTime[1];
+    var noaaShortTime = noaaForecastData.contents.match(/(?<=name">).+(?=<\Sp>)/);
+    noaaShortTime = (noaaShortTime == "This<br>Afternoon") ? "This Afternoon" : noaaShortTime;
     var noaaShortText = String(noaaForecastData.contents.match(/(?<=:\s).+(?="\stitle)/));
     
 // 72 HOUR FORECAST
@@ -84,7 +84,7 @@ $.getJSON(scrapeURLBase + encodeURIComponent(noaaForecastURL) + '&callback=?', f
     document.getElementById('noaa-current-temp').innerHTML = noaaCurrentTemp;
     document.getElementById('noaa-current-pres').innerHTML = noaaCurrentPres;
     document.getElementById('noaa-short-img').src = noaaShortImg;
-    document.getElementById('noaa-short-time').innerHTML = noaaShortTime[1];
+    document.getElementById('noaa-short-time').innerHTML = noaaShortTime;
     document.getElementById('noaa-short-text').innerHTML = noaaShortText;
     document.getElementById('forecast-day1-img').src = forecastImgs[0];
     document.getElementById('forecast-day2-img').src = forecastImgs[1];
@@ -289,11 +289,11 @@ $.getJSON(scrapeURLBase + encodeURIComponent(soaringForecastURL) + '&callback=?'
 // REPORT DATE
     var soarForecastReportWkDay = String(soarForecastData.contents.match(/(?<=s\sfor\s|S\sFOR\s)[A-Z][a-zA-Z]{2}/));
     soarForecastReportWkDay = soarForecastReportWkDay.substr(0,1) + soarForecastReportWkDay.substr(1).toLowerCase();
-    var soarForecastReportMonth = String(soarForecastData.contents.match(/(?<=DAY,\s|day,\s).+(?=\s\d{1,2},)/));
+    var soarForecastReportMonth = String(soarForecastData.contents.match(/(?<=DAY,\s|day,\s)[A-Z][a-zA-Z]{2}(?=.+\s\d{1,2},)/));
     soarForecastReportMonth = soarForecastReportMonth.substr(0,1) + soarForecastReportMonth.substr(1).toLocaleLowerCase();
     var soarForecastReportDate = String(soarForecastData.contents.match(/\d{1,2}(?=,\s2019)/));
     var soarForecastReportFullDate = soarForecastReportWkDay + ", " + soarForecastReportMonth + " " + soarForecastReportDate;
-    
+    soarForecastReportFullDate = (soarForecastReportFullDate == dayName + ", " + monthName + " " + dayNum) ? soarForecastReportFullDate = soarForecastReportFullDate : soarForecastReportFullDate + " (Check Date!)";    
 // MAX RATE OF LIFT
     var maxRateOfLift = parseInt(soarForecastData.contents.match(/\d{1,4}(?=\sFT\SMIN|\sft\Smin)/));
     var maxRateOfLiftms = Math.round((maxRateOfLift / 196.85) * 10) / 10;
@@ -325,6 +325,7 @@ $.getJSON(scrapeURLBase + encodeURIComponent(soaringForecastURL) + '&callback=?'
             sunsetTimeHr += 1;
         }
     }
+    sunsetTimeMn = (sunsetTimeMn == 0) ? sunsetTimeMn = "00" : sunsetTimeMn;
     var sunsetTime = sunsetTimeHr + ":" + sunsetTimeMn + " pm";
 
 // LIFTED CONDENSATION LEVEL

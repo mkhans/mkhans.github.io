@@ -120,13 +120,14 @@
             - Last 2 hrs -
     
     <h1 class="large">SLC Temp, Pressure, & Wind</h1>
-        <a href="https://www.wunderground.com/cgi-bin/histGraphAll?day=24&year=2019&month=5&ID=KSLC&type=3&width=614" target="_blank">
+        <a href="https://www.wunderground.com/history/airportfrompws/KSLC/2019/6/14/DailyHistory.html?req_city=&req_state=&req_statename=&reqdb.zip=&reqdb.magic=&reqdb.wmo=" target="_blank">
             <img id='slc-recent' width="100%"></a>
             - Since Midnight -
     
     <h1 class="large">Skew T</h1>
-        <img id='skewT', width="100%">
-        - Today's Morning Sounding -
+        <a href="https://climate.cod.edu/data/raob/KSLC/skewt" target="_blank">
+            <img id='skewT', width="100%"></a>
+            - Today's Morning Sounding -
     
     <h1 class="large">Fronts</h1>
         <a href="http://api.wunderground.com/maps/us/Fronts.html" target="_blank">
@@ -145,11 +146,12 @@
     <h1 class="large">Short Term</h1>
         <table>
             <tr>
-                <td><img id="noaa-short-img" height=240px></td>
-                <td id='noaa-short-text' class="indent large bold" rowspan="2"></td>
+                <td id='noaa-short-time' class ="medium bold"></td>
+                <td id='noaa-short-text' class="indent medium bold" rowspan="2"></td>
             </tr>
             <tr>
-                <td id='noaa-short-time' class ="medium bold"></td>
+                <td class="vert-top"><a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XQO9fYhKhPZ" target="_blank">
+                    <img id="noaa-short-img" height=240px></a></td>
             </tr>
         </table>
 
@@ -277,25 +279,25 @@
     <h1 class="large">72 Hour</h1>
         <table>
             <tr>
-                <td class="left"><img id="forecast-day1-img" width=150px></td>
+                <td id="forecast-day1-name" class="medium"></td>
                 <td id="forecast-day1-text" rowspan="2" class="indent left medium"></td>
             </tr>
             <tr>
-                <td id="forecast-day1-name" class="medium"></td>
-            </tr>
-            <tr>
-                <td class="left"><img id="forecast-day2-img" width=150px></td>
-                <td id="forecast-day2-text" rowspan="2" class="indent left medium"></td>
+                <td class="left"><img id="forecast-day1-img" width=150px></td>
             </tr>
             <tr>
                 <td id="forecast-day2-name" class="medium"></td>
+                <td id="forecast-day2-text" rowspan="2" class="indent left medium"></td>
             </tr>
             <tr>
-                <td class="left"><img id="forecast-day3-img" width=150px></td>
-                <td id="forecast-day3-text" rowspan="2" class="indent left medium"></td>
+                <td class="left"><img id="forecast-day2-img" width=150px></td>
             </tr>
             <tr>
                 <td id="forecast-day3-name" class="medium"></td>
+                <td id="forecast-day3-text" rowspan="2" class="indent left medium"></td>
+            </tr>
+            <tr>
+                <td class="left"><img id="forecast-day3-img" width=150px></td>
             </tr>
         </table>
     </div>
