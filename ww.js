@@ -335,7 +335,7 @@ $.getJSON(scrapeURLBase + encodeURIComponent(soaringForecastURL) + '&callback=?'
     var kIndex = soarForecastData.contents.match(/x\.{3}\s\S\d{1,3}\.\d/g);
 
 // CAPE ARRAY
-    var cape = soarForecastData.contents.match(/\S\d{3,4}\.\d/g);
+    var cape = soarForecastData.contents.match(/\S\d{2,4}\.\d/g);
 
 // LI (LIFTED INDEX) ARRAY
     var li = soarForecastData.contents.match(/I\.{3}\s+\S\d{1,3}\.\d/g);
