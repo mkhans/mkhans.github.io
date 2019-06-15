@@ -287,7 +287,7 @@ var soaringForecastURL = "https://www.weather.gov/source/slc/aviation/files/SLCS
 $.getJSON(scrapeURLBase + encodeURIComponent(soaringForecastURL) + '&callback=?', function(soarForecastData) {
     
 // REPORT DATE
-    var soarForecastReportWkDay = String(soarForecastData.contents.match(/[A-Z][a-zA-Z]{2}(?=day.+:)/));
+    var soarForecastReportWkDay = String(soarForecastData.contents.match(/MDT\s[A-Z][a-zA-Z]{2}/)).substr(4);
     soarForecastReportWkDay = soarForecastReportWkDay.substr(0,1) + soarForecastReportWkDay.substr(1).toLowerCase();
     var soarForecastReportMonth = String(soarForecastData.contents.match(/[a-z][a-zA-Z]{3},\s[A-Z][a-zA-Z]{2}/)).substr(6);
     soarForecastReportMonth = soarForecastReportMonth.substr(0,1) + soarForecastReportMonth.substr(1).toLocaleLowerCase();
