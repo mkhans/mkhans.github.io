@@ -60,7 +60,7 @@ $.getJSON(scrapeURLBase + encodeURIComponent(noaaForecastURL) + '&callback=?', f
 
 // SHORT TERM FORECAST
     var noaaShortImg = noaaImgURLBase + noaaForecastData.contents.match(/DualImage.+(?="\salt)|newimages\/m.+(?="\salt)/);
-    var noaaShortTime = String(noaaForecastData.contents.match(/name">[a-zA-Z]+/)).substr(6);
+    var noaaShortTime = String(noaaForecastData.contents.match(/name">[A-Z][a-z]+/)).substr(6);
     noaaShortTime = (noaaShortTime == "This<br>Afternoon") ? "This Afternoon" : noaaShortTime;
     var noaaShortText = String(noaaForecastData.contents.match(/:.+(?=\s"\stitle)/)).substr(2);
     
@@ -104,7 +104,7 @@ $.getJSON(scrapeURLBase + encodeURIComponent(noaaForecastURL) + '&callback=?', f
 // -------------------------------------------------------
 
 var xhrTimeSeries = new XMLHttpRequest();
-xhrTimeSeries.open('GET', 'https://api.mesowest.net/v2/station/timeseries?&stid=KSLC&stid=OC1WX&stid=C8948&stid=OGP&stid=PKC&recent=60&obtimezone=local&timeformat=%b%20%d%20-%20%H:%M&vars=wind_speed,wind_gust,wind_direction,wind_cardinal_direction&units=english,speed|mph&token=6243aadc536049fc9329c17ff2f88db3', true);
+xhrTimeSeries.open('GET', 'https://api.mesowest.net/v2/station/timeseries?&stid=KSLC&stid=MSI01&stid=C8948&stid=OGP&stid=PKC&recent=60&obtimezone=local&timeformat=%b%20%d%20-%20%H:%M&vars=wind_speed,wind_gust,wind_direction,wind_cardinal_direction&units=english,speed|mph&token=6243aadc536049fc9329c17ff2f88db3', true);
 xhrTimeSeries.responseType = 'text';
 xhrTimeSeries.send();
 xhrTimeSeries.onload = function() {
@@ -128,7 +128,7 @@ xhrTimeSeries.onload = function() {
             stationName[i] = weatherData.STATION[i].STID;
             stationName[i] = (stationName[i] == "OGP") ? "Ogden Pk" : stationName[i];
             stationName[i] = (stationName[i] == "PKC") ? "Jupiter" : stationName[i];
-            stationName[i] = (stationName[i] == "OC1WX") ? "Olympus" : stationName[i];
+            stationName[i] = (stationName[i] == "MSI01") ? "Olympus" : stationName[i];
             stationName[i] = (stationName[i] == "C8948") ? "Legacy" : stationName[i];
         }
         catch(err) {
@@ -335,7 +335,7 @@ $.getJSON(scrapeURLBase + encodeURIComponent(soaringForecastURL) + '&callback=?'
     var kIndex = soarForecastData.contents.match(/x\.{3}\s\S\d{1,3}\.\d/g);
 
 // CAPE ARRAY
-    var cape = soarForecastData.contents.match(/\S\d{3,4}\.\d/g);
+    var cape = soarForecastData.contents.match(/E\.{3}\s+\+\d{2,4}\.\d/g);
 
 // LI (LIFTED INDEX) ARRAY
     var li = soarForecastData.contents.match(/I\.{3}\s+\S\d{1,3}\.\d/g);
@@ -351,10 +351,10 @@ $.getJSON(scrapeURLBase + encodeURIComponent(soaringForecastURL) + '&callback=?'
     document.getElementById('kindex-12').innerHTML = kIndex[1].substr(5);
     document.getElementById('kindex-3').innerHTML = kIndex[2].substr(5);
     document.getElementById('kindex-6').innerHTML = kIndex[3].substr(5);
-    document.getElementById('cape-9').innerHTML = cape[0];
-    document.getElementById('cape-12').innerHTML = cape[1];
-    document.getElementById('cape-3').innerHTML = cape[2];
-    document.getElementById('cape-6').innerHTML = cape[3];
+    document.getElementById('cape-9').innerHTML = cape[0].substr(6);
+    document.getElementById('cape-12').innerHTML = cape[1].substr(6);
+    document.getElementById('cape-3').innerHTML = cape[2].substr(6);
+    document.getElementById('cape-6').innerHTML = cape[3].substr(6);
     document.getElementById('li-9').innerHTML = li[0].substr(11);
     document.getElementById('li-12').innerHTML = li[1].substr(11);
     document.getElementById('li-3').innerHTML = li[2].substr(11);

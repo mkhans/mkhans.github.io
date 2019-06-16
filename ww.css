@@ -70,6 +70,9 @@ th, td {
 .right {
     text-align: right;
 }
+.yellow {
+    color: yellow;
+}
 .collapsible {
     background-color: #777;
     color: white;
