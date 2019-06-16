@@ -59,10 +59,10 @@ $.getJSON(scrapeURLBase + encodeURIComponent(noaaForecastURL) + '&callback=?', f
     var noaaCurrentPres = String(noaaForecastData.contents.match(/\d{1,2}.\d{1,2}(?=\sin)/));
 
 // SHORT TERM FORECAST
-    var noaaShortImg = noaaImgURLBase + noaaForecastData.contents.match(/DualImage.+(?="\salt)|newimages\/m.+(?="\salt)/);
+    var noaaShortImg = noaaImgURLBase + noaaForecastData.contents.match(/DualImage.+(?="\salt="[A-Z])|newimages\/m.+(?="\salt="[A-Z])/);
     var noaaShortTime = String(noaaForecastData.contents.match(/name">[A-Z][a-z]+/)).substr(6);
-    noaaShortTime = (noaaShortTime == "This<br>Afternoon") ? "This Afternoon" : noaaShortTime;
-    var noaaShortText = String(noaaForecastData.contents.match(/:.+(?=\s"\stitle)/)).substr(2);
+    noaaShortTime = (noaaShortTime == "This") ? "This Afternoon" : noaaShortTime;
+    var noaaShortText = String(noaaForecastData.contents.match(/:\s[A-Z].+(?="\stitle)/)).substr(2);
     
 // 72 HOUR FORECAST
     var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -111,7 +111,7 @@ xhrTimeSeries.onload = function() {
     var weatherData = JSON.parse(xhrTimeSeries.responseText);
     var stationsCount = weatherData.STATION.length;
     var stationObservationsCount = [], stationName = [], stationHour = [], stationAMPM = [], stationMins = [], latestTimes = [], windSpeeds = [], windGusts = [], windDirCards = [], windDirImgs = [];
-
+console.log(weatherData);
 // MOST RECENT READING FOR EACH STATION
     for (i=0; i<stationsCount; i++) {
         try {
@@ -285,6 +285,20 @@ forecastedImgLoop;
 
 var soaringForecastURL = "https://www.weather.gov/source/slc/aviation/files/SLCSRGSLC0.txt";
 $.getJSON(scrapeURLBase + encodeURIComponent(soaringForecastURL) + '&callback=?', function(soarForecastData) {
+
+// SUNSET TIME
+    var sunsetTimeSs = parseInt(soarForecastData.contents.match(/\d{2}(?=:\d{2}\sMDT\n)/));
+    var sunsetTimeMn = parseInt(soarForecastData.contents.match(/\d{2}(?=:\d{2}\sMDT\n)/));
+    var sunsetTimeHr = parseInt(soarForecastData.contents.match(/\d{2}(?=:\d{2}:\d{2}\sMDT\n)/)) - 12;
+    if (sunsetTimeSs > 30) {
+        sunsetTimeMn += 1;
+        if (sunsetTimeMn == 60) {
+            sunsetTimeMn = 0;
+            sunsetTimeHr += 1;
+        }
+    }
+    sunsetTimeMn = (sunsetTimeMn < 10) ? sunsetTimeMn = "0" + sunsetTimeMn : sunsetTimeMn;
+    var sunsetTime = sunsetTimeHr + ":" + sunsetTimeMn + " pm";
     
 // REPORT DATE
     var soarForecastReportWkDay = String(soarForecastData.contents.match(/MDT\s[A-Z][a-zA-Z]{2}/)).substr(4);
@@ -297,13 +311,22 @@ $.getJSON(scrapeURLBase + encodeURIComponent(soaringForecastURL) + '&callback=?'
 // MAX RATE OF LIFT
     var maxRateOfLift = parseInt(soarForecastData.contents.match(/\d{1,4}(?=\sFT\SMIN|\sft\Smin)/));
     var maxRateOfLiftms = Math.round((maxRateOfLift / 196.85) * 10) / 10;
-    maxRateOfLift = maxRateOfLift.toLocaleString() + "<span style='font-size:30%;'>&nbsp;&nbsp;&nbsp;(" + maxRateOfLiftms + " m/s)</span>";
+    maxRateOfLift = maxRateOfLift.toLocaleString() + "<span style='font-size:30%;'>&nbsp;&nbsp;&nbsp;" + maxRateOfLiftms + " m/s</span>";
+
+// HEIGHT OF THE -3 INDEX
+    var neg3Index = parseInt(String(soarForecastData.contents.match(/dex.+\d{1,5}(?=\s.+MSL)/)).substr(21));
+    var neg3Indexm = Math.round(neg3Index / 3.281);
+    neg3Index = neg3Index.toLocaleString() + "<span style='font-size:30%;'>&nbsp;&nbsp;&nbsp;" + neg3Indexm + " m</span>";
+
+// LIFTED CONDENSATION LEVEL (CLOUDBASE)
+    var lcl = parseInt(String(soarForecastData.contents.match(/d\scondensation\slevel.+\d{1,5}(?=\s.+MSL)/)).substr(28));
+    var lclm = Math.round(lcl / 3.281);
+    lcl = lcl.toLocaleString() + "<span style='font-size:30%;'>&nbsp;&nbsp;&nbsp;" + lclm + " m</span>";
     
 // TOP OF LIFT
-    var topOfLift = parseInt((String(soarForecastData.contents.match(/mals.+\d{1,5}\s[a-zA-Z]{2}\sMSL/))).substr(23)).toLocaleString();
-    
-// HEIGHT OF THE -3 INDEX
-    var neg3Index = parseInt((String(soarForecastData.contents.match(/dex.+\d{1,5}\s[a-zA-Z]{2}\sMSL/))).substr(21)).toLocaleString();
+    var topOfLift = parseInt(String(soarForecastData.contents.match(/mals.+\d{1,5}(?=\s.+MSL)/)).substr(23));
+    var topOfLiftm = Math.round(topOfLift / 3.281);
+    topOfLift = topOfLift.toLocaleString() + "<span style='font-size:30%;'>&nbsp;&nbsp;&nbsp;" + topOfLiftm + " m</span>";
 
 // OVERDEVELOPMENT TIME
     var od = String(soarForecastData.contents.match(/ment.+\d{4}|ment.+[A-Z][a-zA-Z]{3}/)).substr(29);
@@ -314,31 +337,14 @@ $.getJSON(scrapeURLBase + encodeURIComponent(soaringForecastURL) + '&callback=?'
         od = String(odFirst2) + ":" + od.substr(2,4) + odAMPM;
     }
 
-// SUNSET TIME
-    var sunsetTimeSs = parseInt(soarForecastData.contents.match(/\d{2}(?=:\d{2}\sMDT\n)/));
-    var sunsetTimeMn = parseInt(soarForecastData.contents.match(/\d{2}(?=:\d{2}\sMDT\n)/));
-    var sunsetTimeHr = parseInt(soarForecastData.contents.match(/\d{2}(?=:\d{2}:\d{2}\sMDT\n)/)) - 12;
-    if (sunsetTimeSs > 30) {
-        sunsetTimeMn += 1;
-        if (sunsetTimeMn == 60) {
-            sunsetTimeMn = "00";
-            sunsetTimeHr += 1;
-        }
-    }
-    sunsetTimeMn = (sunsetTimeMn == 0) ? sunsetTimeMn = "00" : sunsetTimeMn;
-    var sunsetTime = sunsetTimeHr + ":" + sunsetTimeMn + " pm";
-
-// LIFTED CONDENSATION LEVEL
-    var lcl = parseInt((String(soarForecastData.contents.match(/d\scondensation\slevel.+\d{1,5}\s[a-zA-Z]{2}\sMSL/))).substr(28)).toLocaleString();
-
 // K INDEX ARRAY
-    var kIndex = soarForecastData.contents.match(/x\.{3}\s\S\d{1,3}\.\d/g);
+    var kIndex = soarForecastData.contents.match(/x\.{3}\s.\d{1,3}\.\d/g);
 
 // CAPE ARRAY
-    var cape = soarForecastData.contents.match(/E\.{3}\s+\+\d{2,4}\.\d/g);
+    var cape = soarForecastData.contents.match(/E\.{3}\s+.\d{2,4}\.\d/g);
 
 // LI (LIFTED INDEX) ARRAY
-    var li = soarForecastData.contents.match(/I\.{3}\s+\S\d{1,3}\.\d/g);
+    var li = soarForecastData.contents.match(/I\.{3}\s+.\d{1,3}\.\d/g);
 
     document.getElementById('soar-forecast-report-date').innerHTML = soarForecastReportFullDate;
     document.getElementById('max-rol').innerHTML = maxRateOfLift;
@@ -433,7 +439,7 @@ $.getJSON(scrapeURLBase + encodeURIComponent(windAloftForecastURL) + '&callback=
         }
         windAloftTmps[i] = Math.round(windAloftTmps[i] * (9/5) + 32);
     }
-    windAloftTmps[0] = "--"; // No temp reading for 6k
+    windAloftTmps[0] = ""; // No temp reading for 6k
 
     document.getElementById('winds-aloft-forecast-start').innerHTML = fcastStartTime;
     document.getElementById('winds-aloft-forecast-end').innerHTML = fcastEndTime;

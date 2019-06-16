@@ -45,6 +45,9 @@ th, td {
 .vert-top {
     vertical-align: top;
 }
+.vert-bottom {
+    vertical-align: bottom;
+}
 .verticalpad {
     margin-top: 40px;
 }
