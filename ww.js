@@ -53,7 +53,7 @@ $.getJSON(scrapeURLBase + encodeURIComponent(noaaForecastURL) + '&callback=?', f
 // TEMP (CURRENT & NEXT)
     var noaaCurrentTemp = String(noaaForecastData.contents.match(/\d{1,3}(?=&deg;F<)/));
     var noaaNextTemp = String(noaaForecastData.contents.match(/\d{1,3}(?=\s&deg)/));
-    noaaCurrentTemp = noaaCurrentTemp + "<span style='font-size:50%;'>&nbsp;&nbsp;&nbsp;(" + noaaNextTemp + ")</span>";
+    noaaCurrentTemp = noaaCurrentTemp + "<span style='font-size:50%;'>&nbsp;&nbsp;&nbsp;--> " + noaaNextTemp + "</span>";
     
 // PRESSURE
     var noaaCurrentPres = String(noaaForecastData.contents.match(/\d{1,2}.\d{1,2}(?=\sin)/));
@@ -297,7 +297,7 @@ $.getJSON(scrapeURLBase + encodeURIComponent(soaringForecastURL) + '&callback=?'
 // MAX RATE OF LIFT
     var maxRateOfLift = parseInt(soarForecastData.contents.match(/\d{1,4}(?=\sFT\SMIN|\sft\Smin)/));
     var maxRateOfLiftms = Math.round((maxRateOfLift / 196.85) * 10) / 10;
-    maxRateOfLift = maxRateOfLift.toLocaleString() + "<span style='font-size:50%;'>&nbsp;&nbsp;&nbsp;(" + maxRateOfLiftms + " m/s)</span>";
+    maxRateOfLift = maxRateOfLift.toLocaleString() + "<span style='font-size:30%;'>&nbsp;&nbsp;&nbsp;(" + maxRateOfLiftms + " m/s)</span>";
     
 // TOP OF LIFT
     var topOfLift = parseInt((String(soarForecastData.contents.match(/mals.+\d{1,5}\s[a-zA-Z]{2}\sMSL/))).substr(23)).toLocaleString();
