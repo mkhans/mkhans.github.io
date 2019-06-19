@@ -104,7 +104,7 @@ $.getJSON(scrapeURLBase + encodeURIComponent(noaaForecastURL) + '&callback=?', f
 // -------------------------------------------------------
 
 var xhrTimeSeries = new XMLHttpRequest();
-xhrTimeSeries.open('GET', 'https://api.mesowest.net/v2/station/timeseries?&stid=KSLC&stid=MSI01&stid=C8948&stid=OGP&stid=PKC&recent=70&obtimezone=local&timeformat=%b%20%d%20-%20%H:%M&vars=wind_speed,wind_gust,wind_direction,wind_cardinal_direction&units=english,speed|mph&token=6243aadc536049fc9329c17ff2f88db3', true);
+xhrTimeSeries.open('GET', 'https://api.mesowest.net/v2/station/timeseries?&stid=KSLC&stid=MSI01&stid=C8948&stid=OGP&stid=PKC&stid=FPS&recent=70&obtimezone=local&timeformat=%b%20%d%20-%20%H:%M&vars=wind_speed,wind_gust,wind_direction,wind_cardinal_direction&units=english,speed|mph&token=6243aadc536049fc9329c17ff2f88db3', true);
 xhrTimeSeries.responseType = 'text';
 xhrTimeSeries.send();
 xhrTimeSeries.onload = function() {
@@ -207,35 +207,46 @@ xhrTimeSeries.onload = function() {
 
 // GET ELEMENT BY ID
     document.getElementById('station0-name').innerHTML = stationName[0];
-    document.getElementById('station1-name').innerHTML = stationName[1];
-    document.getElementById('station2-name').innerHTML = stationName[2];
-    document.getElementById('station3-name').innerHTML = stationName[3];
-    document.getElementById('station4-name').innerHTML = stationName[4];
     document.getElementById('station0-time').innerHTML = latestTimes[0];
-    document.getElementById('station1-time').innerHTML = latestTimes[1];
-    document.getElementById('station2-time').innerHTML = latestTimes[2];
-    document.getElementById('station3-time').innerHTML = latestTimes[3];
-    document.getElementById('station4-time').innerHTML = latestTimes[4];
     document.getElementById('station0-wind-speed').innerHTML = windSpeeds[0];
-    document.getElementById('station1-wind-speed').innerHTML = windSpeeds[1];
-    document.getElementById('station2-wind-speed').innerHTML = windSpeeds[2];
-    document.getElementById('station3-wind-speed').innerHTML = windSpeeds[3];
-    document.getElementById('station4-wind-speed').innerHTML = windSpeeds[4];
     document.getElementById('station0-wind-gust').innerHTML = windGusts[0];
-    document.getElementById('station1-wind-gust').innerHTML = windGusts[1];
-    document.getElementById('station2-wind-gust').innerHTML = windGusts[2];
-    document.getElementById('station3-wind-gust').innerHTML = windGusts[3];
-    document.getElementById('station4-wind-gust').innerHTML = windGusts[4];
     document.getElementById('station0-wind-dir-card').innerHTML = windDirCards[0];
-    document.getElementById('station1-wind-dir-card').innerHTML = windDirCards[1];
-    document.getElementById('station2-wind-dir-card').innerHTML = windDirCards[2];
-    document.getElementById('station3-wind-dir-card').innerHTML = windDirCards[3];
-    document.getElementById('station4-wind-dir-card').innerHTML = windDirCards[4];
     document.getElementById('station0-wind-dir-img').src = windDirImgs[0];
+    
+    document.getElementById('station1-name').innerHTML = stationName[1];
+    document.getElementById('station1-time').innerHTML = latestTimes[1];
+    document.getElementById('station1-wind-speed').innerHTML = windSpeeds[1];
+    document.getElementById('station1-wind-gust').innerHTML = windGusts[1];
+    document.getElementById('station1-wind-dir-card').innerHTML = windDirCards[1];
     document.getElementById('station1-wind-dir-img').src = windDirImgs[1];
+    
+    document.getElementById('station2-name').innerHTML = stationName[2];
+    document.getElementById('station2-time').innerHTML = latestTimes[02];
+    document.getElementById('station2-wind-speed').innerHTML = windSpeeds[2];
+    document.getElementById('station2-wind-gust').innerHTML = windGusts[2];
+    document.getElementById('station2-wind-dir-card').innerHTML = windDirCards[2];
     document.getElementById('station2-wind-dir-img').src = windDirImgs[2];
+    
+    document.getElementById('station3-name').innerHTML = stationName[3];
+    document.getElementById('station3-time').innerHTML = latestTimes[3];
+    document.getElementById('station3-wind-speed').innerHTML = windSpeeds[3];
+    document.getElementById('station3-wind-gust').innerHTML = windGusts[3];
+    document.getElementById('station3-wind-dir-card').innerHTML = windDirCards[3];
     document.getElementById('station3-wind-dir-img').src = windDirImgs[3];
+    
+    document.getElementById('station4-name').innerHTML = stationName[4];
+    document.getElementById('station4-time').innerHTML = latestTimes[4];
+    document.getElementById('station4-wind-speed').innerHTML = windSpeeds[4];
+    document.getElementById('station4-wind-gust').innerHTML = windGusts[4];
+    document.getElementById('station4-wind-dir-card').innerHTML = windDirCards[4];
     document.getElementById('station4-wind-dir-img').src = windDirImgs[4];
+    
+    document.getElementById('station5-name').innerHTML = stationName[5];
+    document.getElementById('station5-time').innerHTML = latestTimes[5];
+    document.getElementById('station5-wind-speed').innerHTML = windSpeeds[5];
+    document.getElementById('station5-wind-gust').innerHTML = windGusts[5];
+    document.getElementById('station5-wind-dir-card').innerHTML = windDirCards[5];
+    document.getElementById('station5-wind-dir-img').src = windDirImgs[5];
 }
 
 // ---------------------------------------------------
