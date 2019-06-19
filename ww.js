@@ -111,7 +111,7 @@ xhrTimeSeries.onload = function() {
     var weatherData = JSON.parse(xhrTimeSeries.responseText);
     var stationsCount = weatherData.STATION.length;
     var stationObservationsCount = [], stationName = [], stationHour = [], stationAMPM = [], stationMins = [], latestTimes = [], windSpeeds = [], windGusts = [], windDirCards = [], windDirImgs = [];
-console.log(weatherData);
+
 // MOST RECENT READING FOR EACH STATION
     for (i=0; i<stationsCount; i++) {
         try {
@@ -338,13 +338,13 @@ $.getJSON(scrapeURLBase + encodeURIComponent(soaringForecastURL) + '&callback=?'
     }
 
 // K INDEX ARRAY
-    var kIndex = soarForecastData.contents.match(/x\.{3}\s.\d{1,3}\.\d/g);
+    var kIndex = soarForecastData.contents.match(/x\.{3}\s+.\d{1,4}\.\d/g);
 
 // CAPE ARRAY
-    var cape = soarForecastData.contents.match(/E\.{3}\s+.\d{2,4}\.\d/g);
+    var cape = soarForecastData.contents.match(/E\.{3}\s+.\d{1,4}\.\d/g);
 
 // LI (LIFTED INDEX) ARRAY
-    var li = soarForecastData.contents.match(/I\.{3}\s+.\d{1,3}\.\d/g);
+    var li = soarForecastData.contents.match(/I\.{3}\s+.\d{1,4}\.\d/g);
 
     document.getElementById('soar-forecast-report-date').innerHTML = soarForecastReportFullDate;
     document.getElementById('max-rol').innerHTML = maxRateOfLift;
