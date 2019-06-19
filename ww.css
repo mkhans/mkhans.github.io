@@ -65,7 +65,7 @@ th, td {
     font-size: 230%;
 }
 .xlarge {
-    font-size: 400%;
+    font-size: 300%;
 }
 .left {
     text-align: left;
@@ -85,7 +85,7 @@ th, td {
     width: 100%;
     border: 5px solid white;
     border-radius: 25px;
-    font-size: 400%;
+    font-size: 300%;
     font-weight: bold;
     text-align: left;
     margin-top: 40px;
