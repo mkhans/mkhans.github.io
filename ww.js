@@ -27,9 +27,9 @@ $(document).ready (function todayFullDate() {
     document.getElementById('today-full-date').innerHTML = dayName + ", " + monthName + " " + dayNum;
 });
 
-$(document).ready (function slcRecentURL() {
+/*$(document).ready (function slcRecentURL() {
     document.getElementById('slc-recent').src = "https://www.wunderground.com/cgi-bin/histGraphAll?day=" + day2Digit + "&year=" + yyyy + "&month=" + monthNum + "&ID=KSLC&type=3&width=614";
-});
+});*/
 
 $(document).ready (function getSkewTURL(){
     document.getElementById('skewT').src = "https://climate.cod.edu/data/raob/KSLC/skewt/KSLC.skewt." + yyyy + month2Digit + day2Digit + ".12.gif";
@@ -126,10 +126,11 @@ xhrTimeSeries.onload = function() {
     for (i=0; i<stationsCount; i++) {
         try {
             stationName[i] = weatherData.STATION[i].STID;
-            stationName[i] = (stationName[i] == "OGP") ? "Ogden Pk" : stationName[i];
-            stationName[i] = (stationName[i] == "PKC") ? "Jupiter" : stationName[i];
-            stationName[i] = (stationName[i] == "MSI01") ? "Olympus" : stationName[i];
-            stationName[i] = (stationName[i] == "C8948") ? "Legacy" : stationName[i];
+            stationName[i] = (stationName[i] == "OGP") ? "Ogden Peak" : stationName[i];
+            stationName[i] = (stationName[i] == "PKC") ? "Jupiter PC" : stationName[i];
+            stationName[i] = (stationName[i] == "MSI01") ? "Olympus Hills" : stationName[i];
+            stationName[i] = (stationName[i] == "C8948") ? "Centerville" : stationName[i];
+            stationName[i] = (stationName[i] == "FPS") ? "Southside" : stationName[i];
         }
         catch(err) {
             stationName[i] = "--";
@@ -150,7 +151,7 @@ xhrTimeSeries.onload = function() {
                 stationHour[i] = 12;
                 stationAMPM[i] = " am";
             }
-            stationAMPM[i] = " pm";
+            stationAMPM[i] = " am";
             stationMins[i] = weatherData.STATION[i].OBSERVATIONS.date_time[stationObservationsCount[i]].substr(12, 2);
             latestTimes[i] = stationHour[i] + ":" + stationMins[i] + stationAMPM[i];
         }
