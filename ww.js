@@ -141,6 +141,7 @@ xhrTimeSeries.onload = function() {
     for (i=0; i<stationsCount; i++) {
         try {
             stationHour[i] = parseInt(weatherData.STATION[i].OBSERVATIONS.date_time[stationObservationsCount[i]].substr(9,2));
+            stationAMPM[i] = " am";
             if (stationHour[i] > 11) {
                 stationAMPM[i] = " pm";
                 if (stationHour[i] > 12) {
@@ -151,7 +152,6 @@ xhrTimeSeries.onload = function() {
                 stationHour[i] = 12;
                 stationAMPM[i] = " am";
             }
-            stationAMPM[i] = " am";
             stationMins[i] = weatherData.STATION[i].OBSERVATIONS.date_time[stationObservationsCount[i]].substr(12, 2);
             latestTimes[i] = stationHour[i] + ":" + stationMins[i] + stationAMPM[i];
         }
