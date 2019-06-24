@@ -27,11 +27,11 @@ $(document).ready (function todayFullDate() {
     document.getElementById('today-full-date').innerHTML = dayName + ", " + monthName + " " + dayNum;
 });
 
-/*$(document).ready (function slcRecentURL() {
+$(document).ready (function slcRecentURL() {
     document.getElementById('slc-recent').src = "https://www.wunderground.com/cgi-bin/histGraphAll?day=" + day2Digit + "&year=" + yyyy + "&month=" + monthNum + "&ID=KSLC&type=3&width=614";
-});*/
+});
 
-$(document).ready (function getSkewTURL(){
+$(document).ready (function getSkewTURL() {
     document.getElementById('skewT').src = "https://climate.cod.edu/data/raob/KSLC/skewt/KSLC.skewt." + yyyy + month2Digit + day2Digit + ".12.gif";
 });
 
@@ -104,7 +104,7 @@ $.getJSON(scrapeURLBase + encodeURIComponent(noaaForecastURL) + '&callback=?', f
 // -------------------------------------------------------
 
 var xhrTimeSeries = new XMLHttpRequest();
-xhrTimeSeries.open('GET', 'https://api.mesowest.net/v2/station/timeseries?&stid=KSLC&stid=MSI01&stid=C8948&stid=OGP&stid=PKC&stid=FPS&recent=70&obtimezone=local&timeformat=%b%20%d%20-%20%H:%M&vars=wind_speed,wind_gust,wind_direction,wind_cardinal_direction&units=english,speed|mph&token=6243aadc536049fc9329c17ff2f88db3', true);
+xhrTimeSeries.open('GET', 'https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=MSI01&stid=C8948&stid=PKC&stid=FPS&stid=FPN&stid=KSLC&stid=KU42&recent=90&obtimezone=local&timeformat=%b%20%d%20-%20%H:%M&vars=wind_speed,wind_gust,wind_direction,wind_cardinal_direction&units=english,speed|mph&token=6243aadc536049fc9329c17ff2f88db3', true);
 xhrTimeSeries.responseType = 'text';
 xhrTimeSeries.send();
 xhrTimeSeries.onload = function() {
@@ -131,6 +131,8 @@ xhrTimeSeries.onload = function() {
             stationName[i] = (stationName[i] == "MSI01") ? "Olympus Hills" : stationName[i];
             stationName[i] = (stationName[i] == "C8948") ? "Centerville" : stationName[i];
             stationName[i] = (stationName[i] == "FPS") ? "Southside" : stationName[i];
+            stationName[i] = (stationName[i] == "FPN") ? "Northside" : stationName[i];
+            stationName[i] = (stationName[i] == "KU42") ? "Airport 2" : stationName[i];
         }
         catch(err) {
             stationName[i] = "--";
@@ -248,6 +250,20 @@ xhrTimeSeries.onload = function() {
     document.getElementById('station5-wind-gust').innerHTML = windGusts[5];
     document.getElementById('station5-wind-dir-card').innerHTML = windDirCards[5];
     document.getElementById('station5-wind-dir-img').src = windDirImgs[5];
+    
+    document.getElementById('station6-name').innerHTML = stationName[6];
+    document.getElementById('station6-time').innerHTML = latestTimes[6];
+    document.getElementById('station6-wind-speed').innerHTML = windSpeeds[6];
+    document.getElementById('station6-wind-gust').innerHTML = windGusts[6];
+    document.getElementById('station6-wind-dir-card').innerHTML = windDirCards[6];
+    document.getElementById('station6-wind-dir-img').src = windDirImgs[6];
+    
+    document.getElementById('station7-name').innerHTML = stationName[7];
+    document.getElementById('station7-time').innerHTML = latestTimes[7];
+    document.getElementById('station7-wind-speed').innerHTML = windSpeeds[7];
+    document.getElementById('station7-wind-gust').innerHTML = windGusts[7];
+    document.getElementById('station7-wind-dir-card').innerHTML = windDirCards[7];
+    document.getElementById('station7-wind-dir-img').src = windDirImgs[7];
 }
 
 // ---------------------------------------------------

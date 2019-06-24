@@ -102,6 +102,9 @@ th, td {
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
+hr.end {
+    border: 10px solid white;
+}
 #picTimestamp {
     color: lightblue;
     font-size: 100%;

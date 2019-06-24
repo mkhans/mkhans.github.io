@@ -59,7 +59,7 @@
         <a href="http://www.wrh.noaa.gov/slc/current/meso.slv.php" target="_blank">
             <img src="http://www.wrh.noaa.gov/mesowest/symmap.php?map=slc&dem=&scale=6&wx=0&res=60&disp=&limit=&wfo=" width="100%"></a>
     
-    <h1 class="large">Key Stations</h1>
+    <h1 class="large">Key Stations (N to S)</h1>
         <table>
             <tr>
                 <th class="left medium">Station</th>
@@ -70,6 +70,22 @@
                 <th class="medium">Graphic</th>
             </tr>
             <tr>
+                <td id="station2-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OGP&table=1&banner=off')";></td>
+                <td id="station2-time"></td>
+                <td id="station2-wind-speed" class="xlarge bold"></td>
+                <td id="station2-wind-gust" class="medium bold"></td>
+                <td id="station2-wind-dir-card" class="medium bold"></td>
+                <td><img id="station2-wind-dir-img"></td>
+            </tr>
+            <tr>
+                <td id="station6-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=C8948&table=1&banner=off')";></td>
+                <td id="station6-time"></td>
+                <td id="station6-wind-speed" class="xlarge bold"></td>
+                <td id="station6-wind-gust" class="medium bold";></td>
+                <td id="station6-wind-dir-card" class="medium bold"></td>
+                <td><img id="station6-wind-dir-img"></td>
+            </tr>
+            <tr>
                 <td id="station0-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KSLC&banner=NONE&hfmetars=1')";></td>
                 <td id="station0-time"></td>
                 <td id="station0-wind-speed" class="xlarge bold"></td>
@@ -78,23 +94,15 @@
                 <td><img id="station0-wind-dir-img"></td>
             </tr>
             <tr>
-                <td id="station1-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OGP&table=1&banner=off')";></td>
-                <td id="station1-time"></td>
-                <td id="station1-wind-speed" class="xlarge bold"></td>
-                <td id="station1-wind-gust" class="medium bold";></td>
-                <td id="station1-wind-dir-card" class="medium bold"></td>
-                <td><img id="station1-wind-dir-img"></td>
+                <td id="station5-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=MSI01&table=1&banner=off')";></td>
+                <td id="station5-time"></td>
+                <td id="station5-wind-speed" class="xlarge bold"></td>
+                <td id="station5-wind-gust" class="medium bold"></td>
+                <td id="station5-wind-dir-card" class="medium bold"></td>
+                <td><img id="station5-wind-dir-img"></td>
             </tr>
             <tr>
-                <td id="station2-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=PKC&table=1&banner=off')";></td>
-                <td id="station2-time"></td>
-                <td id="station2-wind-speed" class="xlarge bold"></td>
-                <td id="station2-wind-gust" class="medium bold"></td>
-                <td id="station2-wind-dir-card" class="medium bold"></td>
-                <td><img id="station2-wind-dir-img"></td>
-            </tr>
-            <tr>
-                <td id="station3-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=FPS&table=1&banner=off')";></td>
+                <td id="station3-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=PKC&table=1&banner=off')";></td>
                 <td id="station3-time"></td>
                 <td id="station3-wind-speed" class="xlarge bold"></td>
                 <td id="station3-wind-gust" class="medium bold"></td>
@@ -102,20 +110,28 @@
                 <td><img id="station3-wind-dir-img"></td>
             </tr>
             <tr>
-                <td id="station4-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=MSI01&table=1&banner=off')";></td>
+                <td id="station1-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KU42&banner=NONE&hfmetars=1')";></td>
+                <td id="station1-time"></td>
+                <td id="station1-wind-speed" class="xlarge bold"></td>
+                <td id="station1-wind-gust" class="medium bold"></td>
+                <td id="station1-wind-dir-card" class="medium bold"></td>
+                <td><img id="station1-wind-dir-img"></td>
+            </tr>
+            <tr>
+                <td id="station7-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=FPN&table=1&banner=off')";></td>
+                <td id="station7-time"></td>
+                <td id="station7-wind-speed" class="xlarge bold"></td>
+                <td id="station7-wind-gust" class="medium bold"></td>
+                <td id="station7-wind-dir-card" class="medium bold"></td>
+                <td><img id="station7-wind-dir-img"></td>
+            </tr>
+            <tr>
+                <td id="station4-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=FPS&table=1&banner=off')";></td>
                 <td id="station4-time"></td>
                 <td id="station4-wind-speed" class="xlarge bold"></td>
                 <td id="station4-wind-gust" class="medium bold"></td>
                 <td id="station4-wind-dir-card" class="medium bold"></td>
                 <td><img id="station4-wind-dir-img"></td>
-            </tr>
-            <tr>
-                <td id="station5-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=C8948&table=1&banner=off')";></td>
-                <td id="station5-time"></td>
-                <td id="station5-wind-speed" class="xlarge bold"></td>
-                <td id="station5-wind-gust" class="medium bold"></td>
-                <td id="station5-wind-dir-card" class="medium bold"></td>
-                <td><img id="station5-wind-dir-img"></td>
             </tr>
         </table>
     </div>
@@ -127,9 +143,9 @@
         <a href="https://www.accuweather.com/en/us/utah/weather-radar-rs?play=1" target="_blank">
             <img src="http://sirocco.accuweather.com/sat_mosaic_640x480_public/rs/isarUT_.gif" width="100%"></a>
     
-    <!--<h1 class="large">SLC Temp, Pressure, & Wind</h1>Since Midnight
+    <h1 class="large">SLC Temp, Pressure, & Wind</h1>Since Midnight
         <a href="https://www.wunderground.com/history/airportfrompws/KSLC/2019/6/14/DailyHistory.html?req_city=&req_state=&req_statename=&reqdb.zip=&reqdb.magic=&reqdb.wmo=" target="_blank">
-            <img id='slc-recent' width="100%"></a>-->
+            <img id='slc-recent' width="100%"></a>
     
     <h1 class="large">Skew T</h1>Today's Morning Sounding
         <a href="https://climate.cod.edu/data/raob/KSLC/skewt" target="_blank">
@@ -336,18 +352,36 @@
         </table>        
     </div>
     
-    <!--<button class="collapsible">Cams</button>
+    <button class="collapsible">Timelapse &amp; Live Cams</button>
     <div class="collapse-contents">
     
     <h1 class="large">SLC > West</h1>Last 2 hrs
         <a href="http://meso1.chpc.utah.edu/station_cameras/wbbw_cam/wbbw_cam_hour.mp4" target="_blank">
-            <video width="100%"><source src="http://meso1.chpc.utah.edu/station_cameras/wbbw_cam/wbbw_cam_hour.mp4" type="video/mp4"></video></a>
+            <video width="100%" autoplay loop>
+                <source src="http://meso1.chpc.utah.edu/station_cameras/wbbw_cam/wbbw_cam_hour.mp4" type="video/mp4"></video></a>
+        
+    <h1 class="large">SLC > South</h1>Last 2 hrs
+        <a href="http://meso1.chpc.utah.edu/station_cameras/wbbs_cam/wbbs_cam_hour.mp4" target="_blank">
+            <video width="100%" autoplay loop>
+                <source src="http://meso1.chpc.utah.edu/station_cameras/wbbs_cam/wbbs_cam_hour.mp4" type="video/mp4"></video></a>
     
+    <h1 class="large">West Valley > East</h1>Last 2 hrs
+        <a href="http://meso1.chpc.utah.edu/station_cameras/armstrong_cam/armstrong_cam_hour.mp4" target="_blank">
+            <video width="100%" autoplay loop>
+                <source src="http://meso1.chpc.utah.edu/station_cameras/armstrong_cam/armstrong_cam_hour.mp4" type="video/mp4"></video></a>
     
-    </div>-->
+    <br><br>
+    <h1 class="large"><a href="http://southcam.uhgpga.org/#view" target="_blank">Southside LIVE</a></h1>
     
+    <h1 class="large"><a href="http://northcam.uhgpga.org/view/view.shtml?id=1730&imagepath=%2Fmjpg%2Fvideo.mjpg&size=1" target="_blank">Northside LIVE</a></h1>
+    </div>
+    
+    <br><br><hr class="end">
     <h1 class="large">Other Resources</h1>
+        <p class="large"><a href="http://online.saiawos.com/KU42/ios/display.html#TopOfPage" target="_blank">Airport 2 (Per Minute)</a></p>
+    
         <p class="large"><a href="https://forecast.weather.gov/product.php?site=NWS&issuedby=SLC&product=AFD&format=txt&version=1&glossary=1" target="_blank">Area Forecast Discussion</a></p>
+    
         <p class="large"><a href="https://www.windy.com/?40.302,-111.931,8,m:eM6ac2B" target="_blank">Windy.com</a></p>
     
     <h1 class="large">Who's Flying?</h1>
