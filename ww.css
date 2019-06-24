@@ -103,7 +103,7 @@ th, td {
     transition: max-height 0.2s ease-out;
 }
 hr.end {
-    border: 10px solid white;
+    border: 6px solid white;
 }
 #picTimestamp {
     color: lightblue;
