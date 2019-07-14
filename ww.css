@@ -76,6 +76,9 @@ th, td {
 .yellow {
     color: yellow;
 }
+.ltblue {
+    color: lightblue;
+}
 .collapsible {
     background-color: #777;
     color: white;
