@@ -177,7 +177,7 @@ xhrTimeSeries.onload = function() {
     }
 
 // GET ELEMENT BY ID
-    if (stationName[6] != undefined) {
+    if (stationName[0] != undefined) {
         document.getElementById('station0-name').innerHTML = stationName[0];
         document.getElementById('station0-time').innerHTML = latestTimes[0];
         document.getElementById('station0-wind-speed').innerHTML = windSpeeds[0];
@@ -186,7 +186,7 @@ xhrTimeSeries.onload = function() {
         document.getElementById('station0-wind-dir-img').src = windDirImgs[0];
     }
     
-    if (stationName[6] != undefined) {
+    if (stationName[1] != undefined) {
         document.getElementById('station1-name').innerHTML = stationName[1];
         document.getElementById('station1-time').innerHTML = latestTimes[1];
         document.getElementById('station1-wind-speed').innerHTML = windSpeeds[1];
@@ -195,7 +195,7 @@ xhrTimeSeries.onload = function() {
         document.getElementById('station1-wind-dir-img').src = windDirImgs[1];
     }
     
-    if (stationName[6] != undefined) {
+    if (stationName[2] != undefined) {
         document.getElementById('station2-name').innerHTML = stationName[2];
         document.getElementById('station2-time').innerHTML = latestTimes[02];
         document.getElementById('station2-wind-speed').innerHTML = windSpeeds[2];
@@ -204,7 +204,7 @@ xhrTimeSeries.onload = function() {
         document.getElementById('station2-wind-dir-img').src = windDirImgs[2];
     }
     
-    if (stationName[6] != undefined) {
+    if (stationName[3] != undefined) {
         document.getElementById('station3-name').innerHTML = stationName[3];
         document.getElementById('station3-time').innerHTML = latestTimes[3];
         document.getElementById('station3-wind-speed').innerHTML = windSpeeds[3];
@@ -213,7 +213,7 @@ xhrTimeSeries.onload = function() {
         document.getElementById('station3-wind-dir-img').src = windDirImgs[3];
     }
     
-    if (stationName[6] != undefined) {
+    if (stationName[4] != undefined) {
         document.getElementById('station4-name').innerHTML = stationName[4];
         document.getElementById('station4-time').innerHTML = latestTimes[4];
         document.getElementById('station4-wind-speed').innerHTML = windSpeeds[4];
@@ -222,7 +222,7 @@ xhrTimeSeries.onload = function() {
         document.getElementById('station4-wind-dir-img').src = windDirImgs[4];
     }
     
-    if (stationName[6] != undefined) {
+    if (stationName[5] != undefined) {
         document.getElementById('station5-name').innerHTML = stationName[5];
         document.getElementById('station5-time').innerHTML = latestTimes[5];
         document.getElementById('station5-wind-speed').innerHTML = windSpeeds[5];
