@@ -177,14 +177,13 @@ xhrTimeSeries.onload = function() {
     }
 
 // GET ELEMENT BY ID
-    if (stationName[0]) {
+
         document.getElementById('station0-name').innerHTML = stationName[0];
         document.getElementById('station0-time').innerHTML = latestTimes[0];
         document.getElementById('station0-wind-speed').innerHTML = windSpeeds[0];
         document.getElementById('station0-wind-gust').innerHTML = windGusts[0];
         document.getElementById('station0-wind-dir-card').innerHTML = windDirCards[0];
         document.getElementById('station0-wind-dir-img').src = windDirImgs[0];
-    }
     
     if (stationName[1] != undefined) {
         document.getElementById('station1-name').innerHTML = stationName[1];
