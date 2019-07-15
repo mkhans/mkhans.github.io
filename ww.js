@@ -177,7 +177,7 @@ xhrTimeSeries.onload = function() {
     }
 
 // GET ELEMENT BY ID
-    if (stationName[0] != undefined) {
+    if (stationName[0]) {
         document.getElementById('station0-name').innerHTML = stationName[0];
         document.getElementById('station0-time').innerHTML = latestTimes[0];
         document.getElementById('station0-wind-speed').innerHTML = windSpeeds[0];
