@@ -152,16 +152,21 @@ xhrTimeSeries.onload = function() {
 // ROUND & LOAD WIND SPEED & GUST, "--" IF NULL OR NO DATA
     for (i=0; i<stationsCount; i++) {
         windSpeeds[i] = weatherData.STATION[i].OBSERVATIONS.wind_speed_set_1[stationObservationsCount[i]];
-        windSpeeds[i] = (parseInt(windSpeeds[i]) > 0) ? windSpeeds[i] = Math.round(windSpeeds[i]) : "--";
+        windSpeeds[i] = (parseInt(windSpeeds[i]) > 0) ? windSpeeds[i] = Math.round(windSpeeds[i]) : "---";
         
-        windGusts[i] = weatherData.STATION[i].OBSERVATIONS.wind_gust_set_1[stationObservationsCount[i]];
-        windGusts[i] = (parseInt(windGusts[i]) > 0) ? windGusts[i] = Math.round(windGusts[i]) : "--";
+        try {
+            windGusts[i] = weatherData.STATION[i].OBSERVATIONS.wind_gust_set_1[stationObservationsCount[i]];
+            windGusts[i] = (parseInt(windGusts[i]) > 0) ? windGusts[i] = Math.round(windGusts[i]) : "---";
+        }
+        catch(err) {
+            windGusts[i] = "---";
+        }
     }
 
 // WIND DIRECTIONS CARDINAL
     for (i=0; i<stationsCount; i++) {
         windDirCards[i] = weatherData.STATION[i].OBSERVATIONS.wind_cardinal_direction_set_1d[stationObservationsCount[i]];
-        windDirCards[i] = (windDirCards[i] == null) ? "--" : windDirCards[i];
+        windDirCards[i] = (windDirCards[i] == null) ? "---" : windDirCards[i];
     }
 
 // WIND DIRECTION IMAGES
@@ -534,7 +539,6 @@ $.getJSON(scrapeURLBase + encodeURIComponent(windAloftForecastURL) + '&callback=
         timestamp.push(timestamp[4]);   //Append duplicate timestamp at end or arrary for visual pause
         return [images, timestamp];
     }
-
   var rotator = document.getElementById('WasatchCam');
   var delay = 800;
   var [images, timestamp] = getPicURLArray();
