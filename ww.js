@@ -323,7 +323,8 @@ $.getJSON(scrapeURLBase + encodeURIComponent(soaringForecastURL) + '&callback=?'
     soarForecastReportMonth = soarForecastReportMonth.substr(0,1) + soarForecastReportMonth.substr(1).toLocaleLowerCase();
     var soarForecastReportDate = String(soarForecastData.contents.match(/\d{1,2}(?=,\s2019)/));
     var soarForecastReportFullDate = soarForecastReportWkDay + ", " + soarForecastReportMonth + " " + soarForecastReportDate;
-    soarForecastReportFullDate = (soarForecastReportFullDate == dayName + ", " + monthName + " " + dayNum) ? soarForecastReportFullDate = soarForecastReportFullDate : soarForecastReportFullDate + " - CHECK DATE!";    
+    soarForecastReportFullDate = (soarForecastReportFullDate == dayName + ", " + monthName + " " + dayNum) ? soarForecastReportFullDate = soarForecastReportFullDate : soarForecastReportFullDate + "<br><b>!<br>Check Date: Report May Be Old</b>";
+    
 // MAX RATE OF LIFT
     var maxRateOfLift = parseInt(soarForecastData.contents.match(/\d{1,4}(?=\sFT\SMIN|\sft\Smin)/));
     var maxRateOfLiftms = Math.round((maxRateOfLift / 196.85) * 10) / 10;
