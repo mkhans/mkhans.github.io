@@ -58,7 +58,7 @@ $.getJSON(scrapeURLBase + encodeURIComponent(noaaForecastURL) + '&callback=?', f
     noaaCurrentTemp = noaaCurrentTemp + "<span style='font-size:50%; color:" + tempColor + ";'>&nbsp;&nbsp;&nbsp;--> " + noaaNextTemp + "</span>";
     
 // PRESSURE
-    var noaaCurrentPres = String(noaaForecastData.contents.match(/\d{1,2}.\d{1,2}(?=\sin)/));
+    var noaaCurrentPres = String(noaaForecastData.contents.match(/\d{1,2}\.\d{1,2}(?=\sin)/));
 
 // SHORT TERM FORECAST
     var noaaShortImg = noaaImgURLBase + noaaForecastData.contents.match(/DualImage.+(?="\salt="[A-Z])|newimages\/m.+(?="\salt="[A-Z])/);
@@ -323,7 +323,7 @@ $.getJSON(scrapeURLBase + encodeURIComponent(soaringForecastURL) + '&callback=?'
     soarForecastReportMonth = soarForecastReportMonth.substr(0,1) + soarForecastReportMonth.substr(1).toLocaleLowerCase();
     var soarForecastReportDate = String(soarForecastData.contents.match(/\d{1,2}(?=,\s2019)/));
     var soarForecastReportFullDate = soarForecastReportWkDay + ", " + soarForecastReportMonth + " " + soarForecastReportDate;
-    soarForecastReportFullDate = (soarForecastReportFullDate == dayName + ", " + monthName + " " + dayNum) ? soarForecastReportFullDate = soarForecastReportFullDate : soarForecastReportFullDate + " (Check Date!)";    
+    soarForecastReportFullDate = (soarForecastReportFullDate == dayName + ", " + monthName + " " + dayNum) ? soarForecastReportFullDate = soarForecastReportFullDate : soarForecastReportFullDate + " - CHECK DATE!";    
 // MAX RATE OF LIFT
     var maxRateOfLift = parseInt(soarForecastData.contents.match(/\d{1,4}(?=\sFT\SMIN|\sft\Smin)/));
     var maxRateOfLiftms = Math.round((maxRateOfLift / 196.85) * 10) / 10;
