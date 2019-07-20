@@ -113,3 +113,6 @@ hr.end {
     font-size: 100%;
     font-weight: bold;
 }
+@media only screen and (min-width: 768px) {
+    .dtwidth {transform: scale(0.4);}
+}
