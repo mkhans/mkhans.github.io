@@ -121,38 +121,53 @@ xhrTimeSeries.onload = function() {
 
 // STATION NAMES
     for (i=0; i<stationsCount; i++) {
-        stationName[i] = weatherData.STATION[i].STID;
-        stationName[i] = (stationName[i] == "OGP") ? "Ogden Peak" : stationName[i];
-        stationName[i] = (stationName[i] == "PKC") ? "Jupiter PC" : stationName[i];
-        stationName[i] = (stationName[i] == "MSI01") ? "Olympus Hills" : stationName[i];
-        stationName[i] = (stationName[i] == "C8948") ? "Centerville" : stationName[i];
-        stationName[i] = (stationName[i] == "FPS") ? "Southside" : stationName[i];
-        stationName[i] = (stationName[i] == "FPN") ? "Northside" : stationName[i];
-        stationName[i] = (stationName[i] == "KU42") ? "Airport 2" : stationName[i];
+        try {
+            stationName[i] = weatherData.STATION[i].STID;
+            stationName[i] = (stationName[i] == "OGP") ? "Ogden Peak" : stationName[i];
+            stationName[i] = (stationName[i] == "PKC") ? "Jupiter PC" : stationName[i];
+            stationName[i] = (stationName[i] == "MSI01") ? "Olympus Hills" : stationName[i];
+            stationName[i] = (stationName[i] == "C8948") ? "Centerville" : stationName[i];
+            stationName[i] = (stationName[i] == "FPS") ? "Southside" : stationName[i];
+            stationName[i] = (stationName[i] == "FPN") ? "Northside" : stationName[i];
+            stationName[i] = (stationName[i] == "KU42") ? "Airport 2" : stationName[i];
+        }
+        catch(err) {
+            stationName[i] = "---";
+        }
     }
 
 // MOST RECENT TIME
     for (i=0; i<stationsCount; i++) {
-        stationHour[i] = parseInt(weatherData.STATION[i].OBSERVATIONS.date_time[stationObservationsCount[i]].substr(9,2));
-        stationAMPM[i] = " am";
-        if (stationHour[i] > 11) {
-            stationAMPM[i] = " pm";
-            if (stationHour[i] > 12) {
-                stationHour[i] -= 12;
-            }
-        }
-        if (stationHour[i] == 0) {
-            stationHour[i] = 12;
+        try {
+            stationHour[i] = parseInt(weatherData.STATION[i].OBSERVATIONS.date_time[stationObservationsCount[i]].substr(9,2));
             stationAMPM[i] = " am";
+            if (stationHour[i] > 11) {
+                stationAMPM[i] = " pm";
+                if (stationHour[i] > 12) {
+                    stationHour[i] -= 12;
+                }
+            }
+            if (stationHour[i] == 0) {
+                stationHour[i] = 12;
+                stationAMPM[i] = " am";
+            }
+            stationMins[i] = weatherData.STATION[i].OBSERVATIONS.date_time[stationObservationsCount[i]].substr(12, 2);
+            latestTimes[i] = stationHour[i] + ":" + stationMins[i] + stationAMPM[i];
         }
-        stationMins[i] = weatherData.STATION[i].OBSERVATIONS.date_time[stationObservationsCount[i]].substr(12, 2);
-        latestTimes[i] = stationHour[i] + ":" + stationMins[i] + stationAMPM[i];
+        catch(err) {
+            latestTimes[i] = "---";
+        }
     }
 
-// ROUND & LOAD WIND SPEED & GUST, "--" IF NULL OR NO DATA
+// ROUND & LOAD WIND SPEED & GUST, "---" IF NULL OR NO DATA
     for (i=0; i<stationsCount; i++) {
-        windSpeeds[i] = weatherData.STATION[i].OBSERVATIONS.wind_speed_set_1[stationObservationsCount[i]];
-        windSpeeds[i] = (parseInt(windSpeeds[i]) > 0) ? windSpeeds[i] = Math.round(windSpeeds[i]) : "---";
+        try {
+            windSpeeds[i] = weatherData.STATION[i].OBSERVATIONS.wind_speed_set_1[stationObservationsCount[i]];
+            windSpeeds[i] = (parseInt(windSpeeds[i]) > 0) ? windSpeeds[i] = Math.round(windSpeeds[i]) : "---";
+        }
+        catch(err) {
+            windSpeeds[i] = "---";
+        }
         
         try {
             windGusts[i] = weatherData.STATION[i].OBSERVATIONS.wind_gust_set_1[stationObservationsCount[i]];
@@ -165,30 +180,41 @@ xhrTimeSeries.onload = function() {
 
 // WIND DIRECTIONS CARDINAL
     for (i=0; i<stationsCount; i++) {
-        windDirCards[i] = weatherData.STATION[i].OBSERVATIONS.wind_cardinal_direction_set_1d[stationObservationsCount[i]];
-        windDirCards[i] = (windDirCards[i] == null) ? "---" : windDirCards[i];
+        try {
+            windDirCards[i] = weatherData.STATION[i].OBSERVATIONS.wind_cardinal_direction_set_1d[stationObservationsCount[i]];
+            windDirCards[i] = (windDirCards[i] == null) ? "---" : windDirCards[i];
+        }
+        catch(err) {
+            windDirCards[i] = "---";
+        }
     }
 
 // WIND DIRECTION IMAGES
     for (i=0; i<stationsCount; i++) {
-        windDirImgs[i] = weatherData.STATION[i].OBSERVATIONS.wind_direction_set_1[stationObservationsCount[i]];
-        if (parseInt(windDirImgs[i]) >= 0) {
-            windDirImgs[i] = Math.round(windDirImgs[i] / 10) * 10;
-            windDirImgs[i] = (windDirImgs[i] > 180) ? windDirImgs[i] - 180 : windDirImgs[i] + 180;
-            windDirImgs[i] = windImgURLBase + "a" + windDirImgs[i] + ".gif";
-        } else {
-            windDirImgs[i] = windImgURLBase + "calm.gif";
+        try {
+            windDirImgs[i] = weatherData.STATION[i].OBSERVATIONS.wind_direction_set_1[stationObservationsCount[i]];
+            if (parseInt(windDirImgs[i]) >= 0) {
+                windDirImgs[i] = Math.round(windDirImgs[i] / 10) * 10;
+                windDirImgs[i] = (windDirImgs[i] > 180) ? windDirImgs[i] - 180 : windDirImgs[i] + 180;
+                windDirImgs[i] = windImgURLBase + "a" + windDirImgs[i] + ".gif";
+            } else {
+                windDirImgs[i] = windImgURLBase + "calm.gif";
+            }
+        }
+        catch(err) {
+            windDirImgs[i] = "https://www.usairnet.com/weather/winds_aloft/nodata.gif";
         }
     }
 
 // GET ELEMENT BY ID
-
+    if (stationName[1] != undefined) {
         document.getElementById('station0-name').innerHTML = stationName[0];
         document.getElementById('station0-time').innerHTML = latestTimes[0];
         document.getElementById('station0-wind-speed').innerHTML = windSpeeds[0];
         document.getElementById('station0-wind-gust').innerHTML = windGusts[0];
         document.getElementById('station0-wind-dir-card').innerHTML = windDirCards[0];
         document.getElementById('station0-wind-dir-img').src = windDirImgs[0];
+    }
     
     if (stationName[1] != undefined) {
         document.getElementById('station1-name').innerHTML = stationName[1];
@@ -447,16 +473,15 @@ $.getJSON(scrapeURLBase + encodeURIComponent(windAloftForecastURL) + '&callback=
         
         windAloftSpds[i] = Math.round(parseFloat(slcLine.substr(i*8+2,2) * 1.15078));
         if (windAloftSpds[i] == 0) {
-            windAloftSpds[i] = "";
+            windAloftSpds[i] = "---";
         }
         
-        windAloftTmps[i] = slcLine.substr(i*8+5,2);
+        windAloftTmps[i] = parseInt(slcLine.substr(i*8+5,2));
         if (slcLine.substr(i*8+4,1) == "-") {
             windAloftTmps[i] = windAloftTmps[i] * -1;
         }
-        windAloftTmps[i] = Math.round(windAloftTmps[i] * (9/5) + 32);
+        windAloftTmps[i] = (Number.isInteger(windAloftTmps[i])) ? Math.round(windAloftTmps[i] * (9/5) + 32) : "---";
     }
-    windAloftTmps[0] = ""; // No temp reading for 6k
 
     document.getElementById('winds-aloft-forecast-start').innerHTML = fcastStartTime;
     document.getElementById('winds-aloft-forecast-end').innerHTML = fcastEndTime;
