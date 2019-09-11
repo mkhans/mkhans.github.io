@@ -52,7 +52,6 @@ var noaaCurrentSky = String(noaaForecastData.contents.match(/ent">.+(?=<\Sp>)/))
 
 // TEMP (CURRENT & NEXT)
 var noaaCurrentTemp = String(noaaForecastData.contents.match(/\d{1,3}(?=&deg;F<)/));
-console.log(noaaCurrentTemp);
 var noaaNextTemp = String(noaaForecastData.contents.match(/\d{1,3}(?=\s&deg)/));
 var tempColor = "orangered";
 tempColor = (noaaNextTemp > noaaCurrentTemp) ? tempColor : "lightblue";
