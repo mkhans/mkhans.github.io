@@ -349,7 +349,7 @@ var soarForecastReportMonth = String(soarForecastData.contents.match(/[Dd][Aa][Y
 soarForecastReportMonth = soarForecastReportMonth.substr(0,1) + soarForecastReportMonth.substr(1).toLocaleLowerCase();
 var soarForecastReportDate = String(soarForecastData.contents.match(/\d{1,2}(?=,\s2019)/));
 var soarForecastReportFullDate = soarForecastReportWkDay + ", " + soarForecastReportMonth + " " + soarForecastReportDate;
-soarForecastReportFullDate = (soarForecastReportFullDate == dayName + ", " + monthName + " " + dayNum) ? soarForecastReportFullDate = soarForecastReportFullDate : soarForecastReportFullDate + "<br><b>!<br>Check Date: Report May Be Old</b>";
+soarForecastReportFullDate = (soarForecastReportFullDate == dayName + ", " + monthName + " " + dayNum) ? soarForecastReportFullDate = soarForecastReportFullDate : soarForecastReportFullDate + "<br><br><b>! ! !<br>- Report DATE Error -</b>";
 
 // MAX RATE OF LIFT
 var maxRateOfLift = parseInt(soarForecastData.contents.match(/\d{1,4}.+[\/][Mm]/));
