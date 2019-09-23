@@ -4,6 +4,8 @@
         <title>Wasatch Wind</title>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script type="text/javascript" src="ww.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+        <script type="text/javascript" src="https://api4.windy.com/assets/libBoot.js"></script>
         <link href="ww.css" rel="stylesheet">
         <meta charset="utf-8">
     </head>
@@ -58,13 +60,9 @@
             </tr>
         </table>
 
-    <h1 class="large">Surface Wind Map</h1>
-        <!-- New site: https://www.wrh.noaa.gov/slc/current/meso.slv.php
-        New map site SLC: https://www.wrh.noaa.gov/map/?&zoom=10&scroll_zoom=false&center=40.41,-111.85&boundaries=false,false,false,false,false,false,false,false,false&tab=observation&hazard=true&hazard_type=all&hazard_opacity=70&obs=true&obs_type=weather&elements=temp,wind,gust&temp_filter=-80,130&gust_filter=0,150&rh_filter=0,100&elev_filter=-300,14000&precip_filter=0.01,18&obs_popup=false&obs_density=10&obs_provider=ALL
-        <a href="https://www.wrh.noaa.gov/map/?&zoom=10&scroll_zoom=false&center=40.41,-111.85&boundaries=false,false,false,false,false,false,false,false,false&tab=observation&hazard=true&hazard_type=all&hazard_opacity=70&obs=true&obs_type=weather&elements=temp,wind,gust&temp_filter=-80,130&gust_filter=0,150&rh_filter=0,100&elev_filter=-300,14000&precip_filter=0.01,18&obs_popup=false&obs_density=10&obs_provider=ALL" target="_blank">
-            <img src="https://www.wrh.noaa.gov/map/" width="100%"></a> -->
-        Temporarily unavailable
-    
+    <h1 class="large">Surface Wind Map (NWS)</h1>
+        <iframe src="https://www.wrh.noaa.gov/map/?&zoom=11&scroll_zoom=false&center=40.60,-111.90&boundaries=false,false,false,false,false,false,false,false,false&tab=observation&hazard=true&hazard_type=all&hazard_opacity=70&obs=true&obs_type=weather&elements=temp,wind,gust&temp_filter=-80,130&gust_filter=0,150&rh_filter=0,100&elev_filter=-300,14000&precip_filter=0.01,18&obs_popup=false&obs_density=10&obs_provider=ALL" width="100%" height="900"></iframe>
+
     <h1 class="large">Key Stations (N to S)</h1>
         <table>
             <tr>
@@ -216,6 +214,11 @@
                 <script type= "text/javascript">
                     forecastedImgLoop('rotatorSky', "Sky");
                 </script>
+    
+    <h1 class="large">Windy Surface Map (GFS)</h1>
+        <a href="https://www.windy.com/?40.624,-111.896,10" target="_blank">
+            <div id="windy"></div></a>
+            <script src="windyscript.js"></script>
     
     <h1 class="large">SLC Hourly Graphical</h1>
         <a href="https://forecast.weather.gov/MapClick.php?w0=t&w3=sfcwind&w3u=1&w4=sky&w5=pop&w7=rain&w9=snow&w13u=0&w16u=1&w17u=1&AheadHour=0&Submit=Submit&FcstType=graphical&textField1=40.7603&textField2=-111.8882&site=all&unit=0&dd=&bw=" target="_blank">
@@ -460,14 +463,11 @@
     <br><hr class="end">
     <h1 class="large">Other Resources</h1>
         <p class="medium bold"><a href="http://online.saiawos.com/KU42/ios/display.html#TopOfPage" target="_blank">Airport 2 (Per Minute)</a></p>
-    
         <p class="medium bold"><a href="https://forecast.weather.gov/product.php?site=NWS&issuedby=SLC&product=AFD&format=txt&version=1&glossary=1" target="_blank">Area Forecast Discussion</a></p>
-    
-        <p class="medium bold"><a href="https://www.windy.com/?40.302,-111.931,8,m:eM6ac2B" target="_blank">Windy.com</a></p>
-    
+
     <h1 class="large">Who's Flying Now?</h1>
-        <p class="medium bold"><a href="http://xcfind.paraglide.us/map.html?id=15" target="_blank">XC Find</a></p>
         <p class="medium bold"><a href="https://livetrack24.com/tracks/country/us" target="_blank">LiveTrack24</a></p>
+        <p class="medium bold"><a href="http://xcfind.paraglide.us/map.html?id=15" target="_blank">XC Find</a></p>
     
     <script>
         var coll = document.getElementsByClassName("collapsible");

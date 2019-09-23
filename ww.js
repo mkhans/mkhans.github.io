@@ -358,8 +358,10 @@ maxRateOfLift = maxRateOfLift.toLocaleString() + "<span style='font-size:30%; co
 
 // HEIGHT OF THE -3 INDEX
 var neg3Index = parseInt(String(soarForecastData.contents.match(/[Dd][Ee][Xx].+\d{1,5}.+[Mm]/)).substr(21));
-var neg3Indexm = Math.round(neg3Index / 3.281);
-neg3Index = neg3Index.toLocaleString() + "<span style='font-size:30%; color:white;'>&nbsp;&nbsp;&nbsp;" + neg3Indexm + " m</span>";
+neg3Index = (isNaN(neg3Index)) ? "None" : neg3Index;
+var neg3Indexm = "";
+neg3Indexm = (neg3Index == "None") ? neg3Indexm : toString(Math.round(neg3Index / 3.281)) + "m";
+neg3Index = neg3Index.toLocaleString() + "<span style='font-size:30%; color:white;'>&nbsp;&nbsp;&nbsp;" + neg3Indexm + "</span>";
 
 // LIFTED CONDENSATION LEVEL (CLOUDBASE)
 var lcl = parseInt(String(soarForecastData.contents.match(/[Dd]\s[Cc][a-zA-Z]{11}.+\d{1,5}.+\(/)).substr(28));

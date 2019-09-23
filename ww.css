@@ -113,3 +113,7 @@ hr.end {
     font-size: 100%;
     font-weight: bold;
 }
+#windy {
+    width: 100%;
+    height: 900px;
+}
