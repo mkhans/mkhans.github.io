@@ -280,6 +280,16 @@ if (stationName[7] != undefined) {
 }
 }
 
+// -----------------------------------------
+// -----------------------------------------
+// W I N D   &   S K Y   I M A G E   3:00 PM
+// -----------------------------------------
+// -----------------------------------------
+
+
+
+
+
 // ---------------------------------------------------
 // ---------------------------------------------------
 // W I N D   &   S K Y   I M A G E   A N I M A T I O N
@@ -359,8 +369,8 @@ maxRateOfLift = maxRateOfLift.toLocaleString() + "<span style='font-size:30%; co
 // HEIGHT OF THE -3 INDEX
 var neg3Index = parseInt(String(soarForecastData.contents.match(/[Dd][Ee][Xx].+\d{1,5}.+[Mm]/)).substr(21));
 neg3Index = (isNaN(neg3Index)) ? "None" : neg3Index;
-var neg3Indexm = "";
-neg3Indexm = (neg3Index == "None") ? neg3Indexm : toString(Math.round(neg3Index / 3.281)) + "m";
+var neg3Indexm = Math.round(neg3Index / 3.281);
+neg3Indexm = (isNaN(neg3Indexm)) ? "" : String(neg3Indexm) + " m";
 neg3Index = neg3Index.toLocaleString() + "<span style='font-size:30%; color:white;'>&nbsp;&nbsp;&nbsp;" + neg3Indexm + "</span>";
 
 // LIFTED CONDENSATION LEVEL (CLOUDBASE)
