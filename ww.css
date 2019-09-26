@@ -70,6 +70,9 @@ th, td {
 .xlarge {
     font-size: 300%;
 }
+.heading {
+    font-size: 200%;
+}
 .left {
     text-align: left;
 }
