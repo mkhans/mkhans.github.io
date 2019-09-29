@@ -42,6 +42,12 @@ th, td {
     border: none;
     padding-top: 40px;
 }
+.cellborder {
+    border: 5px solid white;
+}
+h2 {
+    font-weight: normal;
+}
 .vert-top {
     vertical-align: top;
 }
@@ -64,14 +70,17 @@ th, td {
 .medium {
     font-size: 150%;
 }
+.heading {
+    font-size: 200%;
+}
 .large {
     font-size: 230%;
 }
 .xlarge {
     font-size: 300%;
 }
-.heading {
-    font-size: 200%;
+.wndspd {
+    font-size: 350%;
 }
 .left {
     text-align: left;
@@ -85,6 +94,13 @@ th, td {
 .ltblue {
     color: lightblue;
 }
+.gust {
+    color:lightcoral;
+}
+span.calm {
+    font-size: 50%;
+    font-weight: normal;
+}
 .collapsible {
     background-color: #777;
     color: white;
@@ -97,7 +113,7 @@ th, td {
     font-size: 300%;
     font-weight: bold;
     text-align: left;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 .collapsible:after {
     content: url(images/plus.png);
@@ -111,25 +127,36 @@ th, td {
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
+.collapsiblekey {
+    background-color: #777;
+    color: yellow;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-left: 20px;
+    width: 100%;
+    border: 5px solid white;
+    border-radius: 25px;
+    font-size: 200%;
+    text-align: center;
+    margin-top: 0px;
+}
 hr.thick {
     border: 5px solid white;
-}
-#picTimestamp {
-    color: lightblue;
-    font-size: 100%;
-    font-weight: bold;
 }
 #windy {
     width: 100%;
     height: 900px;
 }
 .frame  {
-    transform: scale(1.7);
+    transform: scale(1.6);
     pointer-events: none;
     transform-origin: 0 0;
     width: 100%;
     height: 1500px;
     position: relative;
+}
+.nopointer {
+    pointer-events: none;
 }
 img.left {
     left: 10px;
