@@ -50,7 +50,6 @@ $(document).ready (function () {
     var jsonSunset = solarData.results.sunset;
     var sunsetSLC = new Date(jsonSunset);
     sunsetSLC = sunsetSLC.getHours() - 12 + ":" + sunsetSLC.getMinutes() + " pm";
-    console.log(sunsetSLC);
     document.getElementById('sunset-time').innerHTML = sunsetSLC;
 });
 
