@@ -1,551 +1,449 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Wasatch Wind</title>
-        <meta charset="utf-8">
-        <link href="ww.css" rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
-        <script src="https://api4.windy.com/assets/libBoot.js"></script>
-    </head>
-<body>
+// -------------------------------
+// -------------------------------
+// G L O B A L   V A R I A B L E S
+// -------------------------------
+// -------------------------------
 
-<!-- HEADING AREA
------------------ -->
-    <table class="noborder">
-        <tr>
-            <td><img src="https://mkhans.github.io/images/wffglogo.png" height="70"></td>
-            <td class="heading">WASATCH FREE FLIGHT GROUP</td>
-            <td><img src="https://mkhans.github.io/images/pg.gif" height="80"></td>
-        </tr>
-    </table>
-    <hr class="thick">
-    <img class="left" src="https://mkhans.github.io/images/logo.png" height=180>
-    <p id="today-full-date" class="xlarge bold ltblue"></p>
+var today = new Date();
+var yyyy = today.getFullYear();
+var monthName = today.toLocaleString('en-us', {month: 'short'});
+var monthNum = today.getMonth() + 1;
+var month2Digit = (monthNum < 10) ? "0" + monthNum : monthNum;
+var dayName = today.toLocaleDateString('en-us', {weekday: 'short'});
+var dayNum = today.getDate();
+var day2Digit = (dayNum < 10) ? "0" + dayNum : dayNum;
+var hour = today.getHours();
+var noaaImgURLBase = "https://forecast.weather.gov/";
+var windImgURLBase = "https://www.usairnet.com/weather/winds_aloft/";
+var scrapeURLBase = "https://whatever-origin.herokuapp.com/get?url=";
 
-<!-- CURRENT CONDITIONS BUTTON
------------------------------- -->
-    <button class="collapsible">Current Conditions</button>
-    <div class="collapse-contents">
-    
-    <!-- CAMS & STATS TABLE -->
-    <h1 class="large">Cams &amp; Stats</h1>
-        <table>
-            <tr>
-                <td colspan="2">
-                    <a href="https://hazecam.x10host.com/slc/SLC.JPG" target="_blank">
-                        <img src="https://hazecam.x10host.com/slc/SLC.JPG" height=210px></a><br>Sandy > West</td>
-                <td colspan="2">
-                    <a href="http://meso1.chpc.utah.edu/station_cameras/armstrong_cam/armstrong_cam_current.jpg" target="_blank">
-                        <img src="http://meso1.chpc.utah.edu/station_cameras/armstrong_cam/armstrong_cam_current.jpg" height=210px width=420px></a><br>West Valley > East</td>
-            </tr>
-            <tr>
-                <td colspan="4"><hr></td>
-            </tr>
-            <tr>
-                <td class="left">
-                    <a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank">
-                        <img src="images/temp.png" height="100px"></a></td>
-                <td id="noaa-current-temp" class="left xlarge bold"></td>
-                <td class="left">
-                    <a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank">
-                        <img id="noaa-current-img" height=100px></a></td>
-                <td id="noaa-current-sky" class="left large bold"></td>
-            </tr>
-            <tr>
-                <td class="left">
-                    <a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank">
-                        <img src="images/pressure.png" height="100px"></a></td>
-                <td id="noaa-current-pres" class="left large bold"></td>
-                <td class="left">
-                    <a href="https://www.timeanddate.com/sun/usa/salt-lake-city" target="_blank">
-                        <img src="images/sunset.png" height="100px"></a></td>
-                <td id="sunset-time" class="left large bold"></td>
-            </tr>
-        </table>
+//--------------------------------------
+//--------------------------------------
+// H T M L   F U N C T I O N   C A L L S
+//--------------------------------------
+//--------------------------------------
 
-    <!-- KEY STATIONS TABLE -->
-    <h1 class="large">Key Stations</h1>
-        <h2>Listed North to South</h2>
-        <table>
-            <tr>
-                <td class="left large">Station</td>
-                <td class="large">Speed</td>
-                <td class="large">Gust</td>
-                <td class="large">Direction</td>
-            </tr>
-            <tr>
-                <td colspan="4"><hr></td>
-            </tr>
-            <tr>
-                <td id="station2-name" class="left large bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OGP&table=1&banner=off')";></td>
-                <td id="station2-wind-speed" class="wndspd bold" rowspan="2"></td>
-                <td id="station2-wind-gust" class="large bold gust" rowspan="2"></td>
-                <td rowspan="2"><img id="station2-wind-dir-img" height="100"></td>
-            </tr>
-            <tr>
-                <td id="station2-time" class="left medium"></td>
-            </tr>
-            <tr>
-                <td colspan="4"><hr></td>
-            </tr>
-            <tr>
-                <td id="station6-name" class="left large bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=C8948&table=1&banner=off')";></td>
-                <td id="station6-wind-speed" class="wndspd bold" rowspan="2"></td>
-                <td id="station6-wind-gust" class="large bold gust" rowspan="2"></td>
-                <td rowspan="2"><img id="station6-wind-dir-img" height="100"></td>
-            </tr>
-            <tr>
-                <td id="station6-time" class="left medium"></td>
-            </tr>
-            <tr>
-                <td colspan="4"><hr></td>
-            </tr>
-            <tr>
-                <td id="station0-name" class="left large bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KSLC&banner=NONE&hfmetars=1')";></td>
-                <td id="station0-wind-speed" class="wndspd bold" rowspan="2"></td>
-                <td id="station0-wind-gust" class="large bold gust" rowspan="2"></td>
-                <td rowspan="2"><img id="station0-wind-dir-img" height="100"></td>
-            </tr>
-            <tr>
-                <td id="station0-time" class="left medium"></td>
-            </tr>
-            <tr>
-                <td colspan="4"><hr></td>
-            </tr>
-            <tr>
-                <td id="station5-name" class="left large bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=MSI01&table=1&banner=off')";></td>
-                <td id="station5-wind-speed" class="wndspd bold" rowspan="2"></td>
-                <td id="station5-wind-gust" class="large bold gust" rowspan="2"></td>
-                <td rowspan="2"><img id="station5-wind-dir-img" height="100"></td>
-            </tr>
-            <tr>
-                <td id="station5-time" class="left medium"></td>
-            </tr>
-            <tr>
-                <td colspan="4"><hr></td>
-            </tr>
-            <tr>
-                <td id="station3-name" class="left large bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=PKC&table=1&banner=off')";></td>
-                <td id="station3-wind-speed" class="wndspd bold" rowspan="2"></td>
-                <td id="station3-wind-gust" class="large bold gust" rowspan="2"></td>
-                <td rowspan="2"><img id="station3-wind-dir-img" height="100"></td>
-            </tr>
-            <tr>
-                <td id="station3-time" class="left medium"></td>
-            </tr>
-            <tr>
-                <td colspan="4"><hr></td>
-            </tr>
-            <tr>
-                <td id="station1-name" class="left large bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KU42&banner=NONE&hfmetars=1')";></td>
-                <td id="station1-wind-speed" class="wndspd bold" rowspan="2"></td>
-                <td id="station1-wind-gust" class="large bold gust" rowspan="2"></td>
-                <td rowspan="2"><img id="station1-wind-dir-img" height="100"></td>
-            </tr>
-            <tr>
-                <td id="station1-time" class="left medium"></td>
-            </tr>
-            <tr>
-                <td colspan="4"><hr></td>
-            </tr>
-            <!-- <tr> ***NORTHSIDE STATION*** UNCOMMENT WHEN STATION BACK UP!!!
-                <td id="station7-name" class="left large bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=FPN&table=1&banner=off')";></td>
-                <td id="station7-wind-speed" class="wndspd bold" rowspan="2"></td>
-                <td id="station7-wind-gust" class="large bold gust" rowspan="2"></td>
-                <td rowspan="2"><img id="station7-wind-dir-img" height="100"></td>
-            </tr>
-            <tr>
-                <td id="station7-time" class="left medium"></td>
-            </tr>
-            <tr>
-                <td colspan="4"><hr></td>
-            </tr> -->
-            <tr>
-                <td id="station4-name" class="left large bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=FPS&table=1&banner=off')";></td>
-                <td id="station4-wind-speed" class="wndspd bold" rowspan="2"></td>
-                <td id="station4-wind-gust" class="large bold gust" rowspan="2"></td>
-                <td rowspan="2"><img id="station4-wind-dir-img" height="100"></td>
-            </tr>
-            <tr>
-                <td id="station4-time" class="left medium"></td>
-            </tr>
-        </table>
+$(document).ready (function todayFullDate() {
+    document.getElementById('today-full-date').innerHTML = dayName + ", " + monthName + " " + dayNum;
+});
 
-    <!-- SURFACE WIND MAP 1 -->
-    <h1 class="large">Surface Wind Map 1</h1>
-        <a href="https://www.wrh.noaa.gov/slc/current/meso.slv.php" target="_blank">
-            <img src="https://www.wrh.noaa.gov/mesowest/symmap.php?map=slc&dem=&scale=6&wx=0&res=60&disp=&limit=&wfo="></a>
+$(document).ready (function slcRecentURL() {
+    document.getElementById('slc-recent').src = "https://www.wunderground.com/cgi-bin/histGraphAll?day=" + day2Digit + "&year=" + yyyy + "&month=" + monthNum + "&ID=KSLC&type=3&width=614";
+});
 
-    <!-- SURFACE WIND MAP 2 -->
-    <h1 class="large">Surface Wind Map 2</h1>
-        <a href="https://www.wrh.noaa.gov/map/?&zoom=12&center=40.65,-111.90&obs=true&obs_type=weather&elements=wind,gust&obs_density=10&&obs_popup=false&obs_provider=ALL" target="_blank">
-            <div><iframe class="frame" src="https://www.wrh.noaa.gov/map/?&zoom=10&center=40.35,-111.60&obs=true&obs_type=weather&elements=wind,gust&obs_density=10&&obs_popup=false&obs_provider=ALL"></iframe>
-            </div></a>
-    </div>
+$(document).ready (function getSkewTURL() {
+    document.getElementById('skewT').src = "https://climate.cod.edu/data/raob/KSLC/skewt/KSLC.skewt." + yyyy + month2Digit + day2Digit + ".12.gif";
+});
 
-<!-- RECENT PAST BUTTON
------------------------ -->
-    <button class="collapsible">Recent Past</button>
-    <div class="collapse-contents">
-    
-    <!-- CLOUDS/PRECIP -->
-    <h1 class="large">Clouds/Precip</h1>Last 2 hrs
-        <a href="https://www.accuweather.com/en/us/utah/weather-radar-rs?play=1" target="_blank">
-            <img src="https://sirocco.accuweather.com/sat_mosaic_640x480_public/rs/isarUT_.gif" width="100%"></a>
-    
-    <!-- SLC TEMP, PRESSURE, & WIND -->
-    <h1 class="large">SLC Temp, Pressure, & Wind</h1>Since Midnight
-        <a href="https://www.wunderground.com/history/airportfrompws/KSLC/2019/6/14/DailyHistory.html?req_city=&req_state=&req_statename=&reqdb.zip=&reqdb.magic=&reqdb.wmo=" target="_blank">
-            <img id='slc-recent' width="100%"></a>
-    
-    <!-- SKEW T -->
-    <h1 class="large">Skew T</h1>Today's Morning Sounding
-        <a href="https://climate.cod.edu/data/raob/KSLC/skewt" target="_blank">
-            <img id='skewT', width="100%"></a>
-    
-    <!-- FRONTS -->
-    <h1 class="large">Fronts</h1>Last 4 hrs
-        <a href="http://api.wunderground.com/maps/us/Fronts.html" target="_blank">
-            <img src="https://icons.wxug.com/data/640x480/2xsw_sf_anim.gif" width="100%"></a>
+// -----------------------------
+// -----------------------------
+// S U N S E T   T I M E   A P I
+// -----------------------------
+// -----------------------------
 
-    <!-- JETSTREAM -->
-    <h1 class="large">Jetstream</h1>Last 18 hrs
-        <a href="https://www.wunderground.com/maps/wind/jet-stream" target="_blank">
-            <img src="https://s.w-x.co/staticmaps/wu/wu/jetstream1200_cur/conus/animate.png" width="100%"></a>
-    </div>
+var xhrGetSunsetSLC = new XMLHttpRequest();
+xhrGetSunsetSLC.open('GET', 'https://api.sunrise-sunset.org/json?lat=40.789900&lng=-111.979100&date=today&formatted=0', true);
+xhrGetSunsetSLC.responseType = 'text';
+xhrGetSunsetSLC.send();
+$(document).ready (function () {
+    var solarData = JSON.parse(xhrGetSunsetSLC.responseText);
+    var jsonSunset = solarData.results.sunset;
+    var sunsetSLC = new Date(jsonSunset);
+    sunsetSLC = sunsetSLC.getHours() - 12 + ":" + sunsetSLC.getMinutes() + " pm";
+    console.log(sunsetSLC);
+    document.getElementById('sunset-time').innerHTML = sunsetSLC;
+});
 
-<!-- FORECAST BUTTON
--------------------- -->
-    <button class="collapsible">Forecast</button>
-    <div class="collapse-contents">
-    
-    <!-- SHORT TERM TABLE-->
-    <h1 class="large">Short Term</h1>
-        <table>
-            <tr>
-                <td rowspan="2"><a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank">
-                    <img id="noaa-short-img" height=200px></a></td>
-                <td id='noaa-short-time' class ="large"></td>
-            </tr>
-            <tr>
-                <td id='noaa-short-text' class="indent medium bold"></td>
-            </tr>
-        </table>
+// -------------------------------------------------------
+// -------------------------------------------------------
+// W I N D   S T A T I O N   T I M E   S E R I E S   A P I
+// -------------------------------------------------------
+// -------------------------------------------------------
 
-    <!-- SURFACE WIND & SKY -->
-    <h1 class="large">Surface Wind & Sky Cover<br>(3 PM)</h1>
-        <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
-            <img src="https://graphical.weather.gov/images/slc/WindSpd3_slc.png" width="49%" id="rotatorWind"></a>
-                <!-- <script type= "text/javascript">
-                    forecastedImgLoop('rotatorWind', "WindSpd");
-                </script> -->
-        <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
-            <img src="https://graphical.weather.gov/images/slc/Sky3_slc.png" width="49%" id="rotatorSky"></a>
-                <!-- <script type= "text/javascript">
-                    forecastedImgLoop('rotatorSky', "Sky");
-                </script> -->
-    
-    <!-- WINDY SURFACE MAP -->
-    <h1 class="large">Windy Surface Map (GFS)</h1>
-        <a href="https://www.windy.com/?40.624,-111.896,10" target="_blank">
-            <div id="windy" class="nopointer"></div>
-            <script src="windyscript.js"></script></a>
-    
-    <!-- SLC HOURLY GRAPHICAL -->
-    <h1 class="large">SLC Hourly Graphical</h1>
-        <a href="https://forecast.weather.gov/MapClick.php?w0=t&w3=sfcwind&w3u=1&w4=sky&w5=pop&w7=rain&w9=snow&w13u=0&w16u=1&w17u=1&AheadHour=0&Submit=Submit&FcstType=graphical&textField1=40.7603&textField2=-111.8882&site=all&unit=0&dd=&bw=" target="_blank">
-            <img src="https://forecast.weather.gov/meteograms/Plotter.php?lat=40.7603&lon=-111.8882&wfo=SLC&zcode=UTZ003&gset=30&gdiff=10&unit=0&tinfo=MY7&ahour=0&pcmd=10001110101000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6" width="100%"></a>
-    
-    <!-- SOARING DATA TABLE -->
-    <h1 class="large">Soaring Data</h1>
-        <table>
-            <tr>
-                <td class="medium" colspan="5">
-                <a href="https://www.weather.gov/slc/Soar" target="_blank">FORECAST </a>Date: 
-                <span id="soar-forecast-report-date"></span></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td class="left large bold" colspan="3">Max RoL (ft/min)</td>
-                <td class="left xlarge bold ltblue" colspan="2" id="max-rol"></td>
-            </tr>
-            <tr>
-                <td class="left large bold" colspan="3">Top of -3 Index (ft)</td>
-                <td class="left xlarge bold ltblue" colspan="2" id="neg3-index"></td>
-            </tr>
-            <tr>
-                <td class="left large bold" colspan="3">Cloudbase/LCL (ft)</td>
-                <td class="left xlarge bold ltblue" colspan="2" id="lcl"></td>
-            </tr>
-            <tr>
-                <td class="left large bold" colspan="3">Top of Lift (ft)</td>
-                <td class="left xlarge bold ltblue" colspan="2" id="top-of-lift"></td>
-            </tr>
-            <tr>
-                <td colspan="5"><hr></td>
-            </tr>
-            <tr>
-                <td class="left large bold">OD Time:</td>
-                <td class="left large bold ltblue" colspan="4" id="od-time"></td>
-            </tr>
-            <tr>
-                <td colspan="5"><hr></td>
-            </tr>
-            <tr>
-                <th class="left">&nbsp;</th>
-                <th class="left large">9am</th>
-                <th class="left large">Noon</th>
-                <th class="left large">3pm</th>
-                <th class="left large">6pm</th>
-            </tr>
-            <tr>
-                <td class="left large bold">K Index</td>
-                <td class="left large" id="kindex-9"></td>
-                <td class="left large" id="kindex-12"></td>
-                <td class="left large" id="kindex-3"></td>
-                <td class="left large" id="kindex-6"></td>
-            </tr>
-            <tr>
-                <td class="left large bold">CAPE</td>
-                <td class="left large" id="cape-9"></td>
-                <td class="left large" id="cape-12"></td>
-                <td class="left large" id="cape-3"></td>
-                <td class="left large" id="cape-6"></td>
-            </tr>
-            <tr>
-                <td class="left large bold">LI</td>
-                <td class="left large" id="li-9"></td>
-                <td class="left large" id="li-12"></td>
-                <td class="left large" id="li-3"></td>
-                <td class="left large" id="li-6"></td>
-            </tr>
-        </table>
-    
-    <!-- SOARING KEY BUTTON -->
-    <button class="collapsiblekey">Soaring Definitions</button>
-    <div class="collapse-contents">
-        <table>
-            <tr>
-                <td class="left large bold" colspan="5">K Index</td>
-            </tr>
-            <tr>
-                <td class="left medium" colspan="5">-10 to 5: Dry thermals or 1/8 cumulus with moderate thermals</td>
-            </tr>
-            <tr>
-                <td class="left medium" colspan="5">&nbsp;5 to 15: Good soaring conditions</td>
-            </tr>
-            <tr>
-                <td class="left medium" colspan="5">15 to 20: Good soaring conditions with occasional showers</td>
-            </tr>
-            <tr>
-                <td class="left medium" colspan="5">20 to 30: Could blow up</td>
-            </tr>
-            <tr>
-                <td class="left medium" colspan="5">20 to 30: Will blow up (>60% chance thunderstorms)</td>
-            </tr>
-            <tr>
-                <td class="left medium" colspan="5">&nbsp;</td>
-            </tr>
-            <tr>
-                <td class="left large bold" colspan="2">CAPE</td>
-                <td class="left large bold" colspan="3">Lifted Index (LI)</td>
-            </tr>
-            <tr>
-                <td class="left medium" colspan="2">~300: Possible blow up</td>
-                <td class="left medium" colspan="3">0: Leaning stable</td>
-            </tr>
-            <tr>
-                <td class="left medium" colspan="2">~600: Really pay attention</td>
-                <td class="left medium" colspan="3">-1: Sweet spot</td>
-            </tr>
-            <tr>
-                <td class="left medium" colspan="2">~800: Watch out!</td>
-                <td class="left medium" colspan="3">-2: With CAPE liked hosed</td>
-            </tr>
-            <tr>
-                <td class="left medium" colspan="2">&nbsp;</td>
-                <td class="left medium" colspan="3">-3: Forget it</td>
-            </tr>
-        </table>
-    </div>
-    
-    <!-- WIND ALOFT TABLE -->
-    <h1 class="large">Wind Aloft</h1>
-        <table>
-            <tr>
-                <td class="medium" colspan="5">
-                    <a href="https://www.aviationweather.gov/windtemp/data?level=low&fcst=06&region=slc&layout=on&date=" target="_blank">
-                        FORECAST </a>from <span id="winds-aloft-forecast-start"></span> to <span id="winds-aloft-forecast-end"></span><span id="winds-aloft-forecast-day"></span></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <th class="large" colspan="2">Altitude<br>(k ft)</th>
-                <th class="large">Speed (mph)</th>
-                <th class="large">Dir</th>
-                <th class="large">Temp (F)</th>
-            </tr>
-            <tr>
-                <td colspan="5"><hr></td>
-            </tr>
-            <tr>
-                <td class="indent left xlarge">6</td>
-                <td class="left vert-bottom medium">1829 m</td>
-                <td class="xlarge bold ltblue" id="wind-aloft-6k-spd"></td>
-                <td><img id="wind-aloft-6k-dir" height=100px></td>
-                <td class="large" id="wind-aloft-6k-tmp"></td>
-            </tr>
-            <tr>
-                <td colspan="5"><hr></td>
-            </tr>
-            <tr>
-                <td class="indent left xlarge">9</td>
-                <td class="left vert-bottom medium">2743 m</td>
-                <td class="xlarge bold ltblue" id="wind-aloft-9k-spd"></td>
-                <td><img id="wind-aloft-9k-dir" height=100px></td>
-                <td class="large" id="wind-aloft-9k-tmp"></td>
-            </tr>
-            <tr>
-                <td colspan="5"><hr></td>
-            </tr>
-            <tr>
-                <td class="indent left xlarge">12</td>
-                <td class="left vert-bottom medium">3658 m</td>
-                <td class="xlarge bold ltblue" id="wind-aloft-12k-spd"></td>
-                <td><img id="wind-aloft-12k-dir" height=100px></td>
-                <td class="large" id="wind-aloft-12k-tmp"></td>
-            </tr>
-            <tr>
-                <td colspan="5"><hr></td>
-            </tr>
-            <tr>
-                <td class="indent left xlarge">18</td>
-                <td class="left vert-bottom medium">5486 m</td>
-                <td class="xlarge bold ltblue" id="wind-aloft-18k-spd"></td>
-                <td><img id="wind-aloft-18k-dir" height=100px></td>
-                <td class="large" id="wind-aloft-18k-tmp"></td>
-            </tr>
-        </table>
-    
-    <!-- 72 HOUR TABLE -->
-    <h1 class="large">72 Hour</h1>
-        <table>
-            <tr>
-                <td id="forecast-day1-name" class="medium bold"></td>
-                <td id="forecast-day1-text" rowspan="2" class="indent left medium bold"></td>
-            </tr>
-            <tr>
-                <td class="left">
-                    <a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank">
-                        <img id="forecast-day1-img" height=200px></a></td>
-            </tr>
-            <tr>
-                <td colspan="5"><hr></td>
-            </tr>
-            <tr>
-                <td id="forecast-day2-name" class="medium bold"></td>
-                <td id="forecast-day2-text" rowspan="2" class="indent left medium bold"></td>
-            </tr>
-            <tr>
-                <td class="left">
-                    <a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank">
-                        <img id="forecast-day2-img" height=200px></a></td>
-            </tr>
-            <tr>
-                <td colspan="5"><hr></td>
-            </tr>
-            <tr>
-                <td id="forecast-day3-name" class="medium bold"></td>
-                <td id="forecast-day3-text" rowspan="2" class="indent left medium bold"></td>
-            </tr>
-            <tr>
-                <td class="left">
-                    <a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank">
-                        <img id="forecast-day3-img" height=200px></a></td>
-            </tr>
-        </table>        
-    </div>
+var xhrTimeSeries = new XMLHttpRequest();
+xhrTimeSeries.open('GET', 'https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=MSI01&stid=C8948&stid=PKC&stid=FPS&stid=FPN&stid=KSLC&stid=KU42&recent=90&obtimezone=local&timeformat=%b%20%d%20-%20%H:%M&vars=wind_speed,wind_gust,wind_direction&units=english,speed|mph&token=6243aadc536049fc9329c17ff2f88db3', true);
+xhrTimeSeries.responseType = 'text';
+xhrTimeSeries.send();
+xhrTimeSeries.onload = function() {
+var weatherData = JSON.parse(xhrTimeSeries.responseText);
+var stationsCount = weatherData.STATION.length;
+var stationObservationsCount = [], stationName = [], stationHour = [], stationAMPM = [], stationMins = [], latestTimes = [], windSpeeds = [], windGusts = [], windDirImgs = [];
 
-<!-- TIMELAPSE & LIVE CAMS BUTTON
---------------------------------- -->
-    <button class="collapsible">Timelapse &amp; Live Cams</button>
-    <div class="collapse-contents">
-    
-    <!-- SLC > WEST -->
-    <h1 class="large">SLC > West</h1>Last 2 hrs
-        <a href="http://meso1.chpc.utah.edu/station_cameras/wbbw_cam/wbbw_cam_hour.mp4" target="_blank">
-            <video width="100%" autoplay loop>
-                <source src="http://meso1.chpc.utah.edu/station_cameras/wbbw_cam/wbbw_cam_hour.mp4" type="video/mp4"></video></a>
-    
-    <!-- SLC > SOUTH -->
-    <h1 class="large">SLC > South</h1>Last 2 hrs
-        <a href="http://meso1.chpc.utah.edu/station_cameras/wbbs_cam/wbbs_cam_hour.mp4" target="_blank">
-            <video width="100%" autoplay loop>
-                <source src="http://meso1.chpc.utah.edu/station_cameras/wbbs_cam/wbbs_cam_hour.mp4" type="video/mp4"></video></a>
-    
-    <!-- WEST VALLEY > EAST -->
-    <h1 class="large">West Valley > East</h1>Last 2 hrs
-        <a href="http://meso1.chpc.utah.edu/station_cameras/armstrong_cam/armstrong_cam_hour.mp4" target="_blank">
-            <video width="100%" autoplay loop>
-                <source src="http://meso1.chpc.utah.edu/station_cameras/armstrong_cam/armstrong_cam_hour.mp4" type="video/mp4"></video></a>
-    
-    <!-- NORTHSIDE CAM -->
-    <h1 class="large">Northside Camera</h1>LIVE
-        <a href="http://northcam.uhgpga.org/#view" target="_blank">
-            <img src="http://www.uhgpga.org/cam/northcam.jpg"></a>
+// MOST RECENT READING FOR EACH STATION
+for (i=0; i<stationsCount; i++) {
+    stationObservationsCount[i] = weatherData.STATION[i].OBSERVATIONS.date_time.length - 1;
+}
 
-    <!-- SOUTHSIDE CAM -->
-    <h1 class="large">Southside Camera</h1>LIVE
-        <a href="http://southcam.uhgpga.org/#view" target="_blank">
-            <img src="http://www.uhgpga.org/cam/southcam.jpg"></a>
-    </div>
-
-<!-- FOOTING AREA
------------------ -->
-    <br><hr class="thick">
-    <h1 class="large">Other Resources</h1>
-        <p class="medium bold"><a href="http://online.saiawos.com/KU42/ios/display.html#TopOfPage" target="_blank">Airport 2 (Per Minute)</a></p>
-        <p class="medium bold"><a href="https://forecast.weather.gov/product.php?site=NWS&issuedby=SLC&product=AFD&format=txt&version=1&glossary=1" target="_blank">Area Forecast Discussion</a></p>
-
-    <h1 class="large">Who's Flying Now?</h1>
-        <p class="medium bold"><a href="https://livetrack24.com/tracks/country/us" target="_blank">LiveTrack24</a></p>
-        <p class="medium bold"><a href="http://xcfind.paraglide.us/map.html?id=15" target="_blank">XC Find</a></p>
-
-<!-- BUTTON COLLAPSE SCRIPT
---------------------------- -->
-    <script>
-        var coll = document.getElementsByClassName("collapsible");
-        for (i = 0; i < coll.length; i++) {
-            coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var currentWind = this.nextElementSibling;
-            if (currentWind.style.maxHeight){
-                currentWind.style.maxHeight = null;
-            } else {
-                currentWind.style.maxHeight = currentWind.scrollHeight + "px";
-            }
-            });
-        }
-    </script>
-
-<script>
-    var collkey = document.getElementsByClassName("collapsiblekey");
-    for (i = 0; i < collkey.length; i++) {
-        collkey[i].addEventListener("click", function() {
-        var currentWind = this.nextElementSibling;
-        if (currentWind.style.maxHeight){
-            currentWind.style.maxHeight = null;
-        } else {
-            currentWind.style.maxHeight = currentWind.scrollHeight + "px";
-        }
-        });
+// STATION NAMES
+for (i=0; i<stationsCount; i++) {
+    try {
+        stationName[i] = weatherData.STATION[i].STID;
+        stationName[i] = (stationName[i] == "OGP") ? "Ogden Peak" : stationName[i];
+        stationName[i] = (stationName[i] == "PKC") ? "Jupiter" : stationName[i];
+        stationName[i] = (stationName[i] == "MSI01") ? "Olympus MSI" : stationName[i];
+        stationName[i] = (stationName[i] == "C8948") ? "Centerville" : stationName[i];
+        stationName[i] = (stationName[i] == "FPS") ? "Southside" : stationName[i];
+        stationName[i] = (stationName[i] == "FPN") ? "Northside" : stationName[i];
+        stationName[i] = (stationName[i] == "KU42") ? "Airport 2" : stationName[i];
     }
-</script>
+    catch(err) {
+        stationName[i] = "---";
+    }
+}
+
+// MOST RECENT TIME
+for (i=0; i<stationsCount; i++) {
+    try {
+        stationHour[i] = parseInt(weatherData.STATION[i].OBSERVATIONS.date_time[stationObservationsCount[i]].substr(9,2));
+        stationAMPM[i] = " am";
+        if (stationHour[i] > 11) {
+            stationAMPM[i] = " pm";
+            if (stationHour[i] > 12) {
+                stationHour[i] -= 12;
+            }
+        }
+        if (stationHour[i] == 0) {
+            stationHour[i] = 12;
+            stationAMPM[i] = " am";
+        }
+        stationMins[i] = weatherData.STATION[i].OBSERVATIONS.date_time[stationObservationsCount[i]].substr(12, 2);
+        latestTimes[i] = stationHour[i] + ":" + stationMins[i] + stationAMPM[i];
+    }
+    catch(err) {
+        latestTimes[i] = "---";
+    }
+}
+
+// ROUND & LOAD WIND SPEED & GUST, "---" IF NULL OR NO DATA
+for (i=0; i<stationsCount; i++) {
+    try {
+        windSpeeds[i] = weatherData.STATION[i].OBSERVATIONS.wind_speed_set_1[stationObservationsCount[i]];
+        windSpeeds[i] = (parseInt(windSpeeds[i]) > 0) ? windSpeeds[i] = Math.round(windSpeeds[i]) : "<span class='calm'>Calm</span>";
+    }
+    catch(err) {
+        windSpeeds[i] = "No Data";
+    }
     
-</body>
-<script type="text/javascript" src="https://github.com/mkhans/mkhans.github.io/blob/master/ww.js"></script>
-</html>
+    try {
+        windGusts[i] = weatherData.STATION[i].OBSERVATIONS.wind_gust_set_1[stationObservationsCount[i]];
+        windGusts[i] = (parseInt(windGusts[i]) > 0) ? windGusts[i] = Math.round(windGusts[i]) : "---";
+    }
+    catch(err) {
+        windGusts[i] = "";
+    }
+}
+
+// WIND DIRECTION IMAGES
+for (i=0; i<stationsCount; i++) {
+    try {
+        windDirImgs[i] = weatherData.STATION[i].OBSERVATIONS.wind_direction_set_1[stationObservationsCount[i]];
+        if (parseInt(windDirImgs[i]) >= 0) {
+            windDirImgs[i] = Math.round(windDirImgs[i] / 10) * 10;
+            windDirImgs[i] = (windDirImgs[i] > 180) ? windDirImgs[i] - 180 : windDirImgs[i] + 180;
+            windDirImgs[i] = windImgURLBase + "a" + windDirImgs[i] + ".gif";
+        } else {
+            windDirImgs[i] = windImgURLBase + "calm.gif";
+        }
+    }
+    catch(err) {
+        windDirImgs[i] = "https://www.usairnet.com/weather/winds_aloft/nodata.gif";
+    }
+}
+
+// GET ELEMENT BY ID
+if (stationName[1] != undefined) {
+    document.getElementById('station0-name').innerHTML = stationName[0];
+    document.getElementById('station0-time').innerHTML = latestTimes[0];
+    document.getElementById('station0-wind-speed').innerHTML = windSpeeds[0];
+    document.getElementById('station0-wind-gust').innerHTML = windGusts[0];
+    document.getElementById('station0-wind-dir-img').src = windDirImgs[0];
+}
+
+if (stationName[1] != undefined) {
+    document.getElementById('station1-name').innerHTML = stationName[1];
+    document.getElementById('station1-time').innerHTML = latestTimes[1];
+    document.getElementById('station1-wind-speed').innerHTML = windSpeeds[1];
+    document.getElementById('station1-wind-gust').innerHTML = windGusts[1];
+    document.getElementById('station1-wind-dir-img').src = windDirImgs[1];
+}
+
+if (stationName[2] != undefined) {
+    document.getElementById('station2-name').innerHTML = stationName[2];
+    document.getElementById('station2-time').innerHTML = latestTimes[02];
+    document.getElementById('station2-wind-speed').innerHTML = windSpeeds[2];
+    document.getElementById('station2-wind-gust').innerHTML = windGusts[2];
+    document.getElementById('station2-wind-dir-img').src = windDirImgs[2];
+}
+
+if (stationName[3] != undefined) {
+    document.getElementById('station3-name').innerHTML = stationName[3];
+    document.getElementById('station3-time').innerHTML = latestTimes[3];
+    document.getElementById('station3-wind-speed').innerHTML = windSpeeds[3];
+    document.getElementById('station3-wind-gust').innerHTML = windGusts[3];
+    document.getElementById('station3-wind-dir-img').src = windDirImgs[3];
+}
+
+if (stationName[4] != undefined) {
+    document.getElementById('station4-name').innerHTML = stationName[4];
+    document.getElementById('station4-time').innerHTML = latestTimes[4];
+    document.getElementById('station4-wind-speed').innerHTML = windSpeeds[4];
+    document.getElementById('station4-wind-gust').innerHTML = windGusts[4];
+    document.getElementById('station4-wind-dir-img').src = windDirImgs[4];
+}
+
+if (stationName[5] != undefined) {
+    document.getElementById('station5-name').innerHTML = stationName[5];
+    document.getElementById('station5-time').innerHTML = latestTimes[5];
+    document.getElementById('station5-wind-speed').innerHTML = windSpeeds[5];
+    document.getElementById('station5-wind-gust').innerHTML = windGusts[5];
+    document.getElementById('station5-wind-dir-img').src = windDirImgs[5];
+}
+
+if (stationName[6] != undefined) {
+    document.getElementById('station6-name').innerHTML = stationName[6];
+    document.getElementById('station6-time').innerHTML = latestTimes[6];
+    document.getElementById('station6-wind-speed').innerHTML = windSpeeds[6];
+    document.getElementById('station6-wind-gust').innerHTML = windGusts[6];
+    document.getElementById('station6-wind-dir-img').src = windDirImgs[6];
+}
+
+if (stationName[7] != undefined) {
+    document.getElementById('station7-name').innerHTML = stationName[7];
+    document.getElementById('station7-time').innerHTML = latestTimes[7];
+    document.getElementById('station7-wind-speed').innerHTML = windSpeeds[7];
+    document.getElementById('station7-wind-gust').innerHTML = windGusts[7];
+    document.getElementById('station7-wind-dir-img').src = windDirImgs[7];
+}
+}
+
+// ---------------------------------------------------------
+// ---------------------------------------------------------
+// N O A A   S T A N D A R D   F O R E C A S T   S C R A P E
+// ---------------------------------------------------------
+// ---------------------------------------------------------
+
+var noaaForecastURL = "https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XNmCho5KhPY";
+$.getJSON(scrapeURLBase + encodeURIComponent(noaaForecastURL) + '&callback=?', function(noaaForecastData) {
+
+// CURRENT WEATHER IMAGE
+var noaaCurrentImg = noaaImgURLBase + noaaForecastData.contents.match(/newimages\/large\/.+(?="\salt)/);
+
+// SKY COVER
+var noaaCurrentSky = String(noaaForecastData.contents.match(/ent">.+(?=<\Sp>)/)).substr(5);
+
+// TEMP (CURRENT & NEXT)
+var noaaCurrentTemp = String(noaaForecastData.contents.match(/\d{1,3}(?=&deg;F<)/));
+var noaaNextTemp = String(noaaForecastData.contents.match(/\d{1,3}(?=\s&deg)/));
+var tempColor = "orangered";
+tempColor = (noaaNextTemp > noaaCurrentTemp) ? tempColor : "lightblue";
+noaaCurrentTemp = noaaCurrentTemp + "<span style='font-size:50%; color:" + tempColor + ";'>&nbsp;&nbsp;&nbsp;--> " + noaaNextTemp + "</span>";
+
+// PRESSURE
+var noaaCurrentPres = String(noaaForecastData.contents.match(/\d{1,2}\.\d{1,2}(?=\sin)/));
+
+// SHORT TERM FORECAST
+var noaaShortImg = noaaImgURLBase + noaaForecastData.contents.match(/DualImage.+(?="\salt="[A-Z])|newimages\/m.+(?="\salt="[A-Z])/);
+var noaaShortTime = String(noaaForecastData.contents.match(/name">[A-Z][a-z]+/)).substr(6);
+noaaShortTime = (noaaShortTime == "This") ? "This Afternoon" : noaaShortTime;
+var noaaShortText = String(noaaForecastData.contents.match(/:\s[A-Z].+(?="\stitle)/)).substr(2);
+
+// 72 HOUR FORECAST
+var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+var tomorrow = today.getDay() + 1;
+var forecastRegex = new RegExp;
+var forecastDays = [], forecastImgs = [], forecastTexts = [];
+for (i=0; i<3; i++) {
+    tomorrow = (tomorrow + i < 7) ? tomorrow : tomorrow - 7;
+    forecastDays[i] = weekdays[tomorrow + i];
+    forecastRegex = '".+(?=".alt="' + weekdays[tomorrow + i] + ':)';
+    forecastImgs[i] = noaaImgURLBase + String(noaaForecastData.contents.match(forecastRegex)).substr(1);
+    forecastRegex = ':.+(?=".title="' + weekdays[tomorrow + i] + ':)';
+    forecastTexts[i] = String(noaaForecastData.contents.match(forecastRegex)).substr(2);
+}
+
+// GET ELEMENT BY ID
+document.getElementById('noaa-current-img').src = noaaCurrentImg;
+document.getElementById('noaa-current-sky').innerHTML = noaaCurrentSky;
+document.getElementById('noaa-current-temp').innerHTML = noaaCurrentTemp;
+document.getElementById('noaa-current-pres').innerHTML = noaaCurrentPres;
+document.getElementById('noaa-short-img').src = noaaShortImg;
+document.getElementById('noaa-short-time').innerHTML = noaaShortTime;
+document.getElementById('noaa-short-text').innerHTML = noaaShortText;
+document.getElementById('forecast-day1-img').src = forecastImgs[0];
+document.getElementById('forecast-day2-img').src = forecastImgs[1];
+document.getElementById('forecast-day3-img').src = forecastImgs[2];
+document.getElementById('forecast-day1-name').innerHTML = forecastDays[0];
+document.getElementById('forecast-day2-name').innerHTML = forecastDays[1];
+document.getElementById('forecast-day3-name').innerHTML = forecastDays[2];
+document.getElementById('forecast-day1-text').innerHTML = forecastTexts[0];
+document.getElementById('forecast-day2-text').innerHTML = forecastTexts[1];
+document.getElementById('forecast-day3-text').innerHTML = forecastTexts[2];
+});
+
+// ---------------------------------------------
+// ---------------------------------------------
+// S O A R I N G   F O R E C A S T   S C R A P E
+// ---------------------------------------------
+// ---------------------------------------------
+
+var soaringForecastURL = "https://www.weather.gov/source/slc/aviation/files/SLCSRGSLC0.txt";
+$.getJSON(scrapeURLBase + encodeURIComponent(soaringForecastURL) + '&callback=?', function(soarForecastData) {
+
+// REPORT DATE
+var soarForecastReportWkDay = String(soarForecastData.contents.match(/MDT\s[A-Z][a-zA-Z]{2}/)).substr(4);
+soarForecastReportWkDay = soarForecastReportWkDay.substr(0,1) + soarForecastReportWkDay.substr(1).toLowerCase();
+var soarForecastReportMonth = String(soarForecastData.contents.match(/[Dd][Aa][Yy],\s[a-zA-Z]{3}/)).substr(5);
+soarForecastReportMonth = soarForecastReportMonth.substr(0,1) + soarForecastReportMonth.substr(1).toLocaleLowerCase();
+var soarForecastReportDate = String(soarForecastData.contents.match(/\d{1,2}(?=,\s2019)/));
+var soarForecastReportFullDate = soarForecastReportWkDay + ", " + soarForecastReportMonth + " " + soarForecastReportDate;
+soarForecastReportFullDate = (soarForecastReportFullDate == dayName + ", " + monthName + " " + dayNum) ? soarForecastReportFullDate = soarForecastReportFullDate : soarForecastReportFullDate + "<br><br><b>! ! !<br>- Report DATE Error -</b>";
+
+// MAX RATE OF LIFT
+var maxRateOfLift = parseInt(soarForecastData.contents.match(/\d{1,4}.+[\/][Mm]/));
+var maxRateOfLiftms = Math.round((maxRateOfLift / 196.85) * 10) / 10;
+maxRateOfLift = maxRateOfLift.toLocaleString() + "<span style='font-size:30%; color:white;'>&nbsp;&nbsp;&nbsp;" + maxRateOfLiftms + " m/s</span>";
+
+// HEIGHT OF THE -3 INDEX
+var neg3Index = parseInt(String(soarForecastData.contents.match(/[Dd][Ee][Xx].+\d{1,5}.+[Mm]/)).substr(21));
+neg3Index = (isNaN(neg3Index)) ? "None" : neg3Index;
+var neg3Indexm = Math.round(neg3Index / 3.281);
+neg3Indexm = (isNaN(neg3Indexm)) ? "" : String(neg3Indexm) + " m";
+neg3Index = neg3Index.toLocaleString() + "<span style='font-size:30%; color:white;'>&nbsp;&nbsp;&nbsp;" + neg3Indexm + "</span>";
+
+// LIFTED CONDENSATION LEVEL (CLOUDBASE)
+var lcl = parseInt(String(soarForecastData.contents.match(/[Dd]\s[Cc][a-zA-Z]{11}.+\d{1,5}.+\(/)).substr(28));
+var lclm = Math.round(lcl / 3.281);
+lcl = lcl.toLocaleString() + "<span style='font-size:30%; color:white;'>&nbsp;&nbsp;&nbsp;" + lclm + " m</span>";
+
+// TOP OF LIFT
+var topOfLift = parseInt(String(soarForecastData.contents.match(/[Mm][Aa][Ll][Ss].+\d{1,5}.+\(/)).substr(23));
+var topOfLiftm = Math.round(topOfLift / 3.281);
+topOfLift = topOfLift.toLocaleString() + "<span style='font-size:30%; color:white;'>&nbsp;&nbsp;&nbsp;" + topOfLiftm + " m</span>";
+
+// OVERDEVELOPMENT TIME
+var od = String(soarForecastData.contents.match(/[Mm][Ee][Nn][Tt].+\d{4}|[Mm][Ee][Nn][Tt].+[A-Z][a-zA-Z]{3}/)).substr(29);
+if (parseInt(od)) {
+    var odFirst2 = parseInt(od.substr(0,2));
+    var odAMPM = (odFirst2 > 11) ? " pm" : " am";
+    odFirst2 = (odFirst2 > 12) ? odFirst2 -= 12 : odFirst2;
+    od = String(odFirst2) + ":" + od.substr(2,4) + odAMPM;
+}
+
+// K INDEX ARRAY
+var kIndex = soarForecastData.contents.match(/[Xx]\.{3}\s+.\d{1,4}\.\d/g);
+
+// CAPE ARRAY
+var cape = soarForecastData.contents.match(/E\.{3}\s+.\d{1,4}\.\d/g);
+
+// LI (LIFTED INDEX) ARRAY
+var li = soarForecastData.contents.match(/I\.{3}\s+.\d{1,4}\.\d/g);
+
+document.getElementById('soar-forecast-report-date').innerHTML = soarForecastReportFullDate;
+document.getElementById('max-rol').innerHTML = maxRateOfLift;
+document.getElementById('top-of-lift').innerHTML = topOfLift;
+document.getElementById('neg3-index').innerHTML = neg3Index;
+document.getElementById('lcl').innerHTML = lcl;
+document.getElementById('od-time').innerHTML = od;
+document.getElementById('kindex-9').innerHTML = kIndex[0].substr(5);
+document.getElementById('kindex-12').innerHTML = kIndex[1].substr(5);
+document.getElementById('kindex-3').innerHTML = kIndex[2].substr(5);
+document.getElementById('kindex-6').innerHTML = kIndex[3].substr(5);
+document.getElementById('cape-9').innerHTML = cape[0].substr(6);
+document.getElementById('cape-12').innerHTML = cape[1].substr(6);
+document.getElementById('cape-3').innerHTML = cape[2].substr(6);
+document.getElementById('cape-6').innerHTML = cape[3].substr(6);
+document.getElementById('li-9').innerHTML = li[0].substr(11);
+document.getElementById('li-12').innerHTML = li[1].substr(11);
+document.getElementById('li-3').innerHTML = li[2].substr(11);
+document.getElementById('li-6').innerHTML = li[3].substr(11);
+});
+
+// -----------------------------------
+// -----------------------------------
+// W I N D S   A L O F T   S C R A P E
+// -----------------------------------
+// -----------------------------------
+
+// FORECAST TIMEFRAME (6, 12, OR 24 HR)
+var fcastRange = "12";
+if (hour >= 14 && hour <= 19) {
+    fcastRange = "06";
+} else if (hour > 19 || hour <=3) {
+    fcastRange = "24";
+}
+
+var windAloftForecastURL = "https://www.aviationweather.gov/windtemp/data?level=low&fcst=" + fcastRange + "&region=slc&layout=on&date=";
+$.getJSON(scrapeURLBase + encodeURIComponent(windAloftForecastURL) + '&callback=?', function(windAloftData) {
+
+// FORECAST START TIME (ZULU)
+var fcastStartTime = parseInt(windAloftData.contents.match(/\d{2}(?=\d{2}-\d{4}Z)/)) - 6;
+var fcastStartTimeAMPM = " am", fcastEndTimeAMPM = " am";
+if (fcastStartTime == 12) {
+    fcastStartTime = "Noon";
+    fcastStartTimeAMPM = "";
+}
+if (fcastStartTime > 12) {
+    fcastStartTime -= 12;
+    fcastStartTimeAMPM = " pm";
+}
+fcastStartTime = fcastStartTime + fcastStartTimeAMPM;
+
+// FORECAST END TIME (ZULU)
+var fcastEndTime = parseInt(windAloftData.contents.match(/\d{2}(?=\d{2}Z.\sTEMPS)/)) - 6;
+if (fcastEndTime == 0) {
+    fcastEndTime = "Midnight";
+    fcastEndTimeAMPM = "";
+}
+if (fcastEndTime < 0) {
+    fcastEndTime += 12;
+    fcastEndTimeAMPM = " pm";
+}
+fcastEndTime = fcastEndTime + fcastEndTimeAMPM;
+
+// FORECAST DAY
+var fcastDay;
+fcastDay = (fcastRange == "24" && hour > 19) ? " (tomorrow)" : "";
+
+// DIRECTION, SPEED, & TEMP ARRARYS (6K, 9K, 12K, 18K)
+var slcLine = String(windAloftData.contents.match(/SLC.+(?=\s\d{4}-)/)).substr(9);
+var windAloftDirs = [], windAloftSpds = [], windAloftTmps = [];
+for (i=0; i<4; i++) {
+    windAloftDirs[i] = slcLine.substr(i*8,2);
+    if (windAloftDirs[i] == 99) {
+        windAloftDirs[i] = "calm";
+    } else {
+        windAloftDirs[i] = windAloftDirs[i] * 10;
+    }
+    if (windAloftDirs[i] > 180) {
+        windAloftDirs[i] = "a" + (windAloftDirs[i] - 180);
+    }
+    windAloftDirs[i] = 'https://www.usairnet.com/weather/winds_aloft/' + windAloftDirs[i] + '.gif';
+    
+    windAloftSpds[i] = Math.round(parseFloat(slcLine.substr(i*8+2,2) * 1.15078));
+    if (windAloftSpds[i] == 0) {
+        windAloftSpds[i] = "---";
+    }
+    
+    windAloftTmps[i] = parseInt(slcLine.substr(i*8+5,2));
+    if (slcLine.substr(i*8+4,1) == "-") {
+        windAloftTmps[i] = windAloftTmps[i] * -1;
+    }
+    windAloftTmps[i] = (Number.isInteger(windAloftTmps[i])) ? Math.round(windAloftTmps[i] * (9/5) + 32) : "---";
+}
+
+document.getElementById('winds-aloft-forecast-start').innerHTML = fcastStartTime;
+document.getElementById('winds-aloft-forecast-end').innerHTML = fcastEndTime;
+document.getElementById('winds-aloft-forecast-day').innerHTML = fcastDay;
+document.getElementById('wind-aloft-6k-spd').innerHTML = windAloftSpds[0];
+document.getElementById('wind-aloft-9k-spd').innerHTML = windAloftSpds[1];
+document.getElementById('wind-aloft-12k-spd').innerHTML = windAloftSpds[2];
+document.getElementById('wind-aloft-18k-spd').innerHTML = windAloftSpds[3];
+document.getElementById('wind-aloft-6k-dir').src = windAloftDirs[0];
+document.getElementById('wind-aloft-9k-dir').src = windAloftDirs[1];
+document.getElementById('wind-aloft-12k-dir').src = windAloftDirs[2];
+document.getElementById('wind-aloft-18k-dir').src = windAloftDirs[3];
+document.getElementById('wind-aloft-6k-tmp').innerHTML = windAloftTmps[0];
+document.getElementById('wind-aloft-9k-tmp').innerHTML = windAloftTmps[1];
+document.getElementById('wind-aloft-12k-tmp').innerHTML = windAloftTmps[2];
+document.getElementById('wind-aloft-18k-tmp').innerHTML = windAloftTmps[3];
+});
