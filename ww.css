@@ -42,11 +42,17 @@ th, td {
     border: none;
     padding-top: 40px;
 }
+h2 {
+    font-weight: normal;
+}
 .vert-top {
     vertical-align: top;
 }
 .vert-bottom {
     vertical-align: bottom;
+}
+.vert-mid {
+    vertical-align: 50%;
 }
 .verticalpad {
     margin-top: 40px;
@@ -61,11 +67,17 @@ th, td {
 .medium {
     font-size: 150%;
 }
+.heading {
+    font-size: 200%;
+}
 .large {
     font-size: 230%;
 }
 .xlarge {
     font-size: 300%;
+}
+.wndspd {
+    font-size: 350%;
 }
 .left {
     text-align: left;
@@ -78,6 +90,13 @@ th, td {
 }
 .ltblue {
     color: lightblue;
+}
+.gust {
+    color: lightcoral;
+}
+span.calm {
+    font-size: 50%;
+    font-weight: normal;
 }
 .collapsible {
     background-color: #777;
@@ -105,15 +124,25 @@ th, td {
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
-hr.end {
+hr.thick {
     border: 5px solid white;
-}
-#picTimestamp {
-    color: lightblue;
-    font-size: 100%;
-    font-weight: bold;
 }
 #windy {
     width: 100%;
     height: 900px;
+}
+.frame  {
+    transform: scale(1.6);
+    pointer-events: none;
+    transform-origin: 0 0;
+    width: 100%;
+    height: 1500px;
+    position: relative;
+}
+.nopointer {
+    pointer-events: none;
+}
+img.left {
+    left: 10px;
+    float: left;
 }
