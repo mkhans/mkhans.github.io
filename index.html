@@ -2,13 +2,14 @@
 <html>
     <head>
         <title>Wasatch Wind</title>
-        <meta charset="utf-8">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="ww.js"></script>
-        <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
-        <script src="https://api4.windy.com/assets/libBoot.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="ww.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+        <script type="text/javascript" src="https://api4.windy.com/assets/libBoot.js"></script>
         <link href="ww.css" rel="stylesheet">
+        <meta charset="utf-8">
     </head>
+
 <body>
 
 <!-- HEADING AREA
@@ -20,6 +21,7 @@
             <td><img src="https://mkhans.github.io/images/pg.gif" height="80"></td>
         </tr>
     </table>
+
     <hr class="thick">
     <img class="left" src="https://mkhans.github.io/images/logo.png" height=180>
     <p id="today-full-date" class="xlarge bold ltblue"></p>
@@ -66,124 +68,116 @@
         </table>
 
     <!-- KEY STATIONS TABLE -->
-    <h1 class="large">Key Stations</h1>
-        <h2>Listed North to South</h2>
+    <h1 class="large">Key Stations (N to S)</h1>
         <table>
             <tr>
-                <td class="left large">Station</td>
-                <td class="large">Speed</td>
-                <td class="large">Gust</td>
-                <td class="large">Direction</td>
+                <th class="left medium">Station</th>
+                <th class="medium">Time</th>
+                <th class="medium">Speed</th>
+                <th class="medium">Gust</th>
+                <th class="medium">Cardinal</th>
+                <th class="medium">Graphic</th>
             </tr>
             <tr>
-                <td colspan="4"><hr></td>
+                <td colspan="6"><hr></td>
             </tr>
             <tr>
-                <td id="station2-name" class="left large bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OGP&table=1&banner=off')";></td>
-                <td id="station2-wind-speed" class="wndspd bold" rowspan="2"></td>
-                <td id="station2-wind-gust" class="large bold gust" rowspan="2"></td>
-                <td rowspan="2"><img id="station2-wind-dir-img" height="100"></td>
+                <td id="station2-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OGP&table=1&banner=off')";></td>
+                <td id="station2-time"></td>
+                <td id="station2-wind-speed" class="xlarge bold ltblue"></td>
+                <td id="station2-wind-gust" class="medium bold"></td>
+                <td id="station2-wind-dir-card" class="medium bold"></td>
+                <td><img id="station2-wind-dir-img"></td>
             </tr>
             <tr>
-                <td id="station2-time" class="left medium"></td>
+                <td colspan="6"><hr></td>
             </tr>
             <tr>
-                <td colspan="4"><hr></td>
+                <td id="station6-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=C8948&table=1&banner=off')";></td>
+                <td id="station6-time"></td>
+                <td id="station6-wind-speed" class="xlarge bold ltblue"></td>
+                <td id="station6-wind-gust" class="medium bold";></td>
+                <td id="station6-wind-dir-card" class="medium bold"></td>
+                <td><img id="station6-wind-dir-img"></td>
             </tr>
             <tr>
-                <td id="station6-name" class="left large bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=C8948&table=1&banner=off')";></td>
-                <td id="station6-wind-speed" class="wndspd bold" rowspan="2"></td>
-                <td id="station6-wind-gust" class="large bold gust" rowspan="2"></td>
-                <td rowspan="2"><img id="station6-wind-dir-img" height="100"></td>
+                <td colspan="6"><hr></td>
             </tr>
             <tr>
-                <td id="station6-time" class="left medium"></td>
+                <td id="station0-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KSLC&banner=NONE&hfmetars=1')";></td>
+                <td id="station0-time"></td>
+                <td id="station0-wind-speed" class="xlarge bold ltblue"></td>
+                <td id="station0-wind-gust" class="medium bold"></td>
+                <td id="station0-wind-dir-card" class="medium bold"></td>
+                <td><img id="station0-wind-dir-img"></td>
             </tr>
             <tr>
-                <td colspan="4"><hr></td>
+                <td colspan="6"><hr></td>
             </tr>
             <tr>
-                <td id="station0-name" class="left large bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KSLC&banner=NONE&hfmetars=1')";></td>
-                <td id="station0-wind-speed" class="wndspd bold" rowspan="2"></td>
-                <td id="station0-wind-gust" class="large bold gust" rowspan="2"></td>
-                <td rowspan="2"><img id="station0-wind-dir-img" height="100"></td>
+                <td id="station5-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=MSI01&table=1&banner=off')";></td>
+                <td id="station5-time"></td>
+                <td id="station5-wind-speed" class="xlarge bold ltblue"></td>
+                <td id="station5-wind-gust" class="medium bold"></td>
+                <td id="station5-wind-dir-card" class="medium bold"></td>
+                <td><img id="station5-wind-dir-img"></td>
             </tr>
             <tr>
-                <td id="station0-time" class="left medium"></td>
+                <td colspan="6"><hr></td>
             </tr>
             <tr>
-                <td colspan="4"><hr></td>
+                <td id="station3-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=PKC&table=1&banner=off')";></td>
+                <td id="station3-time"></td>
+                <td id="station3-wind-speed" class="xlarge bold ltblue"></td>
+                <td id="station3-wind-gust" class="medium bold"></td>
+                <td id="station3-wind-dir-card" class="medium bold"></td>
+                <td><img id="station3-wind-dir-img"></td>
             </tr>
             <tr>
-                <td id="station5-name" class="left large bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=MSI01&table=1&banner=off')";></td>
-                <td id="station5-wind-speed" class="wndspd bold" rowspan="2"></td>
-                <td id="station5-wind-gust" class="large bold gust" rowspan="2"></td>
-                <td rowspan="2"><img id="station5-wind-dir-img" height="100"></td>
+                <td colspan="6"><hr></td>
             </tr>
             <tr>
-                <td id="station5-time" class="left medium"></td>
+                <td id="station1-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KU42&banner=NONE&hfmetars=1')";></td>
+                <td id="station1-time"></td>
+                <td id="station1-wind-speed" class="xlarge bold ltblue"></td>
+                <td id="station1-wind-gust" class="medium bold"></td>
+                <td id="station1-wind-dir-card" class="medium bold"></td>
+                <td><img id="station1-wind-dir-img"></td>
             </tr>
             <tr>
-                <td colspan="4"><hr></td>
+                <td colspan="6"><hr></td>
             </tr>
             <tr>
-                <td id="station3-name" class="left large bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=PKC&table=1&banner=off')";></td>
-                <td id="station3-wind-speed" class="wndspd bold" rowspan="2"></td>
-                <td id="station3-wind-gust" class="large bold gust" rowspan="2"></td>
-                <td rowspan="2"><img id="station3-wind-dir-img" height="100"></td>
+                <td id="station7-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=FPN&table=1&banner=off')";></td>
+                <td id="station7-time"></td>
+                <td id="station7-wind-speed" class="xlarge bold ltblue"></td>
+                <td id="station7-wind-gust" class="medium bold"></td>
+                <td id="station7-wind-dir-card" class="medium bold"></td>
+                <td><img id="station7-wind-dir-img"></td>
             </tr>
             <tr>
-                <td id="station3-time" class="left medium"></td>
+                <td colspan="6"><hr></td>
             </tr>
             <tr>
-                <td colspan="4"><hr></td>
-            </tr>
-            <tr>
-                <td id="station1-name" class="left large bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KU42&banner=NONE&hfmetars=1')";></td>
-                <td id="station1-wind-speed" class="wndspd bold" rowspan="2"></td>
-                <td id="station1-wind-gust" class="large bold gust" rowspan="2"></td>
-                <td rowspan="2"><img id="station1-wind-dir-img" height="100"></td>
-            </tr>
-            <tr>
-                <td id="station1-time" class="left medium"></td>
-            </tr>
-            <tr>
-                <td colspan="4"><hr></td>
-            </tr>
-            <!-- <tr> ***NORTHSIDE STATION*** UNCOMMENT WHEN STATION BACK UP!!!
-                <td id="station7-name" class="left large bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=FPN&table=1&banner=off')";></td>
-                <td id="station7-wind-speed" class="wndspd bold" rowspan="2"></td>
-                <td id="station7-wind-gust" class="large bold gust" rowspan="2"></td>
-                <td rowspan="2"><img id="station7-wind-dir-img" height="100"></td>
-            </tr>
-            <tr>
-                <td id="station7-time" class="left medium"></td>
-            </tr>
-            <tr>
-                <td colspan="4"><hr></td>
-            </tr> -->
-            <tr>
-                <td id="station4-name" class="left large bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=FPS&table=1&banner=off')";></td>
-                <td id="station4-wind-speed" class="wndspd bold" rowspan="2"></td>
-                <td id="station4-wind-gust" class="large bold gust" rowspan="2"></td>
-                <td rowspan="2"><img id="station4-wind-dir-img" height="100"></td>
-            </tr>
-            <tr>
-                <td id="station4-time" class="left medium"></td>
+                <td id="station4-name" class="left medium bold yellow" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=FPS&table=1&banner=off')";></td>
+                <td id="station4-time"></td>
+                <td id="station4-wind-speed" class="xlarge bold ltblue"></td>
+                <td id="station4-wind-gust" class="medium bold"></td>
+                <td id="station4-wind-dir-card" class="medium bold"></td>
+                <td><img id="station4-wind-dir-img"></td>
             </tr>
         </table>
 
     <!-- SURFACE WIND MAP 1 -->
     <h1 class="large">Surface Wind Map 1</h1>
-        <a href="https://www.wrh.noaa.gov/slc/current/meso.slv.php" target="_blank">
-            <img src="https://www.wrh.noaa.gov/mesowest/symmap.php?map=slc&dem=&scale=6&wx=0&res=60&disp=&limit=&wfo="></a>
+        <img src="https://www.wrh.noaa.gov/mesowest/symmap.php?map=slc&dem=&scale=6&wx=0&res=60&disp=&limit=&wfo=">
 
     <!-- SURFACE WIND MAP 2 -->
     <h1 class="large">Surface Wind Map 2</h1>
-        <a href="https://www.wrh.noaa.gov/map/?&zoom=12&center=40.65,-111.90&obs=true&obs_type=weather&elements=wind,gust&obs_density=10&&obs_popup=false&obs_provider=ALL" target="_blank">
-            <div><iframe class="frame" src="https://www.wrh.noaa.gov/map/?&zoom=10&center=40.35,-111.60&obs=true&obs_type=weather&elements=wind,gust&obs_density=10&&obs_popup=false&obs_provider=ALL"></iframe>
-            </div></a>
-    </div><p class="verticalpad"></p>
+        <a href="https://www.wrh.noaa.gov/map/?&zoom=10&center=40.35,-111.50&obs=true&obs_type=weather&elements=wind,gust&obs_density=10&&obs_popup=false&obs_provider=ALL" target="_blank">
+            <iframe class="frame" src="https://www.wrh.noaa.gov/map/?&zoom=10&center=40.35,-111.50&obs=true&obs_type=weather&elements=wind,gust&obs_density=10&&obs_popup=false&obs_provider=ALL"></iframe></a>
+
+    </div>
 
 <!-- RECENT PAST BUTTON
 ----------------------- -->
@@ -214,7 +208,7 @@
     <h1 class="large">Jetstream</h1>Last 18 hrs
         <a href="https://www.wunderground.com/maps/wind/jet-stream" target="_blank">
             <img src="https://s.w-x.co/staticmaps/wu/wu/jetstream1200_cur/conus/animate.png" width="100%"></a>
-    </div><p class="verticalpad"></p>
+    </div>
 
 <!-- FORECAST BUTTON
 -------------------- -->
@@ -250,7 +244,7 @@
     <!-- WINDY SURFACE MAP -->
     <h1 class="large">Windy Surface Map (GFS)</h1>
         <a href="https://www.windy.com/?40.624,-111.896,10" target="_blank">
-            <div id="windy" class="nopointer"></div>
+            <div id="windy"></div>
             <script src="windyscript.js"></script></a>
     
     <!-- SLC HOURLY GRAPHICAL -->
@@ -263,8 +257,8 @@
         <table>
             <tr>
                 <td class="medium" colspan="5">
-                <a href="https://www.weather.gov/slc/Soar" target="_blank">FORECAST </a>Date: 
-                <span id="soar-forecast-report-date"></span></td>
+                <a href="https://www.weather.gov/slc/Soar" target="_blank">
+                    Forecast </a>Date: <span id="soar-forecast-report-date"></span></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -324,11 +318,10 @@
                 <td class="left large" id="li-6"></td>
             </tr>
         </table>
-    
-    <!-- SOARING KEY BUTTON -->
-    <button class="collapsiblekey">Soaring Definitions</button>
-    <div class="collapse-contents">
         <table>
+            <tr>
+                <td class="large bold" colspan="5">- Key -<br></td>
+            </tr>
             <tr>
                 <td class="left large bold" colspan="5">K Index</td>
             </tr>
@@ -371,7 +364,6 @@
                 <td class="left medium" colspan="3">-3: Forget it</td>
             </tr>
         </table>
-    </div>
     
     <!-- WIND ALOFT TABLE -->
     <h1 class="large">Wind Aloft</h1>
@@ -379,7 +371,7 @@
             <tr>
                 <td class="medium" colspan="5">
                     <a href="https://www.aviationweather.gov/windtemp/data?level=low&fcst=06&region=slc&layout=on&date=" target="_blank">
-                        FORECAST </a>from <span id="winds-aloft-forecast-start"></span> to <span id="winds-aloft-forecast-end"></span><span id="winds-aloft-forecast-day"></span></td>
+                        Forecast </a>from <span id="winds-aloft-forecast-start"></span> to <span id="winds-aloft-forecast-end"></span><span id="winds-aloft-forecast-day"></span></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -394,7 +386,7 @@
                 <td colspan="5"><hr></td>
             </tr>
             <tr>
-                <td class="indent left xlarge">6</td>
+                <td class="indent left vert-bottom xlarge">6</td>
                 <td class="left vert-bottom medium">1829 m</td>
                 <td class="xlarge bold ltblue" id="wind-aloft-6k-spd"></td>
                 <td><img id="wind-aloft-6k-dir" height=100px></td>
@@ -469,7 +461,7 @@
                         <img id="forecast-day3-img" height=200px></a></td>
             </tr>
         </table>        
-    </div><p class="verticalpad"></p>
+    </div>
 
 <!-- TIMELAPSE & LIVE CAMS BUTTON
 --------------------------------- -->
@@ -532,20 +524,6 @@
             });
         }
     </script>
-
-<script>
-    var collkey = document.getElementsByClassName("collapsiblekey");
-    for (i = 0; i < collkey.length; i++) {
-        collkey[i].addEventListener("click", function() {
-        var currentWind = this.nextElementSibling;
-        if (currentWind.style.maxHeight){
-            currentWind.style.maxHeight = null;
-        } else {
-            currentWind.style.maxHeight = currentWind.scrollHeight + "px";
-        }
-        });
-    }
-</script>
     
 </body>
 </html>
