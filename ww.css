@@ -3,6 +3,7 @@ body {
     background-color: #000034;
     margin-left: 5%;
     margin-right: 5%;
+    font-size: 20px;
     color: white;
 }
 a:link {
@@ -14,11 +15,6 @@ a:visited {
     color: yellow;
     background-color: transparent;
     text-decoration: none;
-}
-a:hover {
-    color: white;
-    background-color: transparent;
-    text-decoration: underline;
 }
 a:active {
     color: white;
@@ -34,33 +30,11 @@ table {
 table.noborder {
     border: none;
 }
-.vert-top {
-    vertical-align: top;
-}
-.vert-bottom {
-    vertical-align: bottom;
-}
 .verticalpad {
     margin-top: 40px;
 }
 .indent {
     padding-left: 25px;
-    text-align: left;
-}
-.bold {
-    font-weight: bold;
-}
-.medium {
-    font-size: 150%;
-}
-.heading {
-    font-size: 200%;
-}
-.large {
-    font-size: 230%;
-}
-.xlarge {
-    font-size: 300%;
 }
 .left {
     text-align: left;
@@ -68,11 +42,44 @@ table.noborder {
 .right {
     text-align: right;
 }
+.vert-top {
+    vertical-align: top;
+}
+.vert-mid {
+    vertical-align: 50%;
+}
+.vert-bottom {
+    vertical-align: bottom;
+}
+.small {
+    font-size: 50%;
+}
+.medium {
+    font-size: 150%;
+}
+.med-lrg {
+    font-size: 200%;
+}
+.large {
+    font-size: 250%;
+}
+.xlarge {
+    font-size: 300%;
+}
+.xxlarge {
+    font-size: 350%;
+}
 .yellow {
     color: yellow;
 }
 .ltblue {
     color: lightblue;
+}
+.ltcoral {
+    color: lightcoral;
+}
+.bold {
+    font-weight: bold;
 }
 .collapsible {
     background-color: #777;
