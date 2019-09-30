@@ -85,6 +85,9 @@ table.noborder {
 .bold {
     font-weight: bold;
 }
+.floatleft {
+    float: left;
+}
 .collapsible {
     background-color: #777;
     color: white;
