@@ -94,6 +94,10 @@ h2 {
 .gust {
     color:lightcoral;
 }
+span.calm {
+    font-size: 50%;
+    font-weight: normal;
+}
 .collapsible {
     background-color: #777;
     color: white;
@@ -119,6 +123,19 @@ h2 {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
+}
+.collapsiblekey {
+    background-color: #777;
+    color: yellow;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-left: 20px;
+    width: 100%;
+    border: 5px solid white;
+    border-radius: 25px;
+    font-size: 200%;
+    text-align: center;
+    margin-top: 0px;
 }
 hr.thick {
     border: 5px solid white;
