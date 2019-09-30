@@ -115,7 +115,3 @@ th, td {
 hr.thick {
     border: 5px solid white;
 }
-img.left {
-    left: 10px;
-    float: left;
-}
