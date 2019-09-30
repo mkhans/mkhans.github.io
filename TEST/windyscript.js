@@ -8,4 +8,6 @@ const options = {
 
 windyInit(options, windyAPI => {
     const { store } = windyAPI;
+        //store.on('surface');
+    //const { map } = windyAPI;
 });
