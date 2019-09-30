@@ -117,7 +117,7 @@ for (i=0; i<stationsCount; i++) {
 for (i=0; i<stationsCount; i++) {
     try {
         windSpeeds[i] = weatherData.STATION[i].OBSERVATIONS.wind_speed_set_1[stationObservationsCount[i]];
-        windSpeeds[i] = (parseInt(windSpeeds[i]) > 0) ? windSpeeds[i] = Math.round(windSpeeds[i]) : "<span class='calm'>Calm</span>";
+        windSpeeds[i] = (parseInt(windSpeeds[i]) > 0) ? windSpeeds[i] = Math.round(windSpeeds[i]) : "<span class='small'>Calm</span>";
     }
     catch(err) {
         windSpeeds[i] = "No Data";
@@ -125,7 +125,7 @@ for (i=0; i<stationsCount; i++) {
     
     try {
         windGusts[i] = weatherData.STATION[i].OBSERVATIONS.wind_gust_set_1[stationObservationsCount[i]];
-        windGusts[i] = (parseInt(windGusts[i]) > 0) ? windGusts[i] = Math.round(windGusts[i]) : "---";
+        windGusts[i] = (parseInt(windGusts[i]) > 0) ? windGusts[i] = Math.round(windGusts[i]) : "";
     }
     catch(err) {
         windGusts[i] = "";

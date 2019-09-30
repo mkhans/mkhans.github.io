@@ -1,7 +1,7 @@
+/* position l/r, position u/d, size, color, bold */
 body {
     font-family: 'Tahoma';
     background-color: #000034;
-    text-align: center;
     margin-left: 5%;
     margin-right: 5%;
     font-size: 20px;
@@ -17,11 +17,6 @@ a:visited {
     background-color: transparent;
     text-decoration: none;
 }
-a:hover {
-    color: white;
-    background-color: transparent;
-    text-decoration: underline;
-}
 a:active {
     color: white;
     background-color: transparent;
@@ -33,57 +28,61 @@ table {
     border-radius: 25px;
     padding: 10px;
 }
-th, td {
-    font-size: 120%;
-    vertical-align: middle;
-    text-align: center;
-}
-.noborder {
+table.noborder {
     border: none;
-    padding-top: 40px;
+}
+hr.thick {
+    border: 5px solid white;
+}
+h1 {
+    text-align: center;
+    font-size: 250%;
 }
 h2 {
+    text-align: center;
     font-weight: normal;
 }
-.vert-top {
-    vertical-align: top;
-}
-.vert-bottom {
-    vertical-align: bottom;
-}
-.vert-mid {
-    vertical-align: 50%;
-}
 .verticalpad {
-    margin-top: 40px;
+    margin-top: 50px;
 }
 .indent {
     padding-left: 25px;
-    text-align: left;
-}
-.bold {
-    font-weight: bold;
-}
-.medium {
-    font-size: 150%;
-}
-.heading {
-    font-size: 200%;
-}
-.large {
-    font-size: 230%;
-}
-.xlarge {
-    font-size: 300%;
-}
-.wndspd {
-    font-size: 350%;
 }
 .left {
     text-align: left;
 }
+.center {
+    text-align: center;
+}
 .right {
     text-align: right;
+}
+.vert-top {
+    vertical-align: top;
+}
+.vert-mid {
+    vertical-align: 50%;
+}
+.vert-bottom {
+    vertical-align: bottom;
+}
+.small {
+    font-size: 50%;
+}
+.medium {
+    font-size: 150%;
+}
+.med-lrg {
+    font-size: 200%;
+}
+.large {
+    font-size: 250%;
+}
+.xlarge {
+    font-size: 300%;
+}
+.xxlarge {
+    font-size: 350%;
 }
 .yellow {
     color: yellow;
@@ -91,12 +90,14 @@ h2 {
 .ltblue {
     color: lightblue;
 }
-.gust {
-    color:lightcoral;
+.ltcoral {
+    color: lightcoral;
 }
-span.calm {
-    font-size: 50%;
-    font-weight: normal;
+.bold {
+    font-weight: bold;
+}
+.imgfloatleft {
+    float: left;
 }
 .collapsible {
     background-color: #777;
@@ -107,7 +108,6 @@ span.calm {
     width: 100%;
     border: 5px solid white;
     border-radius: 25px;
-    font-size: 300%;
     font-weight: bold;
     text-align: left;
     margin-top: 10px;
@@ -124,29 +124,12 @@ span.calm {
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
-.collapsiblekey {
-    background-color: #777;
-    color: yellow;
-    cursor: pointer;
-    padding-top: 10px;
-    padding-left: 20px;
-    width: 100%;
-    border: 5px solid white;
-    border-radius: 25px;
-    font-size: 200%;
-    text-align: center;
-    margin-top: 0px;
-}
-hr.thick {
-    border: 5px solid white;
-}
 #windy {
     width: 100%;
     height: 900px;
 }
 .frame {
     transform: scale(1.6);
-    pointer-events: none;
     transform-origin: 0 0;
     width: 100%;
     height: 1500px;
@@ -154,8 +137,4 @@ hr.thick {
 }
 .nopointer {
     pointer-events: none;
-}
-img.left {
-    left: 10px;
-    float: left;
 }
