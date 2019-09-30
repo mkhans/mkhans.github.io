@@ -33,7 +33,6 @@ table {
 }
 table.noborder {
     border: none;
-    padding-top: 40px;
 }
 .vert-top {
     vertical-align: top;
