@@ -1,10 +1,8 @@
 body {
     font-family: 'Tahoma';
     background-color: #000034;
-    text-align: center;
     margin-left: 5%;
     margin-right: 5%;
-    font-size: 20px;
     color: white;
 }
 a:link {
@@ -33,12 +31,7 @@ table {
     border-radius: 25px;
     padding: 10px;
 }
-th, td {
-    font-size: 120%;
-    vertical-align: middle;
-    text-align: center;
-}
-.noborder {
+table.noborder {
     border: none;
     padding-top: 40px;
 }
