@@ -61,6 +61,9 @@ th, td {
 .medium {
     font-size: 150%;
 }
+.heading {
+    font-size: 200%;
+}
 .large {
     font-size: 230%;
 }
