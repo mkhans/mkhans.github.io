@@ -51,6 +51,9 @@ h2 {
 .vert-bottom {
     vertical-align: bottom;
 }
+.vert-mid {
+    vertical-align: 50%;
+}
 .verticalpad {
     margin-top: 40px;
 }
