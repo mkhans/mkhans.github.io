@@ -105,7 +105,7 @@ th, td {
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
-hr.end {
+hr.thick {
     border: 5px solid white;
 }
 #picTimestamp {
