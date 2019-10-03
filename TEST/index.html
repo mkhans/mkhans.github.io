@@ -328,12 +328,12 @@
                 <td class="left large" id="li-3"></td>
                 <td class="left large" id="li-6"></td>
             </tr>
-            <tr>
-                <td colspan="5"><hr></td>
-            </tr>
-            <tr>
-                <td class="large bold" colspan="5">- Key -<br></td>
-            </tr>
+        </table>
+
+    <!-- SOARING KEY BUTTON -->
+    <button class="collapsiblekey">- KEY -<br>K Index, CAPE, & LI</button>
+    <div class="collapse-contents">
+        <table>
             <tr>
                 <td class="left large bold" colspan="5">K Index</td>
             </tr>
@@ -375,7 +375,8 @@
                 <td class="left medium" colspan="2">&nbsp;</td>
                 <td class="left medium" colspan="3">-3: Forget it</td>
             </tr>
-        </table><br><br>
+        </table>
+    </div><br><br>
     
     <h1>- Wind Aloft -</h1>
         <table>
@@ -399,9 +400,9 @@
             <tr>
                 <td class="indent left vert-bottom xlarge">6</td>
                 <td class="left vert-bottom medium">1829 m</td>
-                <td class="xlarge bold ltblue" id="wind-aloft-6k-spd"></td>
+                <td class="center xlarge ltblue bold" id="wind-aloft-6k-spd"></td>
                 <td><img id="wind-aloft-6k-dir" height=100px></td>
-                <td class="large" id="wind-aloft-6k-tmp"></td>
+                <td class="center large" id="wind-aloft-6k-tmp"></td>
             </tr>
             <tr>
                 <td colspan="5"><hr></td>
@@ -409,9 +410,9 @@
             <tr>
                 <td class="indent left xlarge">9</td>
                 <td class="left vert-bottom medium">2743 m</td>
-                <td class="xlarge bold ltblue" id="wind-aloft-9k-spd"></td>
+                <td class="center xlarge ltblue bold" id="wind-aloft-9k-spd"></td>
                 <td><img id="wind-aloft-9k-dir" height=100px></td>
-                <td class="large" id="wind-aloft-9k-tmp"></td>
+                <td class="center large" id="wind-aloft-9k-tmp"></td>
             </tr>
             <tr>
                 <td colspan="5"><hr></td>
@@ -419,9 +420,9 @@
             <tr>
                 <td class="indent left xlarge">12</td>
                 <td class="left vert-bottom medium">3658 m</td>
-                <td class="xlarge bold ltblue" id="wind-aloft-12k-spd"></td>
+                <td class="center xlarge ltblue bold" id="wind-aloft-12k-spd"></td>
                 <td><img id="wind-aloft-12k-dir" height=100px></td>
-                <td class="large" id="wind-aloft-12k-tmp"></td>
+                <td class="center large" id="wind-aloft-12k-tmp"></td>
             </tr>
             <tr>
                 <td colspan="5"><hr></td>
@@ -429,9 +430,9 @@
             <tr>
                 <td class="indent left xlarge">18</td>
                 <td class="left vert-bottom medium">5486 m</td>
-                <td class="xlarge bold ltblue" id="wind-aloft-18k-spd"></td>
+                <td class="center xlarge ltblue bold" id="wind-aloft-18k-spd"></td>
                 <td><img id="wind-aloft-18k-dir" height=100px></td>
-                <td class="large" id="wind-aloft-18k-tmp"></td>
+                <td class="center large" id="wind-aloft-18k-tmp"></td>
             </tr>
         </table><br><br>
     
@@ -529,6 +530,20 @@
         for (i = 0; i < coll.length; i++) {
             coll[i].addEventListener("click", function() {
             this.classList.toggle("active");
+            var currentWind = this.nextElementSibling;
+            if (currentWind.style.maxHeight){
+                currentWind.style.maxHeight = null;
+            } else {
+                currentWind.style.maxHeight = currentWind.scrollHeight + "px";
+            }
+            });
+        }
+    </script>
+
+    <script>
+        var collkey = document.getElementsByClassName("collapsiblekey");
+        for (i = 0; i < collkey.length; i++) {
+            collkey[i].addEventListener("click", function() {
             var currentWind = this.nextElementSibling;
             if (currentWind.style.maxHeight){
                 currentWind.style.maxHeight = null;

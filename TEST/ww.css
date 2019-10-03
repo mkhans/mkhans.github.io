@@ -124,6 +124,19 @@ h2 {
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
+.collapsiblekey {
+    background-color: transparent;
+    color: yellow;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-left: 20px;
+    width: 100%;
+    border: 5px solid white;
+    border-radius: 25px;
+    font-size: 200%;
+    text-align: center;
+    margin-top: 0px;
+}
 .frame {
     transform: scale(1.8);
     transform-origin: 0 0;
@@ -138,3 +151,4 @@ h2 {
     width: 100%;
     height: 900px;
 }
+/* position l/r, position u/d, size, color, bold */
