@@ -45,13 +45,16 @@ var xhrGetSunsetSLC = new XMLHttpRequest();
 xhrGetSunsetSLC.open('GET', 'https://api.sunrise-sunset.org/json?lat=40.789900&lng=-111.979100&date=today&formatted=0', true);
 xhrGetSunsetSLC.responseType = 'text';
 xhrGetSunsetSLC.send();
-$(document).ready (function () {
+//$(document).ready (function () { //remove this later? faster sunset time load without it?
+xhrGetSunsetSLC.onload = function() {
     var solarData = JSON.parse(xhrGetSunsetSLC.responseText);
     var jsonSunset = solarData.results.sunset;
     var sunsetSLC = new Date(jsonSunset);
-    sunsetSLC = sunsetSLC.getHours() - 12 + ":" + sunsetSLC.getMinutes() + " pm";
+    var sunsetSLCMins = sunsetSLC.getMinutes();
+    sunsetSLCMins = (sunsetSLCMins < 10) ? "0" + sunsetSLCMins : sunsetSLCMins;
+    sunsetSLC = sunsetSLC.getHours() - 12 + ":" + sunsetSLCMins + " pm";
     document.getElementById('sunset-time').innerHTML = sunsetSLC;
-});
+};
 
 // -------------------------------------------------------
 // -------------------------------------------------------
