@@ -23,49 +23,63 @@
     </table>
     
     <hr class="thick">
+
     <img class="imgfloatleft" src="images/logo.png" height=150>
     <p id="today-full-date" class="center xlarge ltblue bold"></p>
 
 <!-- CURRENT CONDITIONS BUTTON -->
 <!-- ......................... -->
-    <button class="collapsible xxlarge">Current Conditions</button>
+    <button class="collapsible xlarge">Current Conditions</button>
     <div class="collapse-contents">
     
     <h1>- Cams & Stats -</h1>
-        <table>
-            <tr>
-                <td class="center medium" colspan="2">
-                    <a href="https://hazecam.x10host.com/slc/SLC.JPG" target="_blank">
-                        <img src="https://hazecam.x10host.com/slc/SLC.JPG" height=210px></a><br>Sandy 👀 West</td>
-                <td class="center medium" colspan="2">
-                    <a href="http://meso1.chpc.utah.edu/station_cameras/armstrong_cam/armstrong_cam_current.jpg" target="_blank">
-                        <img src="http://meso1.chpc.utah.edu/station_cameras/armstrong_cam/armstrong_cam_current.jpg" height=210px width=420px></a><br>West Valley 👀 East</td>
-            </tr>
-            <tr>
-                <td colspan="4"><hr></td>
-            </tr>
-            <tr>
-                <td class="left">
-                    <a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank">
-                        <img src="images/temp.png" height="100px"></a></td>
-                <td id="noaa-current-temp" class="left xlarge bold"></td>
-                <td class="left">
-                    <a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank">
-                        <img id="noaa-current-img" height=100px></a></td>
-                <td id="noaa-current-sky" class="left large bold"></td>
-            </tr>
-            <tr>
-                <td class="left">
-                    <a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank">
-                        <img src="images/pressure.png" height="100px"></a></td>
-                <td id="noaa-current-pres" class="left large bold"></td>
-                <td class="left">
-                    <a href="https://www.timeanddate.com/sun/usa/salt-lake-city" target="_blank">
-                        <img src="images/sunset.png" height="100px"></a></td>
-                <td id="sunset-time" class="left large bold"></td>
-            </tr>
-        </table><br><br>
+        <a href="https://hazecam.x10host.com/slc/SLC.JPG" target="_blank">
+            <img class="imgfloatleft" src="https://hazecam.x10host.com/slc/SLC.JPG" width="49%"></a>
 
+        <a href="http://meso1.chpc.utah.edu/station_cameras/armstrong_cam/armstrong_cam_current.jpg" target="_blank">
+            <img class="imgfloatright" src="http://meso1.chpc.utah.edu/station_cameras/armstrong_cam/armstrong_cam_current.jpg" width="49%" height="240"></a>
+        
+        <table class="noborder">
+            <tr>
+                <td class="center medium" width="50%">Sandy Bench 👀 West</td>
+                <td class="center medium" width="50%">West Valley 👀 East</td>
+            </tr>
+        </table><br><hr>
+        
+        <div class="box">
+            <a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank">
+                <img class="imgfloatleft" src="images/sun.png"></a>
+            <span class="indent large">Temperature:</span>
+            <span class="horiz-pad xxlarge bold" id="noaa-current-temp"></span>
+            <span class="large">&deg;</span>
+            <span class="horiz-pad xlarge">(</span>
+            <span class="xlarge ltcoral bold" id="noaa-next-hi"></span>
+            <span class="indent xlarge">/</span>
+            <span class="indent xlarge ltblue bold" id="noaa-next-lo"></span>
+            <span class="xlarge">)</span>
+        </div><hr>
+
+        <div class="box">
+            <a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank">
+                <img id="noaa-current-img" height=100px></a>
+            <span class="indent large">Sky Cover:</span>
+            <span class="horiz-pad xlarge bold" id="noaa-current-sky"></span>
+        </div><hr>
+
+        <div class="box">
+            <a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank">
+                <img src="images/pressure.png"></a>
+            <span class="indent large">Pressure:</span>
+            <span class="horiz-pad xlarge bold" id="noaa-current-pres"></span>
+        </div><hr>
+
+        <div class="box">
+                <a href="https://www.timeanddate.com/sun/usa/salt-lake-city" target="_blank">
+                    <img src="images/sunset.gif"></a>
+                <span class="indent large">Sunset:</span>
+                <span class="horiz-pad xlarge bold" id="sunset-time"></span>
+            </div><br><br>
+    
     <h1>- Key Stations -</h1>
         <h2>Listed North to South</h2>
         <table>
@@ -188,7 +202,7 @@
 
 <!-- RECENT PAST BUTTON -->
 <!-- .................. -->
-    <button class="collapsible xxlarge">Recent Past</button>
+    <button class="collapsible xlarge">Recent Past</button>
     <div class="collapse-contents">
     
     <h1>- Clouds &amp; Precip -</h1>
@@ -224,7 +238,7 @@
 
 <!-- FORECAST BUTTON -->
 <!-- ............... -->
-    <button class="collapsible xxlarge">Forecast</button>
+    <button class="collapsible xlarge">Forecast</button>
     <div class="collapse-contents">
     
     <h1>- Short Term -</h1>
@@ -240,18 +254,12 @@
         </table><br><br>
 
     <h1>- Surface Wind & Sky Cover -</h1>
-        <h2>3 pm</h2>
+        <h2 class="bold">3 pm</h2>
         <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
-            <img src="https://graphical.weather.gov/images/slc/WindSpd3_slc.png" width="49%" id="rotatorWind"></a>
-                <!-- <script type= "text/javascript">
-                    forecastedImgLoop('rotatorWind', "WindSpd");
-                </script> -->
+            <img id="wind-3pm" width="49%"></a>
+
         <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
-            <img src="https://graphical.weather.gov/images/slc/Sky3_slc.png" width="49%" id="rotatorSky"></a>
-                <!-- <script type= "text/javascript">
-                    forecastedImgLoop('rotatorSky', "Sky");
-                </script> -->
-                <br><br>
+            <img id="sky-3pm" width="49%"></a><br><br>
     
     <!-- <h1>- Windy Surface Map (GFS) -</h1>
         <a href="https://www.windy.com/?40.624,-111.896,10" target="_blank">
@@ -338,19 +346,19 @@
                 <td class="left large bold" colspan="5">K Index</td>
             </tr>
             <tr>
-                <td class="left medium" colspan="5">-10 to 5: Dry thermals or 1/8 cumulus with moderate thermals</td>
+                <td class="left medium" colspan="5">Below 5: Dry, few clouds, moderate thermals</td>
             </tr>
             <tr>
-                <td class="left medium" colspan="5">&nbsp;5 to 15: Good soaring conditions</td>
+                <td class="left medium" colspan="5">5 to 15: Good soaring conditions, mostly dry</td>
             </tr>
             <tr>
-                <td class="left medium" colspan="5">15 to 20: Good soaring conditions with occasional showers</td>
+                <td class="left medium" colspan="5">15 to 20: Good soaring conditions, occasional showers</td>
             </tr>
             <tr>
-                <td class="left medium" colspan="5">20 to 30: Could blow up</td>
+                <td class="left medium" colspan="5">20 to 30: Spotty precip likely</td>
             </tr>
             <tr>
-                <td class="left medium" colspan="5">20 to 30: Will blow up (>60% chance thunderstorms)</td>
+                <td class="left medium" colspan="5">20 to 30: 60%+ chance thunderstorms</td>
             </tr>
             <tr>
                 <td class="left medium" colspan="5">&nbsp;</td>
@@ -477,7 +485,7 @@
 
 <!-- WEBCAMS BUTTON -->
 <!-- .............. -->
-    <button class="collapsible xxlarge">Webcams</button>
+    <button class="collapsible xlarge">Webcams</button>
     <div class="collapse-contents">
     
     <h1>- SLC > West -</h1>

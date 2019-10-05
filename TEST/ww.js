@@ -13,6 +13,7 @@ var dayName = today.toLocaleDateString('en-us', {weekday: 'short'});
 var dayNum = today.getDate();
 var day2Digit = (dayNum < 10) ? "0" + dayNum : dayNum;
 var hour = today.getHours();
+var threePM = (hour > 20 || hour < 8) ? 7 : 3;
 var noaaImgURLBase = "https://forecast.weather.gov/";
 var windImgURLBase = "https://www.usairnet.com/weather/winds_aloft/";
 var scrapeURLBase = "https://whatever-origin.herokuapp.com/get?url=";
@@ -35,6 +36,14 @@ $(document).ready (function getSkewTURL() {
     document.getElementById('skewT').src = "https://climate.cod.edu/data/raob/KSLC/skewt/KSLC.skewt." + yyyy + month2Digit + day2Digit + ".12.gif";
 });
 
+$(document).ready (function getWind3pm() {
+    document.getElementById('wind-3pm').src = "https://graphical.weather.gov/images/slc/WindSpd" + threePM + "_slc.png";
+});
+
+$(document).ready (function getSky3pm() {
+    document.getElementById('sky-3pm').src = "https://graphical.weather.gov/images/slc/Sky" + threePM + "_slc.png";
+});
+
 // -----------------------------
 // -----------------------------
 // S U N S E T   T I M E   A P I
@@ -52,7 +61,7 @@ xhrGetSunsetSLC.onload = function() {
     var sunsetSLC = new Date(jsonSunset);
     var sunsetSLCMins = sunsetSLC.getMinutes();
     sunsetSLCMins = (sunsetSLCMins < 10) ? "0" + sunsetSLCMins : sunsetSLCMins;
-    sunsetSLC = sunsetSLC.getHours() - 12 + ":" + sunsetSLCMins + " pm";
+    sunsetSLC = sunsetSLC.getHours() - 12 + ":" + sunsetSLCMins;
     document.getElementById('sunset-time').innerHTML = sunsetSLC;
 };
 
@@ -233,12 +242,10 @@ var noaaCurrentImg = noaaImgURLBase + noaaForecastData.contents.match(/newimages
 // SKY COVER
 var noaaCurrentSky = String(noaaForecastData.contents.match(/ent">.+(?=<\Sp>)/)).substr(5);
 
-// TEMP (CURRENT & NEXT)
+// TEMPS
 var noaaCurrentTemp = String(noaaForecastData.contents.match(/\d{1,3}(?=&deg;F<)/));
-var noaaNextTemp = String(noaaForecastData.contents.match(/\d{1,3}(?=\s&deg)/));
-var tempColor = "orangered";
-tempColor = (noaaNextTemp > noaaCurrentTemp) ? tempColor : "lightblue";
-noaaCurrentTemp = noaaCurrentTemp + "<span style='font-size:50%; color:" + tempColor + ";'>&nbsp;&nbsp;&nbsp;--> " + noaaNextTemp + "</span>";
+var noaaNextHi = String(noaaForecastData.contents.match(/High: \d{1,3}/)).substr(6);
+var noaaNextLo = String(noaaForecastData.contents.match(/Low: \d{1,3}/)).substr(5);
 
 // PRESSURE
 var noaaCurrentPres = String(noaaForecastData.contents.match(/\d{1,2}\.\d{1,2}(?=\sin)/));
@@ -267,6 +274,8 @@ for (i=0; i<3; i++) {
 document.getElementById('noaa-current-img').src = noaaCurrentImg;
 document.getElementById('noaa-current-sky').innerHTML = noaaCurrentSky;
 document.getElementById('noaa-current-temp').innerHTML = noaaCurrentTemp;
+document.getElementById('noaa-next-hi').innerHTML = noaaNextHi;
+document.getElementById('noaa-next-lo').innerHTML = noaaNextLo;
 document.getElementById('noaa-current-pres').innerHTML = noaaCurrentPres;
 document.getElementById('noaa-short-img').src = noaaShortImg;
 document.getElementById('noaa-short-time').innerHTML = noaaShortTime;

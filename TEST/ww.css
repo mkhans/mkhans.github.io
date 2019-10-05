@@ -31,6 +31,9 @@ table {
 table.noborder {
     border: none;
 }
+td.cellborder {
+    border-right: 1px solid white;
+}
 hr.thick {
     border: 5px solid white;
 }
@@ -45,11 +48,14 @@ h2 {
 .verticalpad {
     margin-top: 50px;
 }
+.left {
+    text-align: left;
+}
 .indent {
     padding-left: 25px;
 }
-.left {
-    text-align: left;
+.horiz-pad {
+    padding-left: 50px;
 }
 .center {
     text-align: center;
@@ -59,9 +65,6 @@ h2 {
 }
 .vert-top {
     vertical-align: top;
-}
-.vert-mid {
-    vertical-align: 50%;
 }
 .vert-bottom {
     vertical-align: bottom;
@@ -99,6 +102,13 @@ h2 {
 .imgfloatleft {
     float: left;
 }
+.imgfloatright {
+    float: right;
+}
+.box {
+    display: flex;
+    align-items: center;
+ }
 .collapsible {
     background-color: #777;
     color: white;
