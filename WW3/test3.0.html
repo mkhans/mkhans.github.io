@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Wasatch Wind</title>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link href="test3.0.css" rel="stylesheet">
+        <meta charset="utf-8">
+    </head>
+
+<body>
+
+<!-- HEADING AREA -->
+
+    <header class="box">
+        <img src="images/wffglogo.png" height="75">
+        <p class="center txtsz200">WASATCH FREE FLIGHT GROUP<br>
+            <span class="ltblue" id="date-today"></span></p>
+        <img src="images/pg.gif" height="100">
+    </header>
+
+<!-- WIND ALOFT -->
+
+    <h1 class="center txtsz200">Winds Aloft</h1>
+    <div class="center">
+        <span class="bold"><a href="https://www.aviationweather.gov/windtemp/data?level=low&fcst=06&region=slc&layout=on&date=" target="_blank">FORECAST</a></span>
+        &nbsp;from&nbsp;<span id="winds-aloft-forecast-start" class="bold"></span>
+        &nbsp;to&nbsp;<span id="winds-aloft-forecast-end" class="bold"></span>
+        <span id="winds-aloft-forecast-day"></span>
+    </div><br>
+    
+    <table class="bordered">
+        <tr>
+            <th class="txtsz200" rowspan="2">Altitude</th>
+            <th class="txtsz200">Speed</th>
+            <th class="txtsz200" rowspan="2">Direction</th>
+            <th class="txtsz200">Temp</th>
+        </tr>
+        <tr>
+            <td class="center">mph</td>
+            <td class="center">&deg;F</td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="txtsz250">6,000</td>
+            <td class="center bold ltblue txtsz350" id="wind-aloft-6k-spd" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="wind-aloft-6k-dir" height="100px"></td>
+            <td rowspan="2"></td>
+        </tr>
+        <tr>
+            <td class="bold">1829 m</td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="txtsz250">9,000</td>
+            <td class="center bold ltblue txtsz350" id="wind-aloft-9k-spd" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="wind-aloft-9k-dir" height="100px"></td>
+            <td class="center txtsz200" id="wind-aloft-9k-tmp" rowspan="2"></td>
+        </tr>
+        <tr>
+            <td class="bold">2743 m</td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="txtsz250">12,000</td>
+            <td class="center bold ltblue txtsz350" id="wind-aloft-12k-spd" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="wind-aloft-12k-dir" height="100px"></td>
+            <td class="center txtsz200" id="wind-aloft-12k-tmp" rowspan="2"></td>
+        </tr>
+        <tr>
+            <td class="bold">3658 m</td>
+        </tr>
+        <tr>
+                <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="txtsz250">18,000</td>
+            <td class="center bold ltblue txtsz350" id="wind-aloft-18k-spd" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="wind-aloft-18k-dir" height="100px"></td>
+            <td class="center txtsz200" id="wind-aloft-18k-tmp" rowspan="2"></td>
+        </tr>
+        <tr>
+            <td class="bold">5486 m</td>
+        </tr>
+        
+    </table><p class="verticalpad"></p>
+
+<!-- SOARING FORECAST -->
+
+<h1 class="center txtsize200">Soaring Forecast</h1>
+<div class="center">
+    <a href="https://www.weather.gov/slc/Soar" target="_blank">
+        <span class="bold" id="soar-forecast-report-date"></span></a>
+</div><br>
+
+<table class="bordered">
+    <tr>
+        <td class="bold txtsz250">RoL</td>
+        <td class="bold ltblue txtsz300" id="max-rol"></td>
+    </tr>
+    <tr>
+        <td class="bold txtsz250">-3 Index</td>
+        <td class="bold ltblue txtsz300" id="neg3-index"></td>
+    </tr>
+    <tr>
+        <td class="bold txtsz250">Cloudbase</td>
+        <td class="bold ltblue txtsz300" id="lcl"></td>
+    </tr>
+    <tr>
+        <td class="bold txtsz250">ToL</td>
+        <td class="bold ltblue txtsz300" id="top-of-lift"></td>
+    </tr>
+    <tr>
+        <td class="bold txtsz250">OD Time:</td>
+        <td class="bold ltblue txtsz300" id="od-time"></td>
+    </tr>
+</table><p class="verticalpad"></p>
+
+<!-- BUTTON #1 -->
+
+<button class="bold txtsz200 collapsible">TEST Button</button>
+<div class="collapse-contents">
+</div>
+
+<!-- SCRIPTS -->
+    
+    <script type="text/javascript" src="test3.0.js"></script>
+
+</body>
+</html>
