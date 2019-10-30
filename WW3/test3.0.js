@@ -42,10 +42,10 @@ $.getJSON("https://mkhans.pythonanywhere.com", function(pythonData) {
     document.getElementById('wind-aloft-9k-spd').innerHTML = pythonData.WIND_ALOFT_DATA.spd_9k;
     document.getElementById('wind-aloft-12k-spd').innerHTML = pythonData.WIND_ALOFT_DATA.spd_12k;
     document.getElementById('wind-aloft-18k-spd').innerHTML = pythonData.WIND_ALOFT_DATA.spd_18k;
-    document.getElementById('wind-aloft-6k-dir').src = pythonData.WIND_ALOFT_DATA.dir_6k;
-    document.getElementById('wind-aloft-9k-dir').src = pythonData.WIND_ALOFT_DATA.dir_9k;
-    document.getElementById('wind-aloft-12k-dir').src = pythonData.WIND_ALOFT_DATA.dir_12k;
-    document.getElementById('wind-aloft-18k-dir').src = pythonData.WIND_ALOFT_DATA.dir_18k;
+    document.getElementById('wind-aloft-6k-dir').src = "https://mkhans.github.io/WW3" + pythonData.WIND_ALOFT_DATA.dir_6k;
+    document.getElementById('wind-aloft-9k-dir').src = "https://mkhans.github.io/WW3" + pythonData.WIND_ALOFT_DATA.dir_9k;
+    document.getElementById('wind-aloft-12k-dir').src = "https://mkhans.github.io/WW3" + pythonData.WIND_ALOFT_DATA.dir_12k;
+    document.getElementById('wind-aloft-18k-dir').src = "https://mkhans.github.io/WW3" + pythonData.WIND_ALOFT_DATA.dir_18k;
     document.getElementById('wind-aloft-9k-tmp').innerHTML = pythonData.WIND_ALOFT_DATA.tmp_9k;
     document.getElementById('wind-aloft-12k-tmp').innerHTML = pythonData.WIND_ALOFT_DATA.tmp_12k;
     document.getElementById('wind-aloft-18k-tmp').innerHTML = pythonData.WIND_ALOFT_DATA.tmp_18k;
