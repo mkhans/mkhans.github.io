@@ -291,73 +291,93 @@ document.getElementById('forecast-day3-text').innerHTML = forecastTexts[2];
 var soaringForecastURL = "https://www.weather.gov/source/slc/aviation/files/SLCSRGSLC0.txt";
 $.getJSON(scrapeURLBase + encodeURIComponent(soaringForecastURL) + '&callback=?', function(soarForecastData) {
 
-// REPORT DATE
-var soarForecastReportWkDay = String(soarForecastData.contents.match(/MDT\s[A-Z][a-zA-Z]{2}/)).substr(4);
-soarForecastReportWkDay = soarForecastReportWkDay.substr(0,1) + soarForecastReportWkDay.substr(1).toLowerCase();
-var soarForecastReportMonth = String(soarForecastData.contents.match(/[Dd][Aa][Yy],\s[a-zA-Z]{3}/)).substr(5);
-soarForecastReportMonth = soarForecastReportMonth.substr(0,1) + soarForecastReportMonth.substr(1).toLocaleLowerCase();
-var soarForecastReportDate = String(soarForecastData.contents.match(/\d{1,2}(?=,\s2019)/));
+// REPORT DATE (SUMMER)
+// var soarForecastReportWkDay = String(soarForecastData.contents.match(/MDT\s[A-Z][a-zA-Z]{2}/)).substr(4);
+// soarForecastReportWkDay = soarForecastReportWkDay.substr(0,1) + soarForecastReportWkDay.substr(1).toLowerCase();
+// var soarForecastReportMonth = String(soarForecastData.contents.match(/[Dd][Aa][Yy],\s[a-zA-Z]{3}/)).substr(5);
+// soarForecastReportMonth = soarForecastReportMonth.substr(0,1) + soarForecastReportMonth.substr(1).toLocaleLowerCase();
+// var soarForecastReportDate = String(soarForecastData.contents.match(/\d{1,2}(?=,\s2019)/));
+// var soarForecastReportFullDate = soarForecastReportWkDay + ", " + soarForecastReportMonth + " " + soarForecastReportDate;
+// soarForecastReportFullDate = (soarForecastReportFullDate == dayName + ", " + monthName + " " + dayNum) ? soarForecastReportFullDate = soarForecastReportFullDate : soarForecastReportFullDate + "<br><br><b>! ! !<br>- Report DATE Error -</b>";
+
+// REPORT DATE (WINTER)
+var soarForecastDateWinter = new Date(String(soarForecastData.contents.match(/\d{2}[\/]\d{2}[\/]\d{2}/)));
+var soarForecastReportWkDay = soarForecastDateWinter.toLocaleDateString('en-us', {weekday: 'short'});
+var soarForecastReportMonth = soarForecastDateWinter.toLocaleDateString('en-us', {month: 'short'});
+var soarForecastReportDate = soarForecastDateWinter.getDate();
 var soarForecastReportFullDate = soarForecastReportWkDay + ", " + soarForecastReportMonth + " " + soarForecastReportDate;
 soarForecastReportFullDate = (soarForecastReportFullDate == dayName + ", " + monthName + " " + dayNum) ? soarForecastReportFullDate = soarForecastReportFullDate : soarForecastReportFullDate + "<br><br><b>! ! !<br>- Report DATE Error -</b>";
 
-// MAX RATE OF LIFT
+// MAX RATE OF LIFT (SUMMER & WINTER)
 var maxRateOfLift = parseInt(soarForecastData.contents.match(/\d{1,4}.+[\/][Mm]/));
 var maxRateOfLiftms = Math.round((maxRateOfLift / 196.85) * 10) / 10;
 maxRateOfLift = maxRateOfLift.toLocaleString() + "<span style='font-size:30%; color:white;'>&nbsp;&nbsp;&nbsp;" + maxRateOfLiftms + " m/s</span>";
 
-// HEIGHT OF THE -3 INDEX
-var neg3Index = parseInt(String(soarForecastData.contents.match(/[Dd][Ee][Xx].+\d{1,5}.+[Mm]/)).substr(21));
+// HEIGHT OF THE -3 INDEX (SUMMER)
+// var neg3Index = parseInt(String(soarForecastData.contents.match(/[Dd][Ee][Xx].+\d{1,5}.+[Mm]/)).substr(21));
+// neg3Index = (isNaN(neg3Index)) ? "None" : neg3Index;
+// var neg3Indexm = Math.round(neg3Index / 3.281);
+// neg3Indexm = (isNaN(neg3Indexm)) ? "" : String(neg3Indexm) + " m";
+// neg3Index = neg3Index.toLocaleString() + "<span style='font-size:30%; color:white;'>&nbsp;&nbsp;&nbsp;" + neg3Indexm + "</span>";
+
+// HEIGHT OF THE -3 INDEX (WINTER)
+var neg3Index = parseInt(String(soarForecastData.contents.match(/[Dd][Ee][Xx].+\d{1,5}.+[Mm]/)).substr(8));
 neg3Index = (isNaN(neg3Index)) ? "None" : neg3Index;
 var neg3Indexm = Math.round(neg3Index / 3.281);
 neg3Indexm = (isNaN(neg3Indexm)) ? "" : String(neg3Indexm) + " m";
 neg3Index = neg3Index.toLocaleString() + "<span style='font-size:30%; color:white;'>&nbsp;&nbsp;&nbsp;" + neg3Indexm + "</span>";
 
-// LIFTED CONDENSATION LEVEL (CLOUDBASE)
-var lcl = parseInt(String(soarForecastData.contents.match(/[Dd]\s[Cc][a-zA-Z]{11}.+\d{1,5}.+\(/)).substr(28));
-var lclm = Math.round(lcl / 3.281);
-lcl = lcl.toLocaleString() + "<span style='font-size:30%; color:white;'>&nbsp;&nbsp;&nbsp;" + lclm + " m</span>";
+// LIFTED CONDENSATION LEVEL (CLOUDBASE) (SUMMER ONLY)
+// var lcl = parseInt(String(soarForecastData.contents.match(/[Dd]\s[Cc][a-zA-Z]{11}.+\d{1,5}.+\(/)).substr(28));
+// var lclm = Math.round(lcl / 3.281);
+// lcl = lcl.toLocaleString() + "<span style='font-size:30%; color:white;'>&nbsp;&nbsp;&nbsp;" + lclm + " m</span>";
 
-// TOP OF LIFT
-var topOfLift = parseInt(String(soarForecastData.contents.match(/[Mm][Aa][Ll][Ss].+\d{1,5}.+\(/)).substr(23));
+// TOP OF LIFT (SUMMER)
+// var topOfLift = parseInt(String(soarForecastData.contents.match(/[Mm][Aa][Ll][Ss].+\d{1,5}.+\(/)).substr(23));
+// var topOfLiftm = Math.round(topOfLift / 3.281);
+// topOfLift = topOfLift.toLocaleString() + "<span style='font-size:30%; color:white;'>&nbsp;&nbsp;&nbsp;" + topOfLiftm + " m</span>";
+
+// TOP OF LIFT (WINTER)
+var topOfLift = parseInt(String(soarForecastData.contents.match(/[Hh][Ee]\s[Ll][Ii][Ff][Tt].+\d{1,5}/)).substr(19));
 var topOfLiftm = Math.round(topOfLift / 3.281);
 topOfLift = topOfLift.toLocaleString() + "<span style='font-size:30%; color:white;'>&nbsp;&nbsp;&nbsp;" + topOfLiftm + " m</span>";
 
-// OVERDEVELOPMENT TIME
-var od = String(soarForecastData.contents.match(/[Mm][Ee][Nn][Tt].+\d{4}|[Mm][Ee][Nn][Tt].+[A-Z][a-zA-Z]{3}/)).substr(29);
-if (parseInt(od)) {
-    var odFirst2 = parseInt(od.substr(0,2));
-    var odAMPM = (odFirst2 > 11) ? " pm" : " am";
-    odFirst2 = (odFirst2 > 12) ? odFirst2 -= 12 : odFirst2;
-    od = String(odFirst2) + ":" + od.substr(2,4) + odAMPM;
-}
+// OVERDEVELOPMENT TIME (SUMMER ONLY)
+// var od = String(soarForecastData.contents.match(/[Mm][Ee][Nn][Tt].+\d{4}|[Mm][Ee][Nn][Tt].+[A-Z][a-zA-Z]{3}/)).substr(29);
+// if (parseInt(od)) {
+//     var odFirst2 = parseInt(od.substr(0,2));
+//     var odAMPM = (odFirst2 > 11) ? " pm" : " am";
+//     odFirst2 = (odFirst2 > 12) ? odFirst2 -= 12 : odFirst2;
+//     od = String(odFirst2) + ":" + od.substr(2,4) + odAMPM;
+// }
 
-// K INDEX ARRAY
-var kIndex = soarForecastData.contents.match(/[Xx]\.{3}\s+.\d{1,4}\.\d/g);
+// K INDEX ARRAY (SUMMER ONLY)
+// var kIndex = soarForecastData.contents.match(/[Xx]\.{3}\s+.\d{1,4}\.\d/g);
 
-// CAPE ARRAY
-var cape = soarForecastData.contents.match(/E\.{3}\s+.\d{1,4}\.\d/g);
+// CAPE ARRAY (SUMMER ONLY)
+// var cape = soarForecastData.contents.match(/E\.{3}\s+.\d{1,4}\.\d/g);
 
-// LI (LIFTED INDEX) ARRAY
-var li = soarForecastData.contents.match(/I\.{3}\s+.\d{1,4}\.\d/g);
+// LI (LIFTED INDEX) ARRAY (SUMMER ONLY)
+// var li = soarForecastData.contents.match(/I\.{3}\s+.\d{1,4}\.\d/g);
 
 document.getElementById('soar-forecast-report-date').innerHTML = soarForecastReportFullDate;
 document.getElementById('max-rol').innerHTML = maxRateOfLift;
 document.getElementById('top-of-lift').innerHTML = topOfLift;
 document.getElementById('neg3-index').innerHTML = neg3Index;
-document.getElementById('lcl').innerHTML = lcl;
-document.getElementById('od-time').innerHTML = od;
-document.getElementById('kindex-9').innerHTML = kIndex[0].substr(5);
-document.getElementById('kindex-12').innerHTML = kIndex[1].substr(5);
-document.getElementById('kindex-3').innerHTML = kIndex[2].substr(5);
-document.getElementById('kindex-6').innerHTML = kIndex[3].substr(5);
-document.getElementById('cape-9').innerHTML = cape[0].substr(6);
-document.getElementById('cape-12').innerHTML = cape[1].substr(6);
-document.getElementById('cape-3').innerHTML = cape[2].substr(6);
-document.getElementById('cape-6').innerHTML = cape[3].substr(6);
-document.getElementById('li-9').innerHTML = li[0].substr(11);
-document.getElementById('li-12').innerHTML = li[1].substr(11);
-document.getElementById('li-3').innerHTML = li[2].substr(11);
-document.getElementById('li-6').innerHTML = li[3].substr(11);
+// document.getElementById('lcl').innerHTML = lcl;
+// document.getElementById('od-time').innerHTML = od;
+// document.getElementById('kindex-9').innerHTML = kIndex[0].substr(5);
+// document.getElementById('kindex-12').innerHTML = kIndex[1].substr(5);
+// document.getElementById('kindex-3').innerHTML = kIndex[2].substr(5);
+// document.getElementById('kindex-6').innerHTML = kIndex[3].substr(5);
+// document.getElementById('cape-9').innerHTML = cape[0].substr(6);
+// document.getElementById('cape-12').innerHTML = cape[1].substr(6);
+// document.getElementById('cape-3').innerHTML = cape[2].substr(6);
+// document.getElementById('cape-6').innerHTML = cape[3].substr(6);
+// document.getElementById('li-9').innerHTML = li[0].substr(11);
+// document.getElementById('li-12').innerHTML = li[1].substr(11);
+// document.getElementById('li-3').innerHTML = li[2].substr(11);
+// document.getElementById('li-6').innerHTML = li[3].substr(11);
 });
 
 // -----------------------------------
