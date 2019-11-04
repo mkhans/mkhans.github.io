@@ -9,7 +9,7 @@
 
 <body>
 
-<!-- HEADING AREA -->
+<!-- HEADING -->
 
     <header class="box">
         <img src="images/wffglogo.png" height="75">
@@ -18,9 +18,29 @@
         <img src="images/pg.gif" height="100">
     </header>
 
+<!-- PRESSURE, TEMP, & SUNSET -->
+
+    <table class="noborder">
+        <tr>
+            <th class="center" width="33%"><img src="images/pressure.png" height="80px"></th>
+            <th class="center" width="33%"><img src="images/temp.png" height="80px"></th>
+            <th class="center" width="33%"><img src="images/sunset.png" height="80px"></th>
+        </tr>
+        <tr>
+            <td class="center bold txtsz200" id="pressure"></td>
+            <td class="center bold txtsz200" id="temp"></td>
+            <td class="center bold txtsz200" id="sunset-time"></td>
+        </tr>
+    </table>
+
+<!-- BUTTON FORECAST -->
+
+    <button class="left bold txtsz200 collapsible">Forecast</button>
+    <div class="collapse-contents">
+
 <!-- WIND ALOFT -->
 
-    <h1 class="center txtsz250">Winds Aloft</h1>
+    <h1 class="center txtsz250">Wind Aloft</h1>
     <div class="center txtsz150">
         <span class="bold"><a href="https://www.aviationweather.gov/windtemp/data?level=low&fcst=06&region=slc&layout=on&date=" target="_blank">FORECAST</a></span>
         &nbsp;from&nbsp;<span id="winds-aloft-forecast-start" class="bold"></span>
@@ -28,7 +48,7 @@
         <span id="winds-aloft-forecast-day"></span>
     </div><br>
     
-    <table class="bordered">
+    <table>
         <tr>
             <th class="txtsz200" rowspan="2">Altitude</th>
             <th class="txtsz200">Speed</th>
@@ -92,41 +112,154 @@
 
 <!-- SOARING FORECAST -->
 
-<h1 class="center txtsz250">Soaring Forecast</h1>
-<div class="center txtsz150">
-    <a href="https://www.weather.gov/slc/Soar" target="_blank">
-        <span class="bold" id="soar-forecast-report-date"></span></a>
-</div><br>
+    <h1 class="center txtsz250">Soaring Forecast</h1>
+    <div class="center txtsz150">
+        <a href="https://www.weather.gov/slc/Soar" target="_blank">
+            <span class="bold" id="soar-forecast-report-date"></span></a>
+    </div><br>
 
-<table class="bordered">
-    <tr>
-        <td class="bold txtsz250">RoL</td>
-        <td class="bold ltblue txtsz300" id="max-rol"></td>
-    </tr>
-    <tr>
-        <td class="bold txtsz250">-3 Index</td>
-        <td class="bold ltblue txtsz300" id="neg3-index"></td>
-    </tr>
-    <tr>
-        <td class="bold txtsz250">Cloudbase</td>
-        <td class="bold ltblue txtsz300" id="lcl"></td>
-    </tr>
-    <tr>
-        <td class="bold txtsz250">ToL</td>
-        <td class="bold ltblue txtsz300" id="top-of-lift"></td>
-    </tr>
-    <tr>
-        <td class="bold txtsz250">OD Time:</td>
-        <td class="bold ltblue txtsz300" id="od-time"></td>
-    </tr>
-</table><p class="verticalpad"></p>
+    <table>
+        <tr>
+            <td class="bold txtsz250">RoL</td>
+            <td class="bold ltblue txtsz300" id="max-rol"></td>
+        </tr>
+        <tr>
+            <td class="bold txtsz250">-3 Index</td>
+            <td class="bold ltblue txtsz300" id="neg3-index"></td>
+        </tr>
+        <tr>
+            <td class="bold txtsz250">Cloudbase</td>
+            <td class="bold ltblue txtsz300" id="lcl"></td>
+        </tr>
+        <tr>
+            <td class="bold txtsz250">ToL</td>
+            <td class="bold ltblue txtsz300" id="top-of-lift"></td>
+        </tr>
+        <tr>
+            <td class="bold txtsz250">OD Time:</td>
+            <td class="bold ltblue txtsz300" id="od-time"></td>
+        </tr>
+    </table>
+    </div>
+    <p class="buttonvericalpad"></p>
 
-<!-- BUTTON #1 -->
+<!-- BUTTON CURRENT CONDITIONS -->
 
-<button class="left bold txtsz200 collapsible">TEST Button</button>
-<div class="collapse-contents">
-<h1 class="center txtsz250">TEST AREA</h1>
-</div>
+    <button class="left bold txtsz200 collapsible">Current Conditions</button>
+    <div class="collapse-contents">
+
+<!-- WIND STATIONS -->
+
+    <h1 class="center txtsz250">Stations</h1>
+    <div class="center txtsz150">
+        <span>Listed North to South</span>
+    </div><br>
+
+    <table>
+        <tr>
+            <td class="center txtsz250">Station</td>
+            <td class="center txtsz250">Speed</td>
+            <td class="center txtsz250">Gust</td>
+            <td class="center txtsz250">Direction</td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td id="station2-name" class="bold yellow txtsz250" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OGP&table=1&banner=off')";></td>
+            <td id="station2-wind-speed" class="center bold txtsz350" rowspan="2"></td>
+            <td id="station2-wind-gust" class="center bold ltcoral txtsz250" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="station2-wind-dir-img" height="100"></td>
+        </tr>
+        <tr>
+            <td id="station2-time" class="txtsz150"></td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td id="station6-name" class="bold yellow txtsz250" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=C8948&table=1&banner=off')";></td>
+            <td id="station6-wind-speed" class="center bold txtsz350" rowspan="2"></td>
+            <td id="station6-wind-gust" class="center bold ltcoral txtsz250" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="station6-wind-dir-img" height="100"></td>
+        </tr>
+        <tr>
+            <td id="station6-time" class="txtsz150"></td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td id="station0-name" class="bold yellow txtsz250" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KSLC&banner=NONE&hfmetars=1')";></td>
+            <td id="station0-wind-speed" class="center bold txtsz350" rowspan="2"></td>
+            <td id="station0-wind-gust" class="center bold ltcoral txtsz250" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="station0-wind-dir-img" height="100"></td>
+        </tr>
+        <tr>
+            <td id="station0-time" class="txtsz150"></td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td id="station5-name" class="bold yellow txtsz250" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=MSI01&table=1&banner=off')";></td>
+            <td id="station5-wind-speed" class="center bold txtsz350" rowspan="2"></td>
+            <td id="station5-wind-gust" class="center bold ltcoral txtsz250" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="station5-wind-dir-img" height="100"></td>
+        </tr>
+        <tr>
+            <td id="station5-time" class="txtsz150"></td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td id="station3-name" class="bold yellow txtsz250" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=PKC&table=1&banner=off')";></td>
+            <td id="station3-wind-speed" class="center bold txtsz350" rowspan="2"></td>
+            <td id="station3-wind-gust" class="center bold ltcoral txtsz250" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="station3-wind-dir-img" height="100"></td>
+        </tr>
+        <tr>
+            <td id="station3-time" class="txtsz150"></td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td id="station1-name" class="bold yellow txtsz250" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KU42&banner=NONE&hfmetars=1')";></td>
+            <td id="station1-wind-speed" class="center bold txtsz350" rowspan="2"></td>
+            <td id="station1-wind-gust" class="center bold ltcoral txtsz250" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="station1-wind-dir-img" height="100"></td>
+        </tr>
+        <tr>
+            <td id="station1-time" class="txtsz150"></td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <!-- <tr> ***NORTHSIDE STATION*** UNCOMMENT WHEN STATION BACK UP!!!
+            <td id="station7-name" class="bold yellow txtsz250" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=FPN&table=1&banner=off')";></td>
+            <td id="station7-wind-speed" class="center bold txtsz350" rowspan="2"></td>
+            <td id="station7-wind-gust" class="center bold ltcoral txtsz250" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="station7-wind-dir-img" height="100"></td>
+        </tr>
+        <tr>
+            <td id="station7-time" class="txtsz150"></td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr> -->
+        <tr>
+            <td id="station4-name" class="bold yellow txtsz250" onclick="window.open('https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=FPS&table=1&banner=off')";></td>
+            <td id="station4-wind-speed" class="center bold txtsz350" rowspan="2"></td>
+            <td id="station4-wind-gust" class="center bold ltcoral txtsz250" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="station4-wind-dir-img" height="100"></td>
+        </tr>
+        <tr>
+            <td id="station4-time" class="txtsz150"></td>
+        </tr>
+    </table>
+    </div>
 
 <!-- SCRIPTS -->
     

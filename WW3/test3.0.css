@@ -3,7 +3,7 @@ body {
     background-color: #000034;
     margin-left: 5%;
     margin-right: 5%;
-    font-size: 20px;
+    font-size: 22px;
     color: white;
 }
 a:link {
@@ -27,8 +27,14 @@ table {
     border-radius: 25px;
     padding: 10px;
 }
+.noborder {
+    border: none;
+}
 .verticalpad {
     margin-top: 70px;
+}
+.buttonverticalpad {
+    margin-top: 35px;
 }
 .left {
     text-align: left;
