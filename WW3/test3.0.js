@@ -17,7 +17,7 @@ const dayNum = today.getDate();
 // var scrapeURLBase = "https://whatever-origin.herokuapp.com/get?url=";
 
 document.getElementById('date-today').innerHTML = dayName + ", " + monthName + " " + dayNum;
-document.getElementById('temp').innerHTML = "55 🠊 22";
+document.getElementById('temp').innerHTML = "55 ⮞ 22";
 
 /////////////////////////////////////////////////////////////////
 // W I N D   S T A T I O N   T I M E   S E R I E S   ( A P I ) //
