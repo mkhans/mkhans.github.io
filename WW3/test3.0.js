@@ -26,7 +26,7 @@ document.getElementById('temp').innerHTML = "55 ⮞ 22";
 $.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=MSI01&stid=C8948&stid=PKC&stid=FPS&stid=FPN&stid=KSLC&stid=KU42&recent=90&obtimezone=local&timeformat=%b%20%d%20-%20%H:%M&vars=wind_speed,wind_gust,wind_direction,altimeter&units=english,speed|mph&token=6243aadc536049fc9329c17ff2f88db3", function(stationData) {
     let stationCount = stationData.STATION.length;
     let stationObservationsCount = [], stationName = [], stationHour = [], stationAMPM = [], stationMins = [], latestTimes = [], windSpeeds = [], windGusts = [], windDirImgs = [];
-
+    
     // MOST RECENT READING FOR EACH STATION
     for (i=0; i<stationCount; i++) {
         stationObservationsCount[i] = stationData.STATION[i].OBSERVATIONS.date_time.length - 1;
@@ -95,12 +95,13 @@ $.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=MSI01&stid=
     for (i=0; i<stationCount; i++) {
         try {
             windDirImgs[i] = stationData.STATION[i].OBSERVATIONS.wind_direction_set_1[stationObservationsCount[i]];
-            if (parseInt(windDirImgs[i]) > 0) {
-                windDirImgs[i] = Math.round(windDirImgs[i] / 10) * 10;
+            windDirImgs[i] = Math.round(windDirImgs[i] / 10) * 10;
+            if (windDirImgs[i] != NaN) {
+                windDirImgs[i] = (windDirImgs[i] === 0) ? windDirImgs[i] = "00" : windDirImgs[i];
                 windDirImgs[i] = (windDirImgs[i] < 100) ? windDirImgs[i] = "0" + windDirImgs[i] : windDirImgs[i];
                 windDirImgs[i] = "images/winddirimages/d" + windDirImgs[i] + ".gif";
             } else {
-                windDirImgs[i] = "images/winddirimages/dcalm.gif";
+                windDirImgs[i] = "images/winddirimages/nodata.gif";
             }
         }
         catch(err) {
