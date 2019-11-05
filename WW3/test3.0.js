@@ -26,50 +26,33 @@ document.getElementById('temp').innerHTML = "55 ⮞ 22";
 $.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=MSI01&stid=C8948&stid=PKC&stid=FPS&stid=FPN&stid=KSLC&stid=KU42&recent=90&obtimezone=local&timeformat=%b%20%d%20-%20%H:%M&vars=wind_speed,wind_gust,wind_direction,altimeter&units=english,speed|mph&token=6243aadc536049fc9329c17ff2f88db3", function(stationData) {
     let stationCount = stationData.STATION.length;
     let stationObservationsCount = [], stationName = [], stationHour = [], stationAMPM = [], stationMins = [], latestTimes = [], windSpeeds = [], windGusts = [], windDirImgs = [];
-    
-    // MOST RECENT READING FOR EACH STATION
+
+    // GET MOST RECENT READING FOR EACH STATION
     for (i=0; i<stationCount; i++) {
         stationObservationsCount[i] = stationData.STATION[i].OBSERVATIONS.date_time.length - 1;
     }
 
     // STATION NAMES
     for (i=0; i<stationCount; i++) {
-        try {
-            stationName[i] = stationData.STATION[i].STID;
-            stationName[i] = (stationName[i] == "OGP") ? "Ogden Peak" : stationName[i];
-            stationName[i] = (stationName[i] == "PKC") ? "Jupiter" : stationName[i];
-            stationName[i] = (stationName[i] == "MSI01") ? "Olympus MSI" : stationName[i];
-            stationName[i] = (stationName[i] == "C8948") ? "Centerville" : stationName[i];
-            stationName[i] = (stationName[i] == "FPS") ? "Southside" : stationName[i];
-            stationName[i] = (stationName[i] == "FPN") ? "Northside" : stationName[i];
-            stationName[i] = (stationName[i] == "KU42") ? "Airport 2" : stationName[i];
-        }
-        catch(err) {
-            stationName[i] = "---";
-        }
+        stationName[i] = stationData.STATION[i].STID;
+        stationName[i] = (stationName[i] == "OGP") ? "Ogden Peak" : stationName[i];
+        stationName[i] = (stationName[i] == "PKC") ? "Jupiter" : stationName[i];
+        stationName[i] = (stationName[i] == "MSI01") ? "Olympus MSI" : stationName[i];
+        stationName[i] = (stationName[i] == "C8948") ? "Centerville" : stationName[i];
+        stationName[i] = (stationName[i] == "FPS") ? "Southside" : stationName[i];
+        stationName[i] = (stationName[i] == "FPN") ? "Northside" : stationName[i];
+        stationName[i] = (stationName[i] == "KU42") ? "Airport 2" : stationName[i];
     }
 
-    // MOST RECENT TIME
+    // MOST RECENT TIME STAMP
     for (i=0; i<stationCount; i++) {
-        try {
-            stationHour[i] = parseInt(stationData.STATION[i].OBSERVATIONS.date_time[stationObservationsCount[i]].substr(9,2));
-            stationAMPM[i] = " am";
-            if (stationHour[i] > 11) {
-                stationAMPM[i] = " pm";
-                if (stationHour[i] > 12) {
-                    stationHour[i] -= 12;
-                }
-            }
-            if (stationHour[i] == 0) {
-                stationHour[i] = 12;
-                stationAMPM[i] = " am";
-            }
-            stationMins[i] = stationData.STATION[i].OBSERVATIONS.date_time[stationObservationsCount[i]].substr(12, 2);
-            latestTimes[i] = stationHour[i] + ":" + stationMins[i] + stationAMPM[i];
-        }
-        catch(err) {
-            latestTimes[i] = "---";
-        }
+        stationHour[i] = parseInt(stationData.STATION[i].OBSERVATIONS.date_time[stationObservationsCount[i]].substr(9,2));
+        stationAMPM[i] = (stationHour[i] > 11) ? stationAMPM[i] = " pm" : stationAMPM[i] = " am";
+        stationHour[i] = (stationHour[i] > 12) ? stationHour[i] -= 12 : stationHour[i];
+        stationHour[i] = (stationHour[i] == 0) ? stationHour[i] = 12 : stationHour[i];
+        stationMins[i] = stationData.STATION[i].OBSERVATIONS.date_time[stationObservationsCount[i]].substr(12, 2);
+        latestTimes[i] = stationHour[i] + ":" + stationMins[i] + stationAMPM[i];
+        console.log(latestTimes[i]);
     }
 
     // ROUND & LOAD WIND SPEED & GUST, "---" IF NULL OR NO DATA
