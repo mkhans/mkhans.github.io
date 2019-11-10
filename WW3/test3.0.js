@@ -28,7 +28,7 @@ $.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=MSI01&stid=
 
 // MOST RECENT PRESSURE & TEMP @ KSLC
     if (stationData.STATION[0].STID == "KSLC") {
-        pressure = stationData.STATION[0].OBSERVATIONS.altimeter_set_1[stationLatestReadingPosition[0]];
+        pressure = stationData.STATION[0].OBSERVATIONS.altimeter_set_1[stationLatestReadingPosition[0]].toFixed(2);
         temp = Math.round(stationData.STATION[0].OBSERVATIONS.air_temp_set_1[stationLatestReadingPosition[0]]);
     } else {pressure = temp = "No Data";}
 
