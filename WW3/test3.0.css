@@ -30,11 +30,11 @@ table {
 .noborder {
     border: none;
 }
+td.bottom {
+    vertical-align: bottom;
+}
 .verticalpad {
     margin-top: 70px;
-}
-.buttonverticalpad {
-    margin-top: 35px;
 }
 .left {
     text-align: left;
