@@ -86,60 +86,39 @@ wAloftFcRange = (hour > 13 && hour < 20) ? wAloftFcRange = "1" : (hour > 19 || h
 let wAloftFcURL = "https://forecast.weather.gov/product.php?site=CRH&issuedby=US" + wAloftFcRange + "&product=FD" + wAloftFcRange + "&format=txt&version=1&glossary=0";
 
 $.getJSON(scrapeURL + encodeURIComponent(wAloftFcURL) + '&callback=?', function(wAloftFcData) {
-// FORECAST START TIME (ZULU)
+// FORECAST START TIME, END TIME (ZULU), & DAY; CONVERT TO MOUNTAIN TIME (timeOffset)
     let fcStartTime = parseInt(String(wAloftFcData.contents.match(/[Uu][Ss][Ee]\s\d{2}/)).substr(4)) - timeOffset;
     fcStartTime = (fcStartTime == 12) ? fcStartTime = "Noon" : (fcStartTime > 12) ? String(fcStartTime -= 12) + " pm" : fcStartTime;
-
-// FORECAST END TIME (ZULU)
     let fcEndTime = parseInt(String(wAloftFcData.contents.match(/-\d{4}Z/)).substr(1,2)) - timeOffset;
     fcEndTime = (fcEndTime == 0) ? fcEndTime = "Midnight" : (fcEndTime < 0) ? String(fcEndTime += 12) + " pm" : fcEndTime;
-
-// FORECAST DAY
     fcDay = (wAloftFcRange == "5" && hour > 19) ? " (tomorrow)" : "";
 
+// DIRECTION, SPEED, & TEMP ARRARYS (6K, 9K, 12K, 18K)
+    let slcLine = String(wAloftFcData.contents.match(/SLC.+/)).substr(9,31);
+    let wAloftDirs = [], wAloftSpds = [], wAloftTmps = [];
+    for (i=0; i<4; i++) {
+        wAloftDirs[i] = slcLine.substr(i*8,2);
+        wAloftDirs[i] = (wAloftDirs[i] == 99) ? "calm" : wAloftDirs[i] * 10;
+        wAloftDirs[i] = "images/winddirimages/d" + wAloftDirs[i] + ".gif";
+        wAloftSpds[i] = Math.round(parseFloat(slcLine.substr(i*8+2,2) * 1.15078));
+        wAloftTmps[i] = parseInt(slcLine.substr(i*8+5,2));
+        wAloftTmps[i] = (slcLine.substr(i*8+4,1) == "-") ? Math.round(wAloftTmps[i] * (-9/5) + 32) : Math.round(wAloftTmps[i] * (9/5) + 32);
+    }
 
-// // DIRECTION, SPEED, & TEMP ARRARYS (6K, 9K, 12K, 18K)
-// var slcLine = String(windAloftData.contents.match(/SLC.+(?=\s\d{4}-)/)).substr(9);
-// var windAloftDirs = [], windAloftSpds = [], windAloftTmps = [];
-// for (i=0; i<4; i++) {
-//     windAloftDirs[i] = slcLine.substr(i*8,2);
-//     if (windAloftDirs[i] == 99) {
-//         windAloftDirs[i] = "calm";
-//     } else {
-//         windAloftDirs[i] = windAloftDirs[i] * 10;
-//     }
-//     if (windAloftDirs[i] > 180) {
-//         windAloftDirs[i] = "a" + (windAloftDirs[i] - 180);
-//     }
-//     windAloftDirs[i] = 'https://www.usairnet.com/weather/winds_aloft/' + windAloftDirs[i] + '.gif';
-    
-//     windAloftSpds[i] = Math.round(parseFloat(slcLine.substr(i*8+2,2) * 1.15078));
-//     if (windAloftSpds[i] == 0) {
-//         windAloftSpds[i] = "---";
-//     }
-    
-//     windAloftTmps[i] = parseInt(slcLine.substr(i*8+5,2));
-//     if (slcLine.substr(i*8+4,1) == "-") {
-//         windAloftTmps[i] = windAloftTmps[i] * -1;
-//     }
-//     windAloftTmps[i] = (Number.isInteger(windAloftTmps[i])) ? Math.round(windAloftTmps[i] * (9/5) + 32) : "---";
-// }
-
-document.getElementById('winds-aloft-forecast-start').innerHTML = fcStartTime;
-document.getElementById('winds-aloft-forecast-end').innerHTML = fcEndTime;
-document.getElementById('winds-aloft-forecast-day').innerHTML = fcDay;
-// document.getElementById('wind-aloft-6k-spd').innerHTML = windAloftSpds[0];
-// document.getElementById('wind-aloft-9k-spd').innerHTML = windAloftSpds[1];
-// document.getElementById('wind-aloft-12k-spd').innerHTML = windAloftSpds[2];
-// document.getElementById('wind-aloft-18k-spd').innerHTML = windAloftSpds[3];
-// document.getElementById('wind-aloft-6k-dir').src = windAloftDirs[0];
-// document.getElementById('wind-aloft-9k-dir').src = windAloftDirs[1];
-// document.getElementById('wind-aloft-12k-dir').src = windAloftDirs[2];
-// document.getElementById('wind-aloft-18k-dir').src = windAloftDirs[3];
-// document.getElementById('wind-aloft-6k-tmp').innerHTML = windAloftTmps[0];
-// document.getElementById('wind-aloft-9k-tmp').innerHTML = windAloftTmps[1];
-// document.getElementById('wind-aloft-12k-tmp').innerHTML = windAloftTmps[2];
-// document.getElementById('wind-aloft-18k-tmp').innerHTML = windAloftTmps[3];
+    document.getElementById('winds-aloft-forecast-start').innerHTML = fcStartTime;
+    document.getElementById('winds-aloft-forecast-end').innerHTML = fcEndTime;
+    document.getElementById('winds-aloft-forecast-day').innerHTML = fcDay;
+    document.getElementById('wind-aloft-6k-spd').innerHTML = wAloftSpds[0];
+    document.getElementById('wind-aloft-9k-spd').innerHTML = wAloftSpds[1];
+    document.getElementById('wind-aloft-12k-spd').innerHTML = wAloftSpds[2];
+    document.getElementById('wind-aloft-18k-spd').innerHTML = wAloftSpds[3];
+    document.getElementById('wind-aloft-6k-dir').src = wAloftDirs[0];
+    document.getElementById('wind-aloft-9k-dir').src = wAloftDirs[1];
+    document.getElementById('wind-aloft-12k-dir').src = wAloftDirs[2];
+    document.getElementById('wind-aloft-18k-dir').src = wAloftDirs[3];
+    document.getElementById('wind-aloft-9k-tmp').innerHTML = wAloftTmps[1];
+    document.getElementById('wind-aloft-12k-tmp').innerHTML = wAloftTmps[2];
+    document.getElementById('wind-aloft-18k-tmp').innerHTML = wAloftTmps[3];
 });
 
 ///////////////////////////////////////////////////////
