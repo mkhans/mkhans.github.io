@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Wasatch Wind</title>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link href="test3.0.css" rel="stylesheet">
+        <meta charset="utf-8">
+    </head>
+
+<body>
+
+<!-- HEADING -->
+
+    <header class="box">
+        <img src="images/wffglogo.png" height="75">
+        <p class="center txtsz200">WASATCH FREE FLIGHT GROUP<br>
+            <span class="bold ltblue" id="date-today"></span></p>
+        <img src="images/pg.gif" height="100">
+    </header>
+
+<!-- PRESSURE, TEMP, & SUNSET -->
+
+    <table class="noborder">
+        <tr>
+            <th class="center" width="33%"><img src="images/pressure.png" height="80px"></th>
+            <th class="center" width="33%"><img src="images/temp.png" height="80px"></th>
+            <th class="center" width="33%"><img src="images/sunset.png" height="80px"></th>
+        </tr>
+        <tr>
+            <td class="center bold txtsz200" id="pressure"></td>
+            <td class="center bold txtsz200" id="temp"></td>
+            <td class="center bold txtsz200" id="sunset-time"></td>
+        </tr>
+    </table>
+
+<!-- BUTTON FORECAST -->
+
+    <button class="left bold txtsz200 collapsible">Forecast</button>
+    <div class="collapse-contents">
+
+<!-- WIND ALOFT -->
+
+    <h1 class="center txtsz250">Wind Aloft</h1>
+    <div class="center txtsz150">
+        <span class="bold"><a href="https://www.aviationweather.gov/windtemp/data?level=low&fcst=06&region=slc&layout=on&date=" target="_blank">FORECAST</a></span>
+        &nbsp;from&nbsp;<span id="winds-aloft-forecast-start" class="bold"></span>
+        to&nbsp;<span id="winds-aloft-forecast-end" class="bold"></span>
+        <span id="winds-aloft-forecast-day"></span>
+    </div><br>
+    
+    <table>
+        <tr>
+            <th class="txtsz200" rowspan="2">Altitude</th>
+            <th class="txtsz200">Speed</th>
+            <th class="txtsz200" rowspan="2">Direction</th>
+            <th class="txtsz200">Temp</th>
+        </tr>
+        <tr>
+            <td class="center">mph</td>
+            <td class="center">&deg;F</td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="txtsz250">6,000</td>
+            <td class="center bold ltblue txtsz350" id="wind-aloft-6k-spd" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="wind-aloft-6k-dir" height="100px"></td>
+            <td rowspan="2"></td>
+        </tr>
+        <tr>
+            <td class="txtsz150">1829 m</td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="txtsz250">9,000</td>
+            <td class="center bold ltblue txtsz350" id="wind-aloft-9k-spd" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="wind-aloft-9k-dir" height="100px"></td>
+            <td class="center txtsz200" id="wind-aloft-9k-tmp" rowspan="2"></td>
+        </tr>
+        <tr>
+            <td class="txtsz150">2743 m</td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="txtsz250">12,000</td>
+            <td class="center bold ltblue txtsz350" id="wind-aloft-12k-spd" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="wind-aloft-12k-dir" height="100px"></td>
+            <td class="center txtsz200" id="wind-aloft-12k-tmp" rowspan="2"></td>
+        </tr>
+        <tr>
+            <td class="txtsz150">3658 m</td>
+        </tr>
+        <tr>
+                <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="txtsz250">18,000</td>
+            <td class="center bold ltblue txtsz350" id="wind-aloft-18k-spd" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="wind-aloft-18k-dir" height="100px"></td>
+            <td class="center txtsz200" id="wind-aloft-18k-tmp" rowspan="2"></td>
+        </tr>
+        <tr>
+            <td class="txtsz150">5486 m</td>
+        </tr>
+        
+    </table><p class="verticalpad"></p>
+
+<!-- SOARING FORECAST -->
+
+    <h1 class="center txtsz250">Soaring Forecast</h1>
+    <div class="center txtsz150">
+        <a href="https://www.weather.gov/slc/Soar" target="_blank">
+            <span class="bold" id="soar-forecast-date"></span></a>
+    </div><br>
+
+    <table>
+        <tr>
+            <td class="txtsz200">Max RoL (ft/min)</td>
+            <td class="bold ltblue txtsz300" id="max-rol"></td>
+            <td class="bottom txtsz150" id="max-rol-ms"></td>
+        </tr>
+        <tr>
+            <td class="txtsz200">Top of -3 Index (ft)</td>
+            <td class="bold ltblue txtsz300" id="neg3-index"></td>
+            <td class="bottom txtsz150" id="neg3-index-m"></td>
+        </tr>
+        <tr>
+            <td class="txtsz200">Top of Lift (ft)</td>
+            <td class="bold ltblue txtsz300" id="top-of-lift"></td>
+            <td class="bottom txtsz150" id="top-of-lift-m"></td>
+        </tr>
+    </table>
+    </div><br>
+
+<!-- BUTTON CURRENT CONDITIONS -->
+
+    <button class="left bold txtsz200 collapsible">Current Conditions</button>
+    <div class="collapse-contents">
+
+<!-- WIND STATIONS -->
+
+    <h1 class="center txtsz250">Stations</h1>
+    <div class="center txtsz150">
+        <span>Listed North to South</span>
+    </div><br>
+
+    <table>
+        <tr>
+            <td class="center txtsz250">Station</td>
+            <td class="center txtsz250">Speed</td>
+            <td class="center txtsz250">Gust</td>
+            <td class="center txtsz250">Direction</td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="bold yellow txtsz200"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=OGP&table=1&banner=off" target="_blank">Ogden Peak</a></td>
+            <td id="OGP-wind-speed" class="center bold txtsz350" rowspan="2"></td>
+            <td id="OGP-wind-gust" class="center bold ltcoral txtsz250" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="OGP-wind-dir-img" height="100"></td>
+        </tr>
+        <tr>
+            <td id="OGP-time" class="txtsz150"></td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="bold yellow txtsz200"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=C8948&table=1&banner=off" target="_blank">Centerville</a></td>
+            <td id="C8948-wind-speed" class="center bold txtsz350" rowspan="2"></td>
+            <td id="C8948-wind-gust" class="center bold ltcoral txtsz250" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="C8948-wind-dir-img" height="100"></td>
+        </tr>
+        <tr>
+            <td id="C8948-time" class="txtsz150"></td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="bold yellow txtsz200"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KSLC&table=1&banner=off" target="_blank">KSLC</a></td>
+            <td id="KSLC-wind-speed" class="center bold txtsz350" rowspan="2"></td>
+            <td id="KSLC-wind-gust" class="center bold ltcoral txtsz250" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="KSLC-wind-dir-img" height="100"></td>
+        </tr>
+        <tr>
+            <td id="KSLC-time" class="txtsz150"></td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="bold yellow txtsz200"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=MSI01&table=1&banner=off" target="_blank">Olympus MSI</a></td>
+            <td id="MSI01-wind-speed" class="center bold txtsz350" rowspan="2"></td>
+            <td id="MSI01-wind-gust" class="center bold ltcoral txtsz250" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="MSI01-wind-dir-img" height="100"></td>
+        </tr>
+        <tr>
+            <td id="MSI01-time" class="txtsz150"></td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="bold yellow txtsz200"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=PKC&table=1&banner=off" target="_blank">Jupiter</a></td>
+            <td id="PKC-wind-speed" class="center bold txtsz350" rowspan="2"></td>
+            <td id="PKC-wind-gust" class="center bold ltcoral txtsz250" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="PKC-wind-dir-img" height="100"></td>
+        </tr>
+        <tr>
+            <td id="PKC-time" class="txtsz150"></td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="bold yellow txtsz200"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=KU42&table=1&banner=off" target="_blank">Airport 2</a></td>
+            <td id="KU42-wind-speed" class="center bold txtsz350" rowspan="2"></td>
+            <td id="KU42-wind-gust" class="center bold ltcoral txtsz250" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="KU42-wind-dir-img" height="100"></td>
+        </tr>
+        <tr>
+            <td id="KU42-time" class="txtsz150"></td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="bold yellow txtsz200"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=FPN&table=1&banner=off" target="_blank">Northside</a></td>
+            <td id="FPN-wind-speed" class="center bold txtsz350" rowspan="2"></td>
+            <td id="FPN-wind-gust" class="center bold ltcoral txtsz250" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="FPN-wind-dir-img" height="100"></td>
+        </tr>
+        <tr>
+            <td id="FPN-time" class="txtsz150"></td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="bold yellow txtsz200"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=FPS&table=1&banner=off" target="_blank">Southside</a></td>
+            <td id="FPS-wind-speed" class="center bold txtsz350" rowspan="2"></td>
+            <td id="FPS-wind-gust" class="center bold ltcoral txtsz250" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="FPS-wind-dir-img" height="100"></td>
+        </tr>
+        <tr>
+            <td id="FPS-time" class="txtsz150"></td>
+        </tr>
+    </table>
+    </div>
+
+<!-- SCRIPTS -->
+    
+    <script type="text/javascript" src="test3.0.js"></script>
+
+</body>
+</html>

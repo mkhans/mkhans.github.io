@@ -1,0 +1,106 @@
+body {
+    font-family: 'Tahoma';
+    background-color: #000034;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 22px;
+    color: white;
+}
+a:link {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:visited {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:active {
+    color: white;
+    background-color: transparent;
+    text-decoration: underline;
+}
+table {
+    width: 100%;
+    border: 5px solid white;
+    border-radius: 25px;
+    padding: 10px;
+}
+.noborder {
+    border: none;
+}
+td.bottom {
+    vertical-align: bottom;
+}
+.verticalpad {
+    margin-top: 70px;
+}
+.left {
+    text-align: left;
+}
+.center {
+    text-align: center;
+}
+.right {
+    text-align: right;
+}
+.bold {
+    font-weight: bold;
+}
+.yellow {
+    color: yellow;
+}
+.ltblue {
+    color: lightblue;
+}
+.ltcoral {
+    color: lightcoral;
+}
+.txtsz50 {
+    font-size: 50%;
+}
+.txtsz150 {
+    font-size: 150%;
+}
+.txtsz200 {
+    font-size: 200%;
+}
+.txtsz250 {
+    font-size: 250%;
+}
+.txtsz300 {
+    font-size: 300%;
+}
+.txtsz350 {
+    font-size: 350%;
+}
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+ }
+.collapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    width: 100%;
+    border: 5px solid white;
+    border-radius: 25px;
+    margin-top: 10px;
+}
+.collapsible:after {
+    content: url(images/plus.png);
+    float: right;
+}
+.active:after {
+    content: url(images/minus.png);
+}
+.collapse-contents {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
