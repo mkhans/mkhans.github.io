@@ -104,22 +104,14 @@ $.getJSON(scrapeURL + encodeURIComponent(wAloftFcURL) + '&callback=?', function(
         wAloftTmps[i] = parseInt(slcLine.substr(i*8+5,2));
         wAloftTmps[i] = (slcLine.substr(i*8+4,1) == "-") ? Math.round(wAloftTmps[i] * (-9/5) + 32) : Math.round(wAloftTmps[i] * (9/5) + 32);
     }
-
+    wAloftTmps[0] = ""; // No temp at 6k
     document.getElementById('winds-aloft-forecast-start').innerHTML = fcStartTime;
     document.getElementById('winds-aloft-forecast-end').innerHTML = fcEndTime;
     document.getElementById('winds-aloft-forecast-day').innerHTML = fcDay;
     for (i=0; i<4; i++) {
-        document.getElementById('wind-aloft-6k-spd').innerHTML = wAloftSpds[i];
-        document.getElementById('wind-aloft-9k-spd').innerHTML = wAloftSpds[i];
-        document.getElementById('wind-aloft-12k-spd').innerHTML = wAloftSpds[i];
-        document.getElementById('wind-aloft-18k-spd').innerHTML = wAloftSpds[i];
-        document.getElementById('wind-aloft-6k-dir').src = wAloftDirs[0];
-        document.getElementById('wind-aloft-9k-dir').src = wAloftDirs[1];
-        document.getElementById('wind-aloft-12k-dir').src = wAloftDirs[2];
-        document.getElementById('wind-aloft-18k-dir').src = wAloftDirs[3];
-        document.getElementById('wind-aloft-9k-tmp').innerHTML = wAloftTmps[1];
-        document.getElementById('wind-aloft-12k-tmp').innerHTML = wAloftTmps[2];
-        document.getElementById('wind-aloft-18k-tmp').innerHTML = wAloftTmps[3];
+        document.getElementById('wind-aloft-' + i + '-spd').innerHTML = wAloftSpds[i];
+        document.getElementById('wind-aloft-' + i + '-dir').src = wAloftDirs[i];
+        document.getElementById('wind-aloft-' + i + '-tmp').innerHTML = wAloftTmps[i];
     }
 });
 
