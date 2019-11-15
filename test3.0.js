@@ -10,9 +10,13 @@ const dateToday = dayName + ", " + monthName + " " + dayNum;
 const hour = today.getHours();
 const timeOffset = 6; // Winter UTC-6, Summer UTC-7
 const soarFcURL = "https://www.weather.gov/source/slc/aviation/files/SLCSRGSLC0.txt";
+const noaaFcURL = "https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XNmCho5KhPY";
+const noaaImgURL = "https://forecast.weather.gov/";
 const scrapeURL = "https://whatever-origin.herokuapp.com/get?url=";
 
 document.getElementById('date-today').innerHTML = dateToday;
+document.getElementById('surface-wind-image').src = "https://graphical.weather.gov/images/slc/WindSpd3_slc.png";
+document.getElementById('weather-image').src = "https://graphical.weather.gov/images/slc/Wx3_slc.png";
 
 /////////////////////////////////////////////////////////////////
 // W I N D   S T A T I O N   T I M E   S E R I E S   ( A P I ) //
@@ -141,6 +145,7 @@ $.getJSON(scrapeURL + encodeURIComponent(soarFcURL) + '&callback=?', function(so
     let topOfLiftm = Math.round(topOfLift / 3.281) + " m";
     topOfLift = (isNaN(topOfLift)) ? "None" : topOfLift.toLocaleString();
 
+// GET ELEMENT BY ID
     document.getElementById('soar-forecast-date').innerHTML = soarFcDate;
     document.getElementById('max-rol').innerHTML = maxRateOfLift;
     document.getElementById('max-rol-ms').innerHTML = maxRateOfLiftms;
@@ -148,6 +153,34 @@ $.getJSON(scrapeURL + encodeURIComponent(soarFcURL) + '&callback=?', function(so
     document.getElementById('neg3-index-m').innerHTML = neg3Indexm;
     document.getElementById('top-of-lift').innerHTML = topOfLift;
     document.getElementById('top-of-lift-m').innerHTML = topOfLiftm;
+});
+
+///////////////////////////////////////////////// 
+// N O A A   F O R E C A S T   ( S C R A P E ) //
+/////////////////////////////////////////////////
+
+$.getJSON(scrapeURL + encodeURIComponent(noaaFcURL) + '&callback=?', function(noaaFcData) {
+
+// 72 HOUR FORECAST
+    var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var tomorrow = today.getDay() + 1;
+    var forecastRegex = new RegExp;
+    var forecastDays = [], forecastImgs = [], forecastTexts = [];
+    for (i=0; i<3; i++) {
+        tomorrow = (tomorrow + i < 7) ? tomorrow : tomorrow - 7;
+        forecastDays[i] = weekdays[tomorrow + i];
+        forecastRegex = '".+(?=".alt="' + weekdays[tomorrow + i] + ':)';
+        forecastImgs[i] = noaaImgURL + String(noaaFcData.contents.match(forecastRegex)).substr(1);
+        forecastRegex = ':.+(?=".title="' + weekdays[tomorrow + i] + ':)';
+        forecastTexts[i] = String(noaaFcData.contents.match(forecastRegex)).substr(2);
+    }
+
+// GET ELEMENT BY ID
+    for (i=0; i<3; i++) {
+        document.getElementById('forecast-day' + i +'-img').src = forecastImgs[i];
+        document.getElementById('forecast-day' + i +'-name').innerHTML = forecastDays[i];
+        document.getElementById('forecast-day' + i +'-text').innerHTML = forecastTexts[i];
+    }
 });
 
 /////////////////////////////////////////////////////
