@@ -33,114 +33,17 @@
         </tr>
     </table>
 
-<!-- BUTTON FORECAST -->
+<!-- BUTTON: RIGHT NOW -->
 
-    <button class="left bold txtsz200 collapsible">Forecast</button>
-    <div class="collapse-contents">
+<button class="left bold txtsz200 collapsible">Right Now</button>
+<div class="collapse-contents">
 
-<!-- WIND ALOFT -->
+<!-- WIND MAP -->
 
-    <h1 class="center txtsz250">Wind Aloft</h1>
-    <div class="center txtsz150">
-        <span class="bold"><a href="https://www.aviationweather.gov/windtemp/data?level=low&fcst=06&region=slc&layout=on&date=" target="_blank">FORECAST</a></span>
-        &nbsp;from&nbsp;<span id="winds-aloft-forecast-start" class="bold"></span>
-        to&nbsp;<span id="winds-aloft-forecast-end" class="bold"></span>
-        <span id="winds-aloft-forecast-day"></span>
-    </div><br>
-    
-    <table>
-        <tr>
-            <th class="txtsz200" rowspan="2">Altitude</th>
-            <th class="txtsz200">Speed</th>
-            <th class="txtsz200" rowspan="2">Direction</th>
-            <th class="txtsz200">Temp</th>
-        </tr>
-        <tr>
-            <td class="center">mph</td>
-            <td class="center">&deg;F</td>
-        </tr>
-        <tr>
-            <td colspan="4"><hr></td>
-        </tr>
-        <tr>
-            <td class="txtsz250">6,000</td>
-            <td class="center bold ltblue txtsz350" id="wind-aloft-6k-spd" rowspan="2"></td>
-            <td class="center" rowspan="2"><img id="wind-aloft-6k-dir" height="100px"></td>
-            <td rowspan="2"></td>
-        </tr>
-        <tr>
-            <td class="txtsz150">1829 m</td>
-        </tr>
-        <tr>
-            <td colspan="4"><hr></td>
-        </tr>
-        <tr>
-            <td class="txtsz250">9,000</td>
-            <td class="center bold ltblue txtsz350" id="wind-aloft-9k-spd" rowspan="2"></td>
-            <td class="center" rowspan="2"><img id="wind-aloft-9k-dir" height="100px"></td>
-            <td class="center txtsz200" id="wind-aloft-9k-tmp" rowspan="2"></td>
-        </tr>
-        <tr>
-            <td class="txtsz150">2743 m</td>
-        </tr>
-        <tr>
-            <td colspan="4"><hr></td>
-        </tr>
-        <tr>
-            <td class="txtsz250">12,000</td>
-            <td class="center bold ltblue txtsz350" id="wind-aloft-12k-spd" rowspan="2"></td>
-            <td class="center" rowspan="2"><img id="wind-aloft-12k-dir" height="100px"></td>
-            <td class="center txtsz200" id="wind-aloft-12k-tmp" rowspan="2"></td>
-        </tr>
-        <tr>
-            <td class="txtsz150">3658 m</td>
-        </tr>
-        <tr>
-                <td colspan="4"><hr></td>
-        </tr>
-        <tr>
-            <td class="txtsz250">18,000</td>
-            <td class="center bold ltblue txtsz350" id="wind-aloft-18k-spd" rowspan="2"></td>
-            <td class="center" rowspan="2"><img id="wind-aloft-18k-dir" height="100px"></td>
-            <td class="center txtsz200" id="wind-aloft-18k-tmp" rowspan="2"></td>
-        </tr>
-        <tr>
-            <td class="txtsz150">5486 m</td>
-        </tr>
-        
-    </table><p class="verticalpad"></p>
-
-<!-- SOARING FORECAST -->
-
-    <h1 class="center txtsz250">Soaring Forecast</h1>
-    <div class="center txtsz150">
-        <a href="https://www.weather.gov/slc/Soar" target="_blank">
-            <span class="bold" id="soar-forecast-date"></span></a>
-    </div><br>
-
-    <table>
-        <tr>
-            <td class="txtsz200">Max RoL (ft/min)</td>
-            <td class="bold ltblue txtsz300" id="max-rol"></td>
-            <td class="bottom txtsz150" id="max-rol-ms"></td>
-        </tr>
-        <tr>
-            <td class="txtsz200">Top of -3 Index (ft)</td>
-            <td class="bold ltblue txtsz300" id="neg3-index"></td>
-            <td class="bottom txtsz150" id="neg3-index-m"></td>
-        </tr>
-        <tr>
-            <td class="txtsz200">Top of Lift (ft)</td>
-            <td class="bold ltblue txtsz300" id="top-of-lift"></td>
-            <td class="bottom txtsz150" id="top-of-lift-m"></td>
-        </tr>
-    </table>
-    </div><br>
-
-<!-- BUTTON CURRENT CONDITIONS -->
-
-    <button class="left bold txtsz200 collapsible">Current Conditions</button>
-    <div class="collapse-contents">
+    <h1 class="center txtsz250">Surface Wind Map</h1>
+    <a href="https://www.wrh.noaa.gov/slc/current/meso.slv.php" target="_blank">
+    <img src="https://www.wrh.noaa.gov/mesowest/symmap.php?map=slc&dem=&scale=6&wx=0&res=60&disp=&limit=&wfo="></a>
+    <p class="verticalpad"></p>
 
 <!-- WIND STATIONS -->
 
@@ -253,7 +156,174 @@
             <td id="FPS-time" class="txtsz150"></td>
         </tr>
     </table>
-    </div>
+</div><br>
+
+<!-- BUTTON: FORECAST -->
+
+<button class="left bold txtsz200 collapsible">Forecast</button>
+<div class="collapse-contents">
+
+<!-- WIND ALOFT -->
+
+    <h1 class="center txtsz250">Wind Aloft</h1>
+    <div class="center txtsz150">
+        <span class="bold"><a href="https://www.aviationweather.gov/windtemp/data?level=low&fcst=06&region=slc&layout=on&date=" target="_blank">FORECAST</a></span>
+        &nbsp;from&nbsp;<span id="winds-aloft-forecast-start" class="bold"></span>
+        to&nbsp;<span id="winds-aloft-forecast-end" class="bold"></span>
+        <span id="winds-aloft-forecast-day"></span>
+    </div><br>
+    
+    <table>
+        <tr>
+            <th class="txtsz200" rowspan="2">Altitude</th>
+            <th class="txtsz200">Speed</th>
+            <th class="txtsz200" rowspan="2">Direction</th>
+            <th class="txtsz200">Temp</th>
+        </tr>
+        <tr>
+            <td class="center txtsz150">mph</td>
+            <td class="center txtsz150">&deg;F</td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="txtsz250">6,000</td>
+            <td class="center bold ltblue txtsz350" id="wind-aloft-0-spd" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="wind-aloft-0-dir" height="100px"></td>
+            <td id="wind-aloft-0-tmp" rowspan="2"></td>
+        </tr>
+        <tr>
+            <td class="center txtsz150">1829 m</td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="txtsz250">9,000</td>
+            <td class="center bold ltblue txtsz350" id="wind-aloft-1-spd" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="wind-aloft-1-dir" height="100px"></td>
+            <td class="center txtsz200" id="wind-aloft-1-tmp" rowspan="2"></td>
+        </tr>
+        <tr>
+            <td class="center txtsz150">2743 m</td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="txtsz250">12,000</td>
+            <td class="center bold ltblue txtsz350" id="wind-aloft-2-spd" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="wind-aloft-2-dir" height="100px"></td>
+            <td class="center txtsz200" id="wind-aloft-2-tmp" rowspan="2"></td>
+        </tr>
+        <tr>
+            <td class="center txtsz150">3658 m</td>
+        </tr>
+        <tr>
+                <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="txtsz250">18,000</td>
+            <td class="center bold ltblue txtsz350" id="wind-aloft-3-spd" rowspan="2"></td>
+            <td class="center" rowspan="2"><img id="wind-aloft-3-dir" height="100px"></td>
+            <td class="center txtsz200" id="wind-aloft-3-tmp" rowspan="2"></td>
+        </tr>
+        <tr>
+            <td class="center txtsz150">5486 m</td>
+        </tr>
+        
+    </table><p class="verticalpad"></p>
+
+<!-- SOARING FORECAST -->
+
+    <h1 class="center txtsz250">Soaring Forecast</h1>
+    <div class="center txtsz150">
+        <a href="https://www.weather.gov/slc/Soar" target="_blank">
+            <span class="bold" id="soar-forecast-date"></span></a>
+    </div><br>
+
+    <table>
+        <tr>
+            <td class="txtsz200">Max RoL (ft/min)</td>
+            <td class="bold ltblue txtsz300" id="max-rol"></td>
+            <td class="bottom txtsz150" id="max-rol-ms"></td>
+        </tr>
+        <tr>
+            <td class="txtsz200">Top of -3 Index (ft)</td>
+            <td class="bold ltblue txtsz300" id="neg3-index"></td>
+            <td class="bottom txtsz150" id="neg3-index-m"></td>
+        </tr>
+        <tr>
+            <td class="txtsz200">Top of Lift (ft)</td>
+            <td class="bold ltblue txtsz300" id="top-of-lift"></td>
+            <td class="bottom txtsz150" id="top-of-lift-m"></td>
+        </tr>
+    </table>
+
+<!-- AFTERNOON GRAPHIC WIND FORECAST -->
+
+    <h1 class="center txtsz250">Surface Wind</h1>
+    <div class="center txtsz150">
+        <span>2 pm</span>
+    </div><br>
+    <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
+    <img id="surface-wind-image" width="70%" ></a>
+
+<!-- AFTERNOON GRAPHIC WEATHER FORECAST -->
+
+    <h1 class="center txtsz250">Weather</h1>
+    <div class="center txtsz150">
+        <span>2 pm</span>
+    </div><br>
+    <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
+    <img id="weather-image" width="70%" ></a>
+
+</div><br>
+
+<!-- BUTTON: ??? -->
+
+<button class="left bold txtsz200 collapsible">???</button>
+<div class="collapse-contents">
+
+<!-- 3 DAY OUTLOOK -->
+
+    <h1 class="center txtsz250">3 Day Outlook</h1>
+        <table>
+            <tr>
+                <td id="forecast-day0-name" class="center bold txtsz150"></td>
+                <td id="forecast-day0-text" rowspan="2" class="indent txtsz150"></td>
+            </tr>
+            <tr>
+                <td><a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank">
+                    <img id="forecast-day0-img" height=150px></a></td>
+            </tr>
+            <tr>
+                <td colspan="5"><hr></td>
+            </tr>
+            <tr>
+                <td id="forecast-day1-name" class="center bold txtsz150"></td>
+                <td id="forecast-day1-text" rowspan="2" class="indent txtsz150"></td>
+            </tr>
+            <tr>
+                <td class="left">
+                    <a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank">
+                        <img id="forecast-day1-img" height=150px></a></td>
+            </tr>
+            <tr>
+                <td colspan="5"><hr></td>
+            </tr>
+            <tr>
+                <td id="forecast-day2-name" class="center bold txtsz150"></td>
+                <td id="forecast-day2-text" rowspan="2" class="indent txtsz150"></td>
+            </tr>
+            <tr>
+                <td class="left">
+                    <a href="https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XN8LtchKhPY" target="_blank">
+                        <img id="forecast-day2-img" height=150px></a></td>
+            </tr>
+        </table>
+</div>
 
 <!-- SCRIPTS -->
     

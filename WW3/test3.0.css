@@ -3,7 +3,7 @@ body {
     background-color: #000034;
     margin-left: 5%;
     margin-right: 5%;
-    font-size: 22px;
+    font-size: 20px;
     color: white;
 }
 a:link {
@@ -44,6 +44,9 @@ td.bottom {
 }
 .right {
     text-align: right;
+}
+.indent {
+    padding-left: 25px;
 }
 .bold {
     font-weight: bold;
@@ -103,4 +106,9 @@ td.bottom {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
+}
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
