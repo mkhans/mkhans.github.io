@@ -41,9 +41,8 @@
 <!-- WIND MAP -->
 
     <h1 class="center txtsz250">Surface Wind Map</h1>
-    <a href="https://www.wrh.noaa.gov/slc/current/meso.slv.php" target="_blank">
+    <a href="https://www.wrh.noaa.gov/map/?&zoom=10&center=40.65,-111.90&obs=true&obs_type=weather&elements=wind,gust&obs_density=10&&obs_popup=false&obs_provider=ALL" target="_blank">
     <img src="https://www.wrh.noaa.gov/mesowest/symmap.php?map=slc&dem=&scale=6&wx=0&res=60&disp=&limit=&wfo="></a>
-    <p class="verticalpad"></p>
 
 <!-- WIND STATIONS -->
 
@@ -163,7 +162,7 @@
 <button class="left bold txtsz200 collapsible">Forecast</button>
 <div class="collapse-contents">
 
-<!-- WIND ALOFT -->
+<!-- WIND ALOFT FORECAST-->
 
     <h1 class="center txtsz250">Wind Aloft</h1>
     <div class="center txtsz150">
@@ -188,7 +187,7 @@
             <td colspan="4"><hr></td>
         </tr>
         <tr>
-            <td class="txtsz250">6,000</td>
+            <td class="bold txtsz250">6,000</td>
             <td class="center bold ltblue txtsz350" id="wind-aloft-0-spd" rowspan="2"></td>
             <td class="center" rowspan="2"><img id="wind-aloft-0-dir" height="100px"></td>
             <td id="wind-aloft-0-tmp" rowspan="2"></td>
@@ -200,7 +199,7 @@
             <td colspan="4"><hr></td>
         </tr>
         <tr>
-            <td class="txtsz250">9,000</td>
+            <td class="bold txtsz250">9,000</td>
             <td class="center bold ltblue txtsz350" id="wind-aloft-1-spd" rowspan="2"></td>
             <td class="center" rowspan="2"><img id="wind-aloft-1-dir" height="100px"></td>
             <td class="center txtsz200" id="wind-aloft-1-tmp" rowspan="2"></td>
@@ -212,7 +211,7 @@
             <td colspan="4"><hr></td>
         </tr>
         <tr>
-            <td class="txtsz250">12,000</td>
+            <td class="bold txtsz250">12,000</td>
             <td class="center bold ltblue txtsz350" id="wind-aloft-2-spd" rowspan="2"></td>
             <td class="center" rowspan="2"><img id="wind-aloft-2-dir" height="100px"></td>
             <td class="center txtsz200" id="wind-aloft-2-tmp" rowspan="2"></td>
@@ -224,7 +223,7 @@
                 <td colspan="4"><hr></td>
         </tr>
         <tr>
-            <td class="txtsz250">18,000</td>
+            <td class="bold txtsz250">18,000</td>
             <td class="center bold ltblue txtsz350" id="wind-aloft-3-spd" rowspan="2"></td>
             <td class="center" rowspan="2"><img id="wind-aloft-3-dir" height="100px"></td>
             <td class="center txtsz200" id="wind-aloft-3-tmp" rowspan="2"></td>
@@ -259,31 +258,35 @@
             <td class="bold ltblue txtsz300" id="top-of-lift"></td>
             <td class="bottom txtsz150" id="top-of-lift-m"></td>
         </tr>
-    </table>
+    </table><p class="verticalpad"></p>
 
-<!-- AFTERNOON GRAPHIC WIND FORECAST -->
+<!-- AFTERNOON GRAPHICAL WIND & WEATHER FORECAST -->
 
-    <h1 class="center txtsz250">Surface Wind</h1>
-    <div class="center txtsz150">
-        <span>2 pm</span>
-    </div><br>
+    <h1 class="center txtsz250">2 pm Graphical</h1>
     <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
-    <img id="surface-wind-image" width="70%" ></a>
-
-<!-- AFTERNOON GRAPHIC WEATHER FORECAST -->
-
-    <h1 class="center txtsz250">Weather</h1>
-    <div class="center txtsz150">
-        <span>2 pm</span>
-    </div><br>
+    <img id="surface-wind-image" width="49%" >
     <a href="https://graphical.weather.gov/sectors/slc.php#tabs" target="_blank">
-    <img id="weather-image" width="70%" ></a>
+    <img id="weather-image" width="49%" ></a>
+    <p class="verticalpad"></p>
+
+<!-- HOURLY GRAPHICAL FORECAST -->
+
+    <h1 class="center txtsz250">Hourly Graphical</h1>
+    <a href="https://forecast.weather.gov/MapClick.php?w0=t&w3=sfcwind&w3u=1&w4=sky&w5=pop&w7=rain&w9=snow&w13u=0&w16u=1&w17u=1&AheadHour=0&Submit=Submit&FcstType=graphical&textField1=40.7603&textField2=-111.8882&site=all&unit=0&dd=&bw=" target="_blank">
+    <img src="https://forecast.weather.gov/meteograms/Plotter.php?lat=40.7603&lon=-111.8882&wfo=SLC&zcode=UTZ003&gset=30&gdiff=10&unit=0&tinfo=MY7&ahour=0&pcmd=10001110101000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6" width="100%"></a>
 
 </div><br>
 
-<!-- BUTTON: ??? -->
+<!-- BUTTON: RECENT PAST -->
 
-<button class="left bold txtsz200 collapsible">???</button>
+<button class="left bold txtsz200 collapsible">Recent Past</button>
+<div class="collapse-contents">
+    RECENT PAST...
+</div><br>
+
+<!-- BUTTON: 3 DAY OUTLOOK -->
+
+<button class="left bold txtsz200 collapsible">3 Day Outlook</button>
 <div class="collapse-contents">
 
 <!-- 3 DAY OUTLOOK -->
@@ -323,7 +326,9 @@
                         <img id="forecast-day2-img" height=150px></a></td>
             </tr>
         </table>
-</div>
+</div><br>
+
+OTHER STUFF HERE
 
 <!-- SCRIPTS -->
     
