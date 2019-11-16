@@ -1,6 +1,6 @@
-///////////////////////
-// C O N S T A N T S //
-///////////////////////
+/////////////////////////////////////////////////////////////
+// G L O B A L   C O N S T A N T S   &   V A R I A B L E S //
+/////////////////////////////////////////////////////////////
 
 const today = new Date();
 const monthName = today.toLocaleString('en-us', {month: 'short'});
@@ -8,15 +8,17 @@ const dayName = today.toLocaleDateString('en-us', {weekday: 'short'});
 const dayNum = today.getDate();
 const dateToday = dayName + ", " + monthName + " " + dayNum;
 const hour = today.getHours();
-const timeOffset = 6; // Winter UTC-6, Summer UTC-7
+const timeOffset = 6;
 const soarFcURL = "https://www.weather.gov/source/slc/aviation/files/SLCSRGSLC0.txt";
 const noaaFcURL = "https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XNmCho5KhPY";
 const noaaImgURL = "https://forecast.weather.gov/";
 const scrapeURL = "https://whatever-origin.herokuapp.com/get?url=";
 
+var fcGraphicSwitchTime = (hour > 19 || hour < 7) ? 7 : 3;
+
 document.getElementById('date-today').innerHTML = dateToday;
-document.getElementById('surface-wind-image').src = "https://graphical.weather.gov/images/slc/WindSpd3_slc.png";
-document.getElementById('weather-image').src = "https://graphical.weather.gov/images/slc/Wx3_slc.png";
+document.getElementById('surface-wind-image').src = "https://graphical.weather.gov/images/slc/WindSpd" + fcGraphicSwitchTime + "_slc.png";
+document.getElementById('weather-image').src = "https://graphical.weather.gov/images/slc/Wx" + fcGraphicSwitchTime + "_slc.png";
 
 /////////////////////////////////////////////////////////////////
 // W I N D   S T A T I O N   T I M E   S E R I E S   ( A P I ) //
@@ -85,8 +87,8 @@ $.get("https://api.sunrise-sunset.org/json?lat=40.789900&lng=-111.979100&date=to
 ///////////////////////////////////////////
 
 // DETERMINE WHICH FORECAST URL TO USE (6, 12, OR 24 HOUR)
-let wAloftFcRange = "3";
-wAloftFcRange = (hour > 13 && hour < 20) ? wAloftFcRange = "1" : (hour > 19 || hour < 4) ? wAloftFcRange = "5" : wAloftFcRange;
+let wAloftFcRange = "1";
+wAloftFcRange = (hour > 3 && hour < 14) ? wAloftFcRange = "3" : (hour > 18 || hour < 4) ? wAloftFcRange = "5" : wAloftFcRange;
 let wAloftFcURL = "https://forecast.weather.gov/product.php?site=CRH&issuedby=US" + wAloftFcRange + "&product=FD" + wAloftFcRange + "&format=txt&version=1&glossary=0";
 
 $.getJSON(scrapeURL + encodeURIComponent(wAloftFcURL) + '&callback=?', function(wAloftFcData) {
@@ -109,6 +111,8 @@ $.getJSON(scrapeURL + encodeURIComponent(wAloftFcURL) + '&callback=?', function(
         wAloftTmps[i] = (slcLine.substr(i*8+4,1) == "-") ? Math.round(wAloftTmps[i] * (-9/5) + 32) : Math.round(wAloftTmps[i] * (9/5) + 32);
     }
     wAloftTmps[0] = ""; // No temp at 6k
+
+// GET ELEMENT BY ID
     document.getElementById('winds-aloft-forecast-start').innerHTML = fcStartTime;
     document.getElementById('winds-aloft-forecast-end').innerHTML = fcEndTime;
     document.getElementById('winds-aloft-forecast-day').innerHTML = fcDay;
@@ -160,26 +164,25 @@ $.getJSON(scrapeURL + encodeURIComponent(soarFcURL) + '&callback=?', function(so
 /////////////////////////////////////////////////
 
 $.getJSON(scrapeURL + encodeURIComponent(noaaFcURL) + '&callback=?', function(noaaFcData) {
-
 // 72 HOUR FORECAST
-    var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    var tomorrow = today.getDay() + 1;
-    var forecastRegex = new RegExp;
-    var forecastDays = [], forecastImgs = [], forecastTexts = [];
+    let weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+        fcDays = [], fcImgs = [], fcTexts = [];
+    let nextDay = today.getDay() + 1;
+    let fcRegex = new RegExp; // Allows use of variables in RegEx
     for (i=0; i<3; i++) {
-        tomorrow = (tomorrow + i < 7) ? tomorrow : tomorrow - 7;
-        forecastDays[i] = weekdays[tomorrow + i];
-        forecastRegex = '".+(?=".alt="' + weekdays[tomorrow + i] + ':)';
-        forecastImgs[i] = noaaImgURL + String(noaaFcData.contents.match(forecastRegex)).substr(1);
-        forecastRegex = ':.+(?=".title="' + weekdays[tomorrow + i] + ':)';
-        forecastTexts[i] = String(noaaFcData.contents.match(forecastRegex)).substr(2);
+        nextDay = (nextDay + i < 7) ? nextDay : nextDay - 7;
+        fcDays[i] = weekdays[nextDay + i];
+        fcRegex = '".+(?=".alt="' + weekdays[nextDay + i] + ':)';
+        fcImgs[i] = noaaImgURL + String(noaaFcData.contents.match(fcRegex)).substr(1);
+        fcRegex = ':.+(?=".title="' + weekdays[nextDay + i] + ':)';
+        fcTexts[i] = String(noaaFcData.contents.match(fcRegex)).substr(2);
     }
 
 // GET ELEMENT BY ID
     for (i=0; i<3; i++) {
-        document.getElementById('forecast-day' + i +'-img').src = forecastImgs[i];
-        document.getElementById('forecast-day' + i +'-name').innerHTML = forecastDays[i];
-        document.getElementById('forecast-day' + i +'-text').innerHTML = forecastTexts[i];
+        document.getElementById('forecast-day' + i +'-img').src = fcImgs[i];
+        document.getElementById('forecast-day' + i +'-name').innerHTML = fcDays[i];
+        document.getElementById('forecast-day' + i +'-text').innerHTML = fcTexts[i];
     }
 });
 
@@ -192,7 +195,7 @@ for (i=0; i<btnCollapse.length; i++) {
     btnCollapse[i].addEventListener("click", function() {
         this.classList.toggle("active");
         let btnDraw = this.nextElementSibling;
-        if (btnDraw.style.maxHeight){
+        if (btnDraw.style.maxHeight) {
             btnDraw.style.maxHeight = null;
         } else {
             btnDraw.style.maxHeight = btnDraw.scrollHeight + "px";
