@@ -173,29 +173,6 @@ $.getJSON(scrapeURL + encodeURIComponent(noaaFcURL) + '&callback=?', function(no
         document.getElementById('forecast-day' + i +'-day').innerHTML = noaaFcDay[i].substr(3);
         document.getElementById('forecast-day' + i +'-txt').innerHTML = noaaFcTxt[i].substr(3);
     }
-    
-    
-
-
-    // let weekDay = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-    //     noaaFcDay = [], noaaFcImg = [], noaaFcText = [], nextDay = today.getDay() + 1;
-    // let noaaFcRegex = new RegExp; // Allows use of variables in RegEx
-    // for (i=0; i<3; i++) {
-    //     nextDay = (nextDay + i < 7) ? nextDay : nextDay - 7;
-    //     noaaFcDay[i] = weekDay[nextDay + i];
-    //     noaaFcRegex = '".+(?=".alt="' + weekDay[nextDay + i] + ':)';
-    //     noaaFcImg[i] = noaaImgURL + String(noaaFcData.contents.match(noaaFcRegex)).substr(1);
-    //     noaaFcRegex = ':.+(?=".title="' + weekDay[nextDay + i] + ':)';
-    //     noaaFcText[i] = String(noaaFcData.contents.match(noaaFcRegex)).substr(2);
-    // }
-
-// GET ELEMENT BY ID
-    // for (i; i<8; i+=2) {
-    //     document.getElementById('forecast-day' + i +'-img').src = noaaFcImg[i];
-    //     document.getElementById('forecast-day' + i +'-name').innerHTML = noaaFcDay[i];
-    //     document.getElementById('forecast-day' + i +'-text').innerHTML = noaaFcText[i];
-    //     console.log(noaaFcImg[i]);
-    // }
 });
 
 /////////////////////////////////////////////////////
