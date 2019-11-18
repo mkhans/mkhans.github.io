@@ -3,22 +3,25 @@
 /////////////////////////////////////////////////////////////
 
 const today = new Date();
+const yyyy = today.getFullYear();
 const monthName = today.toLocaleString('en-us', {month: 'short'});
+const month2Digit = (today.getMonth() + 1 < 10) ? "0" + today.getMonth() + 1 : today.getMonth() + 1;
 const dayName = today.toLocaleDateString('en-us', {weekday: 'short'});
 const dayNum = today.getDate();
+const day2Digit = (dayNum < 10) ? "0" + dayNum : dayNum;
 const dateToday = dayName + ", " + monthName + " " + dayNum;
 const hour = today.getHours();
 const timeOffset = 6;
+const fcGraphicSwitchTime = (hour > 19 || hour < 7) ? 7 : 3;
 const soarFcURL = "https://www.weather.gov/source/slc/aviation/files/SLCSRGSLC0.txt";
 const noaaFcURL = "https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XNmCho5KhPY";
 const noaaImgURL = "https://forecast.weather.gov/";
 const scrapeURL = "https://whatever-origin.herokuapp.com/get?url=";
 
-var fcGraphicSwitchTime = (hour > 19 || hour < 7) ? 7 : 3;
-
 document.getElementById('date-today').innerHTML = dateToday;
 document.getElementById('surface-wind-image').src = "https://graphical.weather.gov/images/slc/WindSpd" + fcGraphicSwitchTime + "_slc.png";
 document.getElementById('weather-image').src = "https://graphical.weather.gov/images/slc/Wx" + fcGraphicSwitchTime + "_slc.png";
+document.getElementById('skewT').src = "https://climate.cod.edu/data/raob/KSLC/skewt/KSLC.skewt." + yyyy + month2Digit + day2Digit + ".12.gif";
 
 /////////////////////////////////////////////////////////////////
 // W I N D   S T A T I O N   T I M E   S E R I E S   ( A P I ) //
