@@ -12,7 +12,7 @@ const day2Digit = (dayNum < 10) ? "0" + dayNum : dayNum;
 const dateToday = dayName + ", " + monthName + " " + dayNum;
 const hour = today.getHours();
 const timeOffset = 6;
-const fcGraphicSwitchTime = (hour > 19 || hour < 7) ? 7 : 3;
+const fcGraphicSwitchTime = (hour > 18 || hour < 7) ? 7 : 3;
 const soarFcURL = "https://www.weather.gov/source/slc/aviation/files/SLCSRGSLC0.txt";
 const noaaFcURL = "https://forecast.weather.gov/MapClick.php?lat=40.76031000000006&lon=-111.88821999999999#.XNmCho5KhPY";
 const noaaImgURL = "https://forecast.weather.gov/";
@@ -90,9 +90,9 @@ $.get("https://api.sunrise-sunset.org/json?lat=40.789900&lng=-111.979100&date=to
 ///////////////////////////////////////////
 
 // DETERMINE WHICH FORECAST URL TO USE (6, 12, OR 24 HOUR)
-let wAloftFcRange = "1";
+var wAloftFcRange = "1";
 wAloftFcRange = (hour > 3 && hour < 14) ? wAloftFcRange = "3" : (hour > 18 || hour < 4) ? wAloftFcRange = "5" : wAloftFcRange;
-let wAloftFcURL = "https://forecast.weather.gov/product.php?site=CRH&issuedby=US" + wAloftFcRange + "&product=FD" + wAloftFcRange + "&format=txt&version=1&glossary=0";
+var wAloftFcURL = "https://forecast.weather.gov/product.php?site=CRH&issuedby=US" + wAloftFcRange + "&product=FD" + wAloftFcRange + "&format=txt&version=1&glossary=0";
 
 $.getJSON(scrapeURL + encodeURIComponent(wAloftFcURL) + '&callback=?', function(wAloftFcData) {
 // FORECAST START TIME, END TIME (ZULU), & DAY; CONVERT TO MOUNTAIN TIME (timeOffset)
@@ -100,7 +100,7 @@ $.getJSON(scrapeURL + encodeURIComponent(wAloftFcURL) + '&callback=?', function(
     fcStartTime = (fcStartTime == 12) ? fcStartTime = "Noon" : (fcStartTime > 12) ? String(fcStartTime -= 12) + " pm" : fcStartTime;
     let fcEndTime = parseInt(String(wAloftFcData.contents.match(/-\d{4}Z/)).substr(1,2)) - timeOffset;
     fcEndTime = (fcEndTime == 0) ? fcEndTime = "Midnight" : (fcEndTime < 0) ? String(fcEndTime += 12) + " pm" : fcEndTime;
-    fcDay = (wAloftFcRange == "5" && hour > 19) ? " (tomorrow)" : "";
+    fcDay = (wAloftFcRange == "5" && hour > 18) ? " (tomorrow)" : "";
 
 // DIRECTION, SPEED, & TEMP ARRARYS (6K, 9K, 12K, 18K)
     let slcLine = String(wAloftFcData.contents.match(/SLC.+/)).substr(9,31);
