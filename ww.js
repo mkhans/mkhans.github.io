@@ -107,7 +107,6 @@ $.getJSON(scrapeURL + encodeURIComponent(wAloftFcURL) + '&callback=?', function(
     let wAloftDirs = [], wAloftSpds = [], wAloftTmps = [];
     for (i=0; i<4; i++) {
         wAloftDirs[i] = slcLine.substr(i*8,2);
-        console.log(wAloftDirs[i]);
         wAloftDirs[i] = (wAloftDirs[i] == 99) ? "calm" : (wAloftDirs[i] * 10 < 100) ? "0" + wAloftDirs[i] * 10 : wAloftDirs[i] * 10;
         wAloftDirs[i] = "images/winddirimages/d" + wAloftDirs[i] + ".gif";
         wAloftSpds[i] = Math.round(parseFloat(slcLine.substr(i*8+2,2) * 1.15078));
