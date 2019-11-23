@@ -110,6 +110,7 @@ $.getJSON(scrapeURL + encodeURIComponent(wAloftFcURL) + '&callback=?', function(
         wAloftDirs[i] = (wAloftDirs[i] == 99) ? "calm" : (wAloftDirs[i] * 10 < 100) ? "0" + wAloftDirs[i] * 10 : wAloftDirs[i] * 10;
         wAloftDirs[i] = "images/winddirimages/d" + wAloftDirs[i] + ".gif";
         wAloftSpds[i] = Math.round(parseFloat(slcLine.substr(i*8+2,2) * 1.15078));
+        wAloftSpds[i] = (wAloftSpds[i] == 0) ? "" : wAloftSpds[i];
         wAloftTmps[i] = parseInt(slcLine.substr(i*8+5,2));
         wAloftTmps[i] = (slcLine.substr(i*8+4,1) == "-") ? Math.round(wAloftTmps[i] * (-9/5) + 32) : Math.round(wAloftTmps[i] * (9/5) + 32);
     }
