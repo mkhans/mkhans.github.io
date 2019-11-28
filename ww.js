@@ -137,7 +137,7 @@ $.getJSON(scrapeURL + encodeURIComponent(soarFcURL) + '&callback=?', function(so
     let soarFcWkDay = soarFcDate.toLocaleDateString('en-us', {weekday: 'short'});
     let soarFcMonth = soarFcDate.toLocaleString('en-us', {month: 'short'});
     soarFcDate = soarFcWkDay + ", " + soarFcMonth + " " + soarFcDate.getDate();
-    soarFcDate = (soarFcDate == dateToday) ? soarFcDate : "NOT Today's Report !";
+    soarFcDate = (soarFcDate == dateToday) ? soarFcDate : "Outdated Report !";
 
 // MAX RATE OF LIFT (FT/MIN & M/S)
     let maxRateOfLift = parseInt(soarFcData.contents.match(/\d{1,3}\s[Ff][Tt][\/]/));
@@ -152,6 +152,12 @@ $.getJSON(scrapeURL + encodeURIComponent(soarFcURL) + '&callback=?', function(so
     let topOfLift = parseInt(String(soarFcData.contents.match(/[Tt]\.{11}\s\d{4,5}/)).substr(13));
     let topOfLiftm = Math.round(topOfLift / 3.281) + " m";
     topOfLift = (isNaN(topOfLift)) ? "None" : topOfLift.toLocaleString();
+
+// IF OUTDATED REPORT CLEAR VARIABLES
+    if (soarFcDate == "Outdated Report !") {
+        maxRateOfLift = neg3Index = topOfLift = "No Data";
+        maxRateOfLiftms = neg3Indexm = topOfLiftm = "";
+    }
 
 // GET ELEMENT BY ID
     document.getElementById('soar-forecast-date').innerHTML = soarFcDate;
