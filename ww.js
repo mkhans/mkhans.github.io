@@ -91,7 +91,7 @@ $.get("https://api.sunrise-sunset.org/json?lat=40.789900&lng=-111.979100&date=to
 
 // DETERMINE WHICH FORECAST URL TO USE (6, 12, OR 24 HOUR)
 var wAloftFcRange = "1";
-wAloftFcRange = (hour > 3 && hour < 14) ? wAloftFcRange = "3" : (hour > 18 || hour < 4) ? wAloftFcRange = "5" : wAloftFcRange;
+wAloftFcRange = (hour > 3 && hour < 13) ? wAloftFcRange = "3" : (hour > 18 || hour < 4) ? wAloftFcRange = "5" : wAloftFcRange;
 var wAloftFcURL = "https://forecast.weather.gov/product.php?site=CRH&issuedby=US" + wAloftFcRange + "&product=FD" + wAloftFcRange + "&format=txt&version=1&glossary=0";
 
 $.getJSON(scrapeURL + encodeURIComponent(wAloftFcURL) + '&callback=?', function(wAloftFcData) {
