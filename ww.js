@@ -5,7 +5,7 @@
 const today = new Date();
 const yyyy = today.getFullYear();
 const monthName = today.toLocaleString('en-us', {month: 'short'});
-const month2Digit = (today.getMonth() + 1 < 10) ? "0" + today.getMonth() + 1 : today.getMonth() + 1;
+const month2Digit = (today.getMonth() + 1 < 10) ? "0" + (today.getMonth() + 1) : today.getMonth() + 1;
 const dayName = today.toLocaleDateString('en-us', {weekday: 'short'});
 const dayNum = today.getDate();
 const day2Digit = (dayNum < 10) ? "0" + dayNum : dayNum;
