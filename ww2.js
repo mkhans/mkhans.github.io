@@ -142,9 +142,9 @@ $.get("https://wind-aloft-forecast.appspot.com", function(waloftFcDataGAE) {
 $.get("https://soaring-forecast.appspot.com", function(soarFcDataGAE) {
     soarFcDate = soarFcDataGAE.BASIC.REPORT_DATE;
     soarFcDate = (soarFcDate == dateToday) ? soarFcDate : "Outdated Report !";
-    maxRateOfLift = parseInt(soarFcDataGAE.BASIC.MAX_RATE_OF_LIFT).toLocaleString();
-    neg3Index = parseInt(soarFcDataGAE.BASIC.NEG_3_INDEX).toLocaleString();
-    topOfLift = parseInt(soarFcDataGAE.BASIC.TOP_OF_LIFT).toLocaleString();
+    maxRateOfLift = soarFcDataGAE.BASIC.MAX_RATE_OF_LIFT;
+    neg3Index = soarFcDataGAE.BASIC.NEG_3_INDEX;
+    topOfLift = soarFcDataGAE.BASIC.TOP_OF_LIFT;
 
     let maxRateOfLiftms = Math.round((maxRateOfLift / 196.85) * 10) / 10 + " m/s";
     let neg3Indexm = Math.round(neg3Index / 3.281) + " m";
@@ -156,11 +156,11 @@ $.get("https://soaring-forecast.appspot.com", function(soarFcDataGAE) {
     }
 
     document.getElementById('soar-forecast-date').innerHTML = soarFcDate;
-    document.getElementById('max-rol').innerHTML = maxRateOfLift;
+    document.getElementById('max-rol').innerHTML = parseInt(maxRateOfLift).toLocaleString();
     document.getElementById('max-rol-ms').innerHTML = maxRateOfLiftms;
-    document.getElementById('neg3-index').innerHTML = neg3Index;
+    document.getElementById('neg3-index').innerHTML = parseInt(neg3Index).toLocaleString();
     document.getElementById('neg3-index-m').innerHTML = neg3Indexm;
-    document.getElementById('top-of-lift').innerHTML = topOfLift;
+    document.getElementById('top-of-lift').innerHTML = parseInt(topOfLift).toLocaleString();
     document.getElementById('top-of-lift-m').innerHTML = topOfLiftm;
 
     // FULL(SUMMER) REPORT
