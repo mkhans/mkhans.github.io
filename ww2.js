@@ -82,7 +82,9 @@ $.get("https://api.sunrise-sunset.org/json?lat=40.789900&lng=-111.979100&date=to
 
 // WIND ALOFT
 // DATA VIA GAE PYTHON FTP
-$.get("https://wind-aloft-forecast.appspot.com", function(waloftFcDataGAE) {
+// $.get("https://wind-aloft-forecast.appspot.com", function(waloftFcDataGAE) {
+$.get("https://us-central1-wasatchwind.cloudfunctions.net/function-2", function(waloftFcDataGAE) {
+    console.log(waloftFcDataGAE);
     document.getElementById('wind-aloft-fc-start').innerHTML = waloftFcDataGAE.HEADER.START_TIME;
     document.getElementById('wind-aloft-fc-end').innerHTML = waloftFcDataGAE.HEADER.END_TIME;
     document.getElementById('wind-aloft-fc-day').innerHTML = waloftFcDataGAE.HEADER.FORECAST_DAY;
