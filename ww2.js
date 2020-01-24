@@ -140,7 +140,8 @@ $.get("https://us-central1-wasatchwind.cloudfunctions.net/wind-aloft", function(
 
 // SOARING FORECAST
 // DATA VIA GAE PYTHON SCRAPE
-$.get("https://soaring-forecast.appspot.com", function(soarFcDataGAE) {
+// $.get("https://soaring-forecast.appspot.com", function(soarFcDataGAE) {
+$.get("https://us-central1-wasatchwind.cloudfunctions.net/soaring-forecast-winter", function(soarFcDataGAE) {
     soarFcDate = soarFcDataGAE.BASIC.REPORT_DATE;
     soarFcDate = (soarFcDate == dateToday) ? soarFcDate : "Outdated Report !";
     maxRateOfLift = soarFcDataGAE.BASIC.MAX_RATE_OF_LIFT;
