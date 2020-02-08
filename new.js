@@ -81,7 +81,7 @@ $.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=UTOLY&stid=
 });
 
 // WIND ALOFT (GOOGLE CLOUD FUNCTION, PYTHON FTP)
-$.get("https://us-central1-wasatchwind.cloudfunctions.net/wind-aloft-opencors", function(waloftFcData) {
+$.get("https://us-central1-wasatchwind.cloudfunctions.net/wind-aloft", function(waloftFcData) {
     document.getElementById('wind-aloft-fc-start').innerHTML = waloftFcData.HEADER.START_TIME;
     document.getElementById('wind-aloft-fc-end').innerHTML = waloftFcData.HEADER.END_TIME;
     document.getElementById('wind-aloft-fc-day').innerHTML = waloftFcData.HEADER.FORECAST_DAY;
@@ -123,7 +123,7 @@ $.get("https://storage.googleapis.com/wasatch-wind-static/soaring.json", functio
 });
 
 //NOAA FORECAST (GOOGLE CLOUD FUNCTION, PYHON SCRAPE)
-$.get("https://us-central1-wasatchwind.cloudfunctions.net/noaa-forecast-opencors", function(noaaFcData) {
+$.get("https://us-central1-wasatchwind.cloudfunctions.net/noaa-forecast", function(noaaFcData) {
     for (i=0; i<3; i++) {
         document.getElementById('forecast-day' + i +'-img').src = noaaFcData.IMAGE[i];
         document.getElementById('forecast-day' + i +'-day').innerHTML = noaaFcData.DAY[i];
