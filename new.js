@@ -121,7 +121,7 @@ $.get("https://storage.googleapis.com/wasatch-wind-static/soaring.json", functio
 });
 
 //NOAA FORECAST (GOOGLE CLOUD FUNCTION, PYHON SCRAPE)
-$.get("https://us-central1-wasatchwind.cloudfunctions.net/noaa-forecast", function(noaaFcData) {
+$.get("https://us-central1-wasatchwind.cloudfunctions.net/noaa-forecast-scrape", function(noaaFcData) {
     for (i=0; i<3; i++) {
         document.getElementById('forecast-day' + i +'-img').src = noaaFcData.IMAGE[i];
         document.getElementById('forecast-day' + i +'-day').innerHTML = noaaFcData.DAY[i];
