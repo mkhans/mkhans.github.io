@@ -95,7 +95,6 @@ $.get("https://us-central1-wasatchwind.cloudfunctions.net/wind-aloft", function(
 });
 
 // SOARING FORECAST (GOOGLE CLOUD FUNCTION, PYTHON SCRAPE)
-//$.get("https://us-central1-wasatchwind.cloudfunctions.net/soaring-forecast-basic-opencors-1", function(soarFcData) {
 $.get("https://storage.googleapis.com/wasatch-wind-static/soaring.json", function(soarFcData) {
     console.log(soarFcData);
     document.getElementById('soar-forecast-date').innerHTML = soarFcData.REPORT_DATE;
