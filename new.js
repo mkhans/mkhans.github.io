@@ -112,7 +112,6 @@ $.get("https://storage.googleapis.com/wasatch-wind-static/soaring.json", functio
         // document.getElementById('kindex-' + [i]).innerHTML = soarFcDataGAE.FULL[i].K_NDX;
         // document.getElementById('cape-' + [i]).innerHTML = soarFcDataGAE.FULL[i].CAPE;
         // document.getElementById('li-' + [i]).innerHTML = soarFcDataGAE.FULL[i].LI;
-    }
 });
 
 //NOAA FORECAST (GOOGLE CLOUD FUNCTION, PYHON SCRAPE)
