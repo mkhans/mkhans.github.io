@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Wasatch Wind - Cache Valley</title>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link href="ww.css" rel="stylesheet">
+        <meta charset="utf-8">
+    </head>
+
+<body>
+
+<!-- SURFACE WIND MAP-->
+
+    <h1 class="center txtsz250">Surface Wind Map</h1>
+    <a href="https://www.wrh.noaa.gov/map/?&zoom=10&center=40.65,-111.90&obs=true&obs_type=weather&elements=wind,gust&obs_density=10&&obs_popup=false&obs_provider=ALL" target="_blank">
+        <img src="https://storage.cloud.google.com/wasatch-wind-static/wind-map-save.png" width="100%"></a>
+
+<!-- WIND STATIONS -->
+
+    <h1 class="center txtsz250">Wind Stations</h1>
+    
+    <table>
+        <tr>
+            <td class="center txtsz250">Station</td>
+            <td class="center txtsz250">Speed</td>
+            <td class="center txtsz250">Gust</td>
+            <td class="center txtsz250">Direction</td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="bold txtsz200"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=LGP&table=1&banner=off" target="_blank">Logan Peak</a></td>
+            <td id="LGP-wind-speed" class="center bold txtsz350" rowspan="2"></td>
+            <td id="LGP-wind-gust" class="center bold ltcoral txtsz250" rowspan="2">No Data</td>
+            <td class="center" rowspan="2"><img id="LGP-wind-dir-img" height="100"></td>
+        </tr>
+        <tr>
+            <td id="LGP-time" class="txtsz150"></td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        <tr>
+            <td class="bold txtsz200"><a href="https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=C8632&table=1&banner=off" target="_blank">Short Divide</a></td>
+            <td id="C8632-wind-speed" class="center bold txtsz350" rowspan="2"></td>
+            <td id="C8632-wind-gust" class="center bold ltcoral txtsz250" rowspan="2">No Data</td>
+            <td class="center" rowspan="2"><img id="C8632-wind-dir-img" height="100"></td>
+        </tr>
+        <tr>
+            <td id="C8632-time" class="txtsz150"></td>
+        </tr>
+    </table><br>
+
+<!-- SCRIPTS -->
+    
+    <script type="text/javascript" src="cv.js"></script>
+
+</body>
+</html>
