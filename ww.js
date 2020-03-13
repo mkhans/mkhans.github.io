@@ -30,7 +30,8 @@ for (i=0; i<btnCollapse.length; i++) {
 // SUNSET TIME (OPEN API)
 $.get("https://api.sunrise-sunset.org/json?lat=40.789900&lng=-111.979100&date=today&formatted=0", function(slcSolarData) {
     let sunsetSLC = new Date(slcSolarData.results.sunset);
-    sunsetSLC = sunsetSLC.toLocaleString([], { hour12: true}).slice(10,15);
+    sunsetSLC = sunsetSLC.toLocaleString([], { hour12: true});
+    sunsetSLC = sunsetSLC.match(/\d{1}:\d{2}/);
     document.getElementById('sunset-time').innerHTML = sunsetSLC;
 });
 
