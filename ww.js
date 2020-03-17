@@ -21,9 +21,7 @@ for (i=0; i<btnCollapse.length; i++) {
         let btnDraw = this.nextElementSibling;
         if (btnDraw.style.maxHeight) {
             btnDraw.style.maxHeight = null;
-        } else {
-            btnDraw.style.maxHeight = btnDraw.scrollHeight + "px";
-        }
+        } else { btnDraw.style.maxHeight = btnDraw.scrollHeight + "px"; }
     });
 }
 
@@ -105,15 +103,26 @@ $.get("https://storage.googleapis.com/wasatch-wind-static/soaring.json", functio
     document.getElementById('top-of-lift').innerHTML = soarFcData.TOP_OF_LIFT;
     document.getElementById('top-of-lift-m').innerHTML = soarFcData.TOP_OF_LIFT_M;
 
-    // // FULL (SUMMER) REPORT
-    // document.getElementById('od-time').innerHTML = soarFcData.FULL.OD_TIME;
-    // document.getElementById('cloudbase-lcl').innerHTML = soarFcData.FULL.CLOUDBASE_LCL;
-    // document.getElementById('cloudbase-lcl-m').innerHTML = soarFcData.FULL.CLOUDBASE_LCL_M;
-    // for (i=0; i<4; i++) {
-    //     document.getElementById('kindex-' + [i]).innerHTML = soarFcDataGAE.FULL[i].K_NDX;
-    //     document.getElementById('cape-' + [i]).innerHTML = soarFcDataGAE.FULL[i].CAPE;
-    //     document.getElementById('li-' + [i]).innerHTML = soarFcDataGAE.FULL[i].LI;
-    // }
+    // Setup hideable elements for unavailable winter soaring forecast data
+    let hideLCL = document.getElementById("lcl");
+    let hideHR = document.getElementById("hr");
+    let hideOD = document.getElementById("od");
+    let hideSummerInfo = document.getElementById("summer-info");
+    let hideGuideBtn = document.getElementById("guide-btn");
+    
+    // Use summer soaring forecast data if there, otherwise hide summer related elements
+    try {
+        document.getElementById('od-time').innerHTML = soarFcData.FULL.OD_TIME;
+        document.getElementById('cloudbase-lcl').innerHTML = soarFcData.FULL.CLOUDBASE_LCL;
+        document.getElementById('cloudbase-lcl-m').innerHTML = soarFcData.FULL.CLOUDBASE_LCL_M;
+        for (i=0; i<4; i++) {
+            document.getElementById('kindex-' + [i]).innerHTML = soarFcDataGAE.FULL[i].K_NDX;
+            document.getElementById('cape-' + [i]).innerHTML = soarFcDataGAE.FULL[i].CAPE;
+            document.getElementById('li-' + [i]).innerHTML = soarFcDataGAE.FULL[i].LI;
+        }
+    } catch(err) {
+        hideLCL.style.display = hideHR.style.display = hideOD.style.display = hideSummerInfo.style.display = hideGuideBtn.style.display = "none";
+    }
 });
 
 //NOAA FORECAST (GOOGLE CLOUD FUNCTION, PYHON SCRAPE)
