@@ -104,6 +104,7 @@ $.get("https://storage.googleapis.com/wasatch-wind-static/soaring.json", functio
     document.getElementById('top-of-lift-m').innerHTML = soarFcData.TOP_OF_LIFT_M;
 
     // Setup hideable elements for unavailable winter soaring forecast data
+    let hideLCL = document.getElementById("lcl");
     let hideHR = document.getElementById("hr");
     let hideOD = document.getElementById("od");
     let hideSummerInfo = document.getElementById("summer-info");
@@ -112,13 +113,15 @@ $.get("https://storage.googleapis.com/wasatch-wind-static/soaring.json", functio
     // Use summer soaring forecast data if there, otherwise hide summer related elements
     try {
         document.getElementById('od-time').innerHTML = soarFcData.FULL.OD_TIME;
+        document.getElementById('cloudbase-lcl').innerHTML = soarFcData.FULL.CLOUDBASE_LCL;
+        document.getElementById('cloudbase-lcl-m').innerHTML = soarFcData.FULL.CLOUDBASE_LCL_M;
         for (i=0; i<4; i++) {
             document.getElementById('kindex-' + [i]).innerHTML = soarFcData.FULL[i].K_NDX;
             document.getElementById('cape-' + [i]).innerHTML = soarFcData.FULL[i].CAPE;
             document.getElementById('li-' + [i]).innerHTML = soarFcData.FULL[i].LI;
         }
     } catch(err) {
-        hideHR.style.display = hideOD.style.display = hideSummerInfo.style.display = hideGuideBtn.style.display = "none";
+        hideLCL.style.display = hideHR.style.display = hideOD.style.display = hideSummerInfo.style.display = hideGuideBtn.style.display = "none";
     }
 });
 
