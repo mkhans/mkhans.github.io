@@ -116,9 +116,9 @@ $.get("https://storage.googleapis.com/wasatch-wind-static/soaring.json", functio
         document.getElementById('cloudbase-lcl').innerHTML = soarFcData.FULL.CLOUDBASE_LCL;
         document.getElementById('cloudbase-lcl-m').innerHTML = soarFcData.FULL.CLOUDBASE_LCL_M;
         for (i=0; i<4; i++) {
-            document.getElementById('kindex-' + [i]).innerHTML = soarFcDataGAE.FULL[i].K_NDX;
-            document.getElementById('cape-' + [i]).innerHTML = soarFcDataGAE.FULL[i].CAPE;
-            document.getElementById('li-' + [i]).innerHTML = soarFcDataGAE.FULL[i].LI;
+            document.getElementById('kindex-' + [i]).innerHTML = soarFcData.FULL[i].K_NDX;
+            document.getElementById('cape-' + [i]).innerHTML = soarFcData.FULL[i].CAPE;
+            document.getElementById('li-' + [i]).innerHTML = soarFcData.FULL[i].LI;
         }
     } catch(err) {
         hideLCL.style.display = hideHR.style.display = hideOD.style.display = hideSummerInfo.style.display = hideGuideBtn.style.display = "none";
