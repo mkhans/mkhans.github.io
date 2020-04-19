@@ -34,7 +34,7 @@ $.get("https://api.sunrise-sunset.org/json?lat=40.789900&lng=-111.979100&date=to
 });
 
 // WIND STATIONS (KEY API)
-$.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=UTOLY&stid=C8948&stid=PKC&stid=FPS&stid=KSLC&stid=KU42&recent=90&obtimezone=local&timeformat=%-I:%M%20%p&vars=wind_speed,wind_gust,wind_direction,altimeter,air_temp&units=english,speed|mph,temp|F&token=6243aadc536049fc9329c17ff2f88db3", function(stationData) {
+$.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=UTOLY&stid=C8948&stid=PKC&stid=AMB&stid=FPS&stid=KSLC&stid=KU42&stid=FPN&stid=MSI01&recent=90&obtimezone=local&timeformat=%-I:%M%20%p&vars=wind_speed,wind_gust,wind_direction,altimeter,air_temp&units=english,speed|mph,temp|F&token=6243aadc536049fc9329c17ff2f88db3", function(stationData) {
     // MESONET TIME SERIES INFO PAGE: https://developers.synopticdata.com/mesonet/v2/stations/timeseries
     let stationCount = stationData.STATION.length,
         stationLatestReadingPosition = [],
@@ -67,6 +67,8 @@ $.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=UTOLY&stid=
             windDirImg[i] = "images/winddirimages/d" + windDirImg[i] + ".gif";
         } catch(err) { windDirImg[i] = "images/winddirimages/nodata.gif"; }
     }
+    
+    $('.KSLC, .KU42, .AMB, .OGP, .FPS, .C8948, .UTOLY, .PKC, .FPN, .MSI01').hide();
 
     // GET ELEMENT BY ID
     document.getElementById('pressure').innerHTML = pressure;
@@ -76,6 +78,7 @@ $.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=UTOLY&stid=
         document.getElementById(stationData.STATION[i].STID + '-wind-speed').innerHTML = windSpeed[i];
         document.getElementById(stationData.STATION[i].STID + '-wind-gust').innerHTML = windGust[i];
         document.getElementById(stationData.STATION[i].STID + '-wind-dir-img').src = windDirImg[i];
+        $('.'+stationData.STATION[i].STID).show();
     }
 });
 
