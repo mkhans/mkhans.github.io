@@ -98,11 +98,11 @@ td.bottom {
     margin-top: 10px;
 }
 .collapsible:after {
-    content: url(images/plus-40px.png);
+    content: url(images/plus.png);
     float: right;
 }
 .active:after {
-    content: url(images/minus-40px.png);
+    content: url(images/minus.png);
 }
 .collapse-contents {
     max-height: 0;
