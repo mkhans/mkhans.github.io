@@ -105,7 +105,7 @@ $.get("https://storage.googleapis.com/wasatch-wind-static/soaring.json", functio
     document.getElementById('neg3-index-m').innerHTML = soarFcData.NEG_3_INDEX_M;
     document.getElementById('top-of-lift').innerHTML = soarFcData.TOP_OF_LIFT;
     document.getElementById('top-of-lift-m').innerHTML = soarFcData.TOP_OF_LIFT_M;
-    console.log(soarFcData);
+    
     // Setup hideable elements for unavailable winter soaring forecast data
     let hideHR = document.getElementById("hr");
     let hideOD = document.getElementById("od");
