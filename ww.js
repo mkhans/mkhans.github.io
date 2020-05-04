@@ -83,7 +83,7 @@ $.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=UTOLY&stid=
 });
 
 // WIND ALOFT (GOOGLE CLOUD FUNCTION, PYTHON FTP)
-$.get("https://us-central1-wasatchwind.cloudfunctions.net/wind-aloft-ftp", function(waloftFcData) {
+$.get("https://us-central1-wasatchwind.cloudfunctions.net/wind-aloft-ftp-1", function(waloftFcData) {
     document.getElementById('wind-aloft-fc-start').innerHTML = waloftFcData.HEADER.START_TIME;
     document.getElementById('wind-aloft-fc-end').innerHTML = waloftFcData.HEADER.END_TIME;
     document.getElementById('wind-aloft-fc-day').innerHTML = waloftFcData.HEADER.FORECAST_DAY;
