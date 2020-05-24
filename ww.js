@@ -38,7 +38,7 @@ $.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=UTOLY&stid=
     // MESONET TIME SERIES INFO PAGE: https://developers.synopticdata.com/mesonet/v2/stations/timeseries
     let stationCount = stationData.STATION.length,
         stationLatestReadingPosition = [],
-        stationTime = [], windSpeed = [], windGust = [], windDirImg = [];
+        stationTime = [], windSpeed = [], windGust = [], windDirImg = [], apzZone = [];
 
     // MOST RECENT READING POSITION FOR EACH STATION
     for (i=0; i<stationCount; i++) {
@@ -50,6 +50,20 @@ $.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=UTOLY&stid=
         pressure = stationData.STATION[0].OBSERVATIONS.altimeter_set_1[stationLatestReadingPosition[0]].toFixed(2);
         temp = Math.round(stationData.STATION[0].OBSERVATIONS.air_temp_set_1[stationLatestReadingPosition[0]]);
     } else {pressure = temp = "No Data";}
+    
+    // CALCULATE APZ
+    let apzSlope = [0.05, 0.12, 0.19, 0.33, 0.47, 0.54, 0.62];
+    let apzIntercept = [29.91, 30.01, 30.11, 30.27, 30.43, 30.53, 30.65];
+    for (i=0; i<7; i++) {
+        apzZone[i] = Math.round((apzSlope[i] / -110 * temp + apzIntercept[i]) * 100) / 100;
+    }
+    for (i=0; i<7; i++) {
+        if (pressure > apzZone[i] && pressure <= apzZone[i+1]) {
+            apz = i+1;
+            { break; }
+        } 
+    }
+    apz = (pressure == apzZone[3]) ? "LoP" : apz;
 
     // MOST RECENT READINGS FOR EACH STATION: TIME, WIND, GUST, DIRECTION
     for (i=0; i<stationCount; i++) {
