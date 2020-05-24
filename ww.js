@@ -87,6 +87,7 @@ $.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=UTOLY&stid=
     // GET ELEMENT BY ID
     document.getElementById('pressure').innerHTML = pressure;
     document.getElementById('temp').innerHTML = temp;
+    document.getElementById('apz').innerHTML = apz;
     for (i=0; i<stationCount; i++) {
         document.getElementById(stationData.STATION[i].STID + '-time').innerHTML = stationTime[i];
         document.getElementById(stationData.STATION[i].STID + '-wind-speed').innerHTML = windSpeed[i];
