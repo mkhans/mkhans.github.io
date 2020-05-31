@@ -7,7 +7,7 @@ const day2Digit = today.toLocaleString('en-us', {day: '2-digit'});
 const hour = today.getHours();
 const fcGraphicSwitchTime = (hour > 18 || hour < 7) ? 7 : 3;
 
-// SINGLE-LINE ELEMENTS
+// SINGLE-LINE / STAND ALONE ELEMENTS
 document.getElementById('date-today').innerHTML = displayDate;
 document.getElementById('graphical-wind').src = "https://graphical.weather.gov/images/slc/WindSpd" + fcGraphicSwitchTime + "_slc.png";
 document.getElementById('graphical-weather').src = "https://graphical.weather.gov/images/slc/Wx" + fcGraphicSwitchTime + "_slc.png";
@@ -33,7 +33,7 @@ $.get("https://api.sunrise-sunset.org/json?lat=40.789900&lng=-111.979100&date=to
     document.getElementById('sunset-time').innerHTML = sunsetSLC;
 });
 
-// WIND STATIONS (KEY API)
+// WIND STATIONS (TOKEN/KEY API)
 $.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=UTOLY&stid=C8948&stid=PKC&stid=AMB&stid=FPS&stid=KSLC&stid=KU42&stid=FPN&stid=MSI01&recent=90&obtimezone=local&timeformat=%-I:%M%20%p&vars=wind_speed,wind_gust,wind_direction,altimeter,air_temp&units=english,speed|mph,temp|F&token=6243aadc536049fc9329c17ff2f88db3", function(stationData) {
     // MESONET TIME SERIES INFO PAGE: https://developers.synopticdata.com/mesonet/v2/stations/timeseries
     let stationCount = stationData.STATION.length,
@@ -51,7 +51,7 @@ $.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=UTOLY&stid=
         temp = Math.round(stationData.STATION[0].OBSERVATIONS.air_temp_set_1[stationLatestReadingPosition[0]]);
     } else {pressure = temp = "No Data";}
     
-    // CALCULATE APZ
+    // CALCULATE AMBROSE PRESSURE ZONE (APZ)
     let apzSlope = [0.05, 0.12, 0.19, 0.33, 0.47, 0.54, 0.62];
     let apzIntercept = [29.91, 30.01, 30.11, 30.27, 30.43, 30.53, 30.65];
     for (i=0; i<7; i++) {
@@ -97,14 +97,16 @@ $.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=UTOLY&stid=
     }
 });
 
-// WIND ALOFT (GOOGLE CLOUD FUNCTION, PYTHON FTP)
+// WIND ALOFT (GOOGLE CLOUD FUNCTION, PYTHON FTP), NO TEMP DATA @ 6K
+// LINK FOR LOCAL TESTING: "https://mkhans.github.io/windaloftexample.json"
+// LINK FOR PRODUCTION: "https://us-central1-wasatchwind.cloudfunctions.net/wind-aloft-ftp"
 $.get("https://us-central1-wasatchwind.cloudfunctions.net/wind-aloft-ftp", function(waloftFcData) {
     document.getElementById('wind-aloft-fc-start').innerHTML = waloftFcData.HEADER.START_TIME;
     document.getElementById('wind-aloft-fc-end').innerHTML = waloftFcData.HEADER.END_TIME;
     document.getElementById('wind-aloft-fc-day').innerHTML = waloftFcData.HEADER.FORECAST_DAY;
-    document.getElementById('wind-aloft-0-spd').innerHTML = waloftFcData.DATA[0].SPD; //6k no tmp
-    document.getElementById('wind-aloft-0-dir').src = waloftFcData.DATA[0].DIR; //6k no tmp
-    for (i=1; i<4; i++) { //9k, 12k, and 18k loop
+    document.getElementById('wind-aloft-0-spd').innerHTML = waloftFcData.DATA[0].SPD;
+    document.getElementById('wind-aloft-0-dir').src = waloftFcData.DATA[0].DIR;
+    for (i=1; i<4; i++) { // POPULATE SPEED, DIRECTION, AND TEMP DATA FOR 9k, 12k, and 18k
         document.getElementById('wind-aloft-' + i + '-spd').innerHTML = waloftFcData.DATA[i].SPD;
         document.getElementById('wind-aloft-' + i + '-dir').src = waloftFcData.DATA[i].DIR;
         document.getElementById('wind-aloft-' + i + '-tmp').innerHTML = waloftFcData.DATA[i].TMP;
@@ -112,6 +114,8 @@ $.get("https://us-central1-wasatchwind.cloudfunctions.net/wind-aloft-ftp", funct
 });
 
 // SOARING FORECAST (GOOGLE CLOUD FUNCTION, PYTHON SCRAPE)
+// LINK FOR LOCAL TESTING: "https://mkhans.github.io/soaringexample-summer.json"
+// LINK FOR PRODUCTION: "https://storage.googleapis.com/wasatch-wind-static/soaring.json"
 $.get("https://storage.googleapis.com/wasatch-wind-static/soaring.json", function(soarFcData) {
     document.getElementById('soar-forecast-date').innerHTML = soarFcData.REPORT_DATE;
     document.getElementById('max-rol').innerHTML = soarFcData.MAX_RATE_OF_LIFT;
@@ -121,13 +125,13 @@ $.get("https://storage.googleapis.com/wasatch-wind-static/soaring.json", functio
     document.getElementById('top-of-lift').innerHTML = soarFcData.TOP_OF_LIFT;
     document.getElementById('top-of-lift-m').innerHTML = soarFcData.TOP_OF_LIFT_M;
     
-    // Setup hideable summer elements for winter soaring forecast data
+    // SETUP HIDEABLE SUMMER ELEMENTS FOR WINTER FORECAST
     let hideHR = document.getElementById("hr");
     let hideOD = document.getElementById("od");
     let hideSummerInfo = document.getElementById("summer-info");
     let hideGuideBtn = document.getElementById("guide-btn");
     
-    // Use summer soaring forecast data if there, otherwise hide summer related elements
+    // USE SUMMER DATA & ELEMENTS IF DATA EXISTS, OTHERWISE HIDE SUMMER ELEMENTS
     try {
         document.getElementById('od-time').innerHTML = soarFcData.FULL.OD_TIME;
         for (i=0; i<4; i++) {
@@ -140,7 +144,7 @@ $.get("https://storage.googleapis.com/wasatch-wind-static/soaring.json", functio
     }
 });
 
-//NOAA FORECAST (GOOGLE CLOUD FUNCTION, PYHON SCRAPE)
+//NOAA FORECAST (GOOGLE CLOUD FUNCTION, PYHON SCRAPE), NO OPTION FOR LOCAL TESTING
 $.get("https://us-central1-wasatchwind.cloudfunctions.net/noaa-forecast-scrape", function(noaaFcData) {
     for (i=0; i<3; i++) {
         document.getElementById('forecast-day' + i +'-img').src = noaaFcData.IMAGE[i];
