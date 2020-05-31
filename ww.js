@@ -83,9 +83,8 @@ $.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=UTOLY&stid=
         } catch(err) { windDirImg[i] = "images/winddirimages/nodata.gif"; }
     }
     
+    // HIDE STATION ELEMENTS BY DEFAULT, SHOW IF DATA EXISTS
     $('.KSLC, .KU42, .AMB, .OGP, .FPS, .C8948, .UTOLY, .PKC, .FPN, .MSI01').hide();
-
-    // GET ELEMENT BY ID
     document.getElementById('pressure').innerHTML = pressure;
     document.getElementById('temp').innerHTML = temp;
     document.getElementById('apz').innerHTML = apz;
