@@ -57,7 +57,7 @@ $.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=UTOLY&stid=
     for (i=0; i<7; i++) {
         apzZone[i] = Math.round((apzSlope[i] / -110 * temp + apzIntercept[i]) * 100) / 100;
     }
-    apz = (pressure < apzZones[0]) ? 0 : apz = (pressure >= apzZones[6]) ? 7 : apz;
+    apz = (pressure < apzZone[0]) ? 0 : apz = (pressure >= apzZone[6]) ? 7 : apz;
     for (i=0; i<6; i++) {
         if (pressure >= apzZone[i] && pressure < apzZone[i+1]) {
             apz = i+1;
