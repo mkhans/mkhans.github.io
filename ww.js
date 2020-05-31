@@ -137,7 +137,6 @@ $.get("https://storage.googleapis.com/wasatch-wind-static/soaring.json", functio
             document.getElementById('li-' + [i]).innerHTML = soarFcData.FULL[i].LI;
         }
     } catch(err) {
-        //hideLCL.style.display = hideHR.style.display = hideOD.style.display = hideSummerInfo.style.display = hideGuideBtn.style.display = "none";
         hideHR.style.display = hideOD.style.display = hideSummerInfo.style.display = hideGuideBtn.style.display = "none";
     }
 });
