@@ -101,6 +101,10 @@ $.get("https://api.mesowest.net/v2/station/timeseries?&stid=OGP&stid=UTOLY&stid=
 // LINK FOR LOCAL TESTING: "https://mkhans.github.io/windaloftexample.json"
 // LINK FOR PRODUCTION: "https://us-central1-wasatchwind.cloudfunctions.net/wind-aloft-ftp"
 $.get("https://us-central1-wasatchwind.cloudfunctions.net/wind-aloft-ftp", function(waloftFcData) {
+    let range = '12';
+    range = (waloftFcData.HEADER.FORECAST_RANGE == 1) ? '06' : (waloftFcData.HEADER.FORECAST_RANGE == 5) ? '24' : range;
+    let linkURL = 'https://www.aviationweather.gov/windtemp/data?level=low&fcst=' + range + '&region=slc&layout=on&date=';
+    document.getElementById('waloftlink').setAttribute('href', linkURL);
     document.getElementById('wind-aloft-fc-start').innerHTML = waloftFcData.HEADER.START_TIME;
     document.getElementById('wind-aloft-fc-end').innerHTML = waloftFcData.HEADER.END_TIME;
     document.getElementById('wind-aloft-fc-day').innerHTML = waloftFcData.HEADER.FORECAST_DAY;
