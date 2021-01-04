@@ -153,9 +153,9 @@ $.get("https://api.weather.gov/gridpoints/SLC/97,175/forecast", function(noaaFcD
     let position = 0;
     position = (noaaFcData.properties.periods[0].isDaytime) ? position : 1;
     for (i=0; i<3; i++) {
-        document.getElementById('forecast-day' + i +'-img').src = noaaFcData.properties.periods[position].name;
-        document.getElementById('forecast-day' + i +'-day').innerHTML = noaaFcData.properties.periods[position].detailedForecast;
-        document.getElementById('forecast-day' + i +'-txt').innerHTML = noaaFcData.properties.periods[position].icon;
+        document.getElementById('forecast-day' + i +'-day').src = noaaFcData.properties.periods[position].name;
+        document.getElementById('forecast-day' + i +'-txt').innerHTML = noaaFcData.properties.periods[position].detailedForecast;
+        document.getElementById('forecast-day' + i +'-img').innerHTML = noaaFcData.properties.periods[position].icon;
         position += 2;
     }
 });
