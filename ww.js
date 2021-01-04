@@ -149,10 +149,13 @@ $.get("https://storage.googleapis.com/wasatch-wind-static/soaring.json", functio
 });
 
 //NOAA FORECAST (GOOGLE CLOUD FUNCTION, PYHON SCRAPE), NO OPTION FOR LOCAL TESTING
-$.get("https://us-central1-wasatchwind.cloudfunctions.net/noaa-forecast-scrape", function(noaaFcData) {
+$.get("https://api.weather.gov/gridpoints/SLC/97,175/forecast", function(noaaFcData) {
+    let position = 0;
+    position = (noaaFcData.properties.periods[0].isDaytime) ? position : 1;
     for (i=0; i<3; i++) {
-        document.getElementById('forecast-day' + i +'-img').src = noaaFcData.IMAGE[i];
-        document.getElementById('forecast-day' + i +'-day').innerHTML = noaaFcData.DAY[i];
-        document.getElementById('forecast-day' + i +'-txt').innerHTML = noaaFcData.TEXT[i];
+        document.getElementById('forecast-day' + i +'-img').src = noaaFcData.properties.periods[position].name;
+        document.getElementById('forecast-day' + i +'-day').innerHTML = noaaFcData.properties.periods[position].detailedForecast;
+        document.getElementById('forecast-day' + i +'-txt').innerHTML = noaaFcData.properties.periods[position].icon;
+        position += 2;
     }
 });
